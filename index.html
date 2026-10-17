@@ -69,6 +69,19 @@
             color: #ffffff !important;
             box-shadow: 0 4px 12px rgba(35, 70, 107, 0.25);
         }
+        /* 透過 CSS Mask 將去背 Logo 完美變成指定的 #23466B 顏色 */
+        .colored-logo {
+            display: inline-block;
+            background-color: #23466B;
+            -webkit-mask-image: url('去背左上logo.png');
+            mask-image: url('去背左上logo.png');
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
         section[id] {
             scroll-margin-top: 90px;
         }
@@ -80,12 +93,12 @@
     <header class="sticky top-0 z-50 ios-header shadow-sm">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2.5">
-                <!-- 💡 左上角 Logo：已換成「去背左上logo.png」。你可以在下面的 style 裡面隨時手動調整寬度(width)、高度(height)、以及上下左右位置(translate)。 -->
+                <!-- 💡 左上角 Logo：已套用 #23466B 顏色，你可隨時調整 width 與 height 來縮放大小 -->
                 <a href="#" class="flex items-center gap-2">
-                    <img src="去背左上logo.png" alt="rayeonzz" style="width: 110px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm">
+                    <span class="colored-logo" style="width: 110px; height: 35px; transform: translate(0px, 0px);"></span>
                 </a>
-                <!-- 💡 這裡的 translate-y-2 用來讓你手動隨時調高度 -->
-                <span class="text-xs bg-[#DCEEFF] text-[#23466B] font-bold px-3 py-1 rounded-full border border-[#23466B]/20 translate-y-2">演唱會租借</span>
+                <!-- 💡 這裡的 translate-y-2 是控制「演唱會手機手燈租借」上下高度的地方 -->
+                <span class="text-xs bg-[#DCEEFF] text-[#23466B] font-bold px-3 py-1 rounded-full border border-[#23466B]/25 translate-y-2">演唱會手機手燈租借</span>
             </div>
             
             <div class="flex items-center gap-3">
