@@ -749,9 +749,9 @@
         </a>
     </div>
 
-    <!-- 管理員登入 Modal -->
+    <!-- 管理員登入 Modal (更人性化、支援分類檢視與單筆刪除) -->
     <div id="adminModal" class="fixed inset-0 bg-[#23466B]/40 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="ios-glass rounded-[32px] max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto font-bold">
+        <div class="ios-glass rounded-[32px] max-w-3xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto font-bold">
             <div class="flex justify-between items-center border-b border-[#23466B]/20 pb-4">
                 <h3 class="text-lg font-black text-[#23466B] flex items-center"><i class="fa-solid fa-user-gear text-[#23466B] mr-2"></i>rayeonzz 管理員後台</h3>
                 <button onclick="closeAdminModal()" class="text-stone-600 hover:text-stone-950 text-2xl font-black w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-200/50">&times;</button>
@@ -762,12 +762,29 @@
                 <button onclick="checkAdminPass()" class="w-full bg-[#23466B] text-white font-black py-3 rounded-2xl text-sm hover:bg-[#1a3552] transition shadow-md">登入後台</button>
             </div>
             <div id="adminContent" class="hidden space-y-4">
-                <div class="flex justify-between items-center bg-[#DCEEFF]/70 p-3.5 rounded-2xl text-xs border border-[#23466B]/20">
-                    <span class="font-bold text-stone-900">當前總預約單：<b id="orderCount" class="text-[#23466B] font-black">0</b> 筆</span>
-                    <button onclick="clearOrders()" class="text-red-600 hover:underline font-bold">清除測試資料</button>
+                <!-- 後台頂部控制列：分類、搜尋、清除 -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-[#DCEEFF]/70 p-4 rounded-2xl text-xs border border-[#23466B]/20">
+                    <div class="flex items-center gap-2">
+                        <span class="text-stone-900 font-black">篩選分類：</span>
+                        <select id="adminFilter" onchange="loadOrders()" class="ios-input rounded-xl px-3 py-1.5 text-xs font-bold text-[#23466B] focus:outline-none">
+                            <option value="all">全部預約單</option>
+                            <option value="phone">手機預約</option>
+                            <option value="lightstick">手燈預約</option>
+                            <option value="combo">手機+手燈配套</option>
+                        </select>
+                    </div>
+                    <div class="w-full sm:w-auto flex items-center gap-2">
+                        <input type="text" id="adminSearch" oninput="loadOrders()" placeholder="搜尋姓名、IG、手燈..." class="ios-input rounded-xl px-3 py-1.5 text-xs font-bold text-stone-950 w-full sm:w-48">
+                        <button onclick="clearOrders()" class="text-red-600 hover:underline font-bold whitespace-nowrap">清空全部</button>
+                    </div>
                 </div>
-                <h4 class="font-black text-sm text-[#23466B]">📋 客戶預約單列表：</h4>
-                <div id="orderList" class="space-y-3 max-h-60 overflow-y-auto text-xs font-bold">
+
+                <div class="flex justify-between items-center px-1 text-xs text-stone-700">
+                    <span>符合條件的預約單：<b id="orderCount" class="text-[#23466B] font-black">0</b> 筆</span>
+                </div>
+
+                <!-- 訂單列表 -->
+                <div id="orderList" class="space-y-3 max-h-72 overflow-y-auto text-xs font-bold pr-1">
                 </div>
             </div>
         </div>
@@ -815,9 +832,8 @@
             { name: "WJSN", price: 300 }
         ];
 
-        let allOrders = []; // 儲存從試算表撈回來的歷史訂單
+        let allOrders = [];
 
-        // 格式化日期字串 (清除醜醜的亂碼，轉成 YYYY/MM/DD)
         function cleanDateStr(dateStr) {
             if (!dateStr) return '';
             if (dateStr.includes('T')) {
@@ -832,7 +848,6 @@
             return dateStr.split('T')[0].replace(/-/g, '/');
         }
 
-        // 取得試算表預約資料
         function fetchRentedStatus() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             fetch(scriptURL)
@@ -844,22 +859,19 @@
                             end: o.end ? o.end.split('T')[0] : '',
                             item: o.item || ''
                         }));
-                        
-                        // 初始先依今天日期標記目前已出租的設備
                         checkCurrentStatusToday();
                     }
                 })
                 .catch(err => console.log('檢查檔期失敗：', err));
         }
 
-        // 畫面載入時：依據「今天」標記目前正在被租借的設備
         function checkCurrentStatusToday() {
             const today = new Date().toISOString().split('T')[0];
             allOrders.forEach(order => {
                 if (order.start && order.end && today >= order.start && today <= order.end) {
                     const cleanStart = cleanDateStr(order.start);
                     const cleanEnd = cleanDateStr(order.end);
-                    const rangeText = `租借日：${cleanStart}<br>歸還日：${cleanEnd}`;
+                    const rangeText = `${cleanStart} ~ ${cleanEnd}`;
 
                     if (order.item.includes('S24 Ultra') || order.item.includes('手機')) {
                         markPhoneAsRented(rangeText);
@@ -876,54 +888,65 @@
         function markPhoneAsRented(dateRangeText) {
             const phoneSection = document.querySelector('#phone-section-card');
             if (phoneSection && !phoneSection.querySelector('.phone-rented-badge')) {
-                phoneSection.classList.add('opacity-75', 'bg-stone-200/85');
+                phoneSection.classList.add('opacity-85', 'bg-stone-200/85');
                 const badge = document.createElement('div');
-                badge.className = 'phone-rented-badge absolute inset-0 bg-stone-900/50 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[32px] z-20 text-white font-black space-y-1.5 shadow-inner text-center p-4';
-                badge.innerHTML = `
-                    <span class="bg-red-600 text-white text-xs px-3.5 py-1 rounded-full shadow-lg tracking-wider">🔴 手機目前已出租</span>
-                    <span class="text-xs text-stone-100 drop-shadow leading-relaxed">${dateRangeText}</span>
-                `;
+                badge.className = 'phone-rented-badge absolute top-4 right-4 bg-red-600 text-white text-xs px-3.5 py-1.5 rounded-full shadow-lg font-black tracking-wider z-20 flex items-center gap-1.5';
+                badge.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> 手機已出租 (${dateRangeText})`;
                 phoneSection.appendChild(badge);
             }
         }
 
+        // 手燈已出租標籤最佳化：不遮擋背景與圖片，精簡清爽
         function markAsRented(lightstickName, dateRangeText) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             cards.forEach(card => {
                 if (card.getAttribute('data-name') === lightstickName) {
                     card.removeAttribute('onclick');
                     card.classList.remove('cursor-pointer', 'hover:scale-[1.02]');
-                    card.classList.add('opacity-75', 'bg-stone-200/80');
+                    card.classList.add('opacity-80', 'bg-stone-200/80');
+                    
+                    // 左上角精簡狀態徽章
                     let badge = card.querySelector('.rented-badge');
                     if (!badge) {
                         badge = document.createElement('div');
-                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/50 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2';
-                        badge.innerHTML = `
-                            <span class="bg-red-600 text-white text-[11px] px-2.5 py-0.5 rounded-full shadow-lg tracking-wider">🔴 已出租</span>
-                            <span class="text-[11px] text-stone-100 drop-shadow leading-tight">${dateRangeText}</span>
-                        `;
+                        badge.className = 'rented-badge absolute top-2 left-2 bg-red-600 text-white text-[10px] px-2.5 py-1 rounded-full shadow-md font-black tracking-wider z-20 flex items-center gap-1';
+                        badge.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> 已出租`;
                         card.appendChild(badge);
+                    }
+
+                    // 底部日期提示條
+                    let infoBar = card.querySelector('.rented-info-bar');
+                    if (!infoBar) {
+                        infoBar = document.createElement('div');
+                        infoBar.className = 'rented-info-bar text-[10px] text-red-700 bg-red-100/90 py-1 px-2 rounded-xl border border-red-200 font-black mt-1';
+                        infoBar.innerText = `檔期：${dateRangeText}`;
+                        card.querySelector('div:last-child').appendChild(infoBar);
                     }
                 }
             });
         }
 
-        // ==========================================
-        // 核心防撞與雙向連動檢查邏輯
-        // ==========================================
         function isDateOverlap(start1, end1, start2, end2) {
             return (start1 <= end2) && (end1 >= start2);
         }
 
-        // 當客人選擇了「日期區間」
+        // 檢查日期與防呆（防範歸還日選得比租借日早）
         function onDateChange() {
-            const startVal = document.getElementById('startDate').value;
-            const endVal = document.getElementById('endDate').value;
+            const startInput = document.getElementById('startDate');
+            const endInput = document.getElementById('endDate');
+            const startVal = startInput.value;
+            const endVal = endInput.value;
 
-            initLightstickSelects(); // 重新載入並排除已被預約的手燈
+            // 檢查歸還日是否早於租借日
+            if (startVal && endVal && endVal < startVal) {
+                alert('⚠️ 歸還日期不得早於租借開始日期！請重新選擇。');
+                endInput.value = '';
+                return;
+            }
+
+            initLightstickSelects();
 
             if (startVal && endVal && endVal >= startVal) {
-                // 檢查哪些手燈在此區間被租走了
                 const conflictedSticks = [];
                 allOrders.forEach(order => {
                     if (order.start && order.end) {
@@ -937,7 +960,6 @@
                     }
                 });
 
-                // 從選單中移除被撞期的手燈
                 ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'].forEach(selId => {
                     const sel = document.getElementById(selId);
                     for (let i = sel.options.length - 1; i >= 0; i--) {
@@ -951,12 +973,10 @@
             calculatePrice();
         }
 
-        // 當客人先選擇了「手燈款式」
         function onLightstickChange() {
             calculatePrice();
         }
 
-        // 點擊卡片代入預約
         function selectLightstick(keyword) {
             switchMode('lightstick');
             const select1 = document.getElementById('selectedLightstick1');
@@ -1015,7 +1035,7 @@
             }
             initLightstickSelects();
             calculatePrice();
-            fetchRentedStatus(); // 載入所有歷史訂單並初始化檢查
+            fetchRentedStatus();
         });
 
         const PHONE_RENT_PER_DAY = 550;
@@ -1078,7 +1098,7 @@
             const nameInput = document.getElementById('custName');
             
             initLightstickSelects();
-            onDateChange(); // 切換模式時重新套用日期防撞檢查
+            onDateChange();
 
             if (mode === 'combo') {
                 lsBox.style.display = 'block';
@@ -1168,13 +1188,16 @@
             }
         }
 
-        // 表單送出
         function handleFormSubmit(event) {
             event.preventDefault();
             const start = document.getElementById('startDate').value;
             const end = document.getElementById('endDate').value;
 
-            // 最終防撞二次檢查
+            if (end < start) {
+                alert('⚠️ 歸還日期不得早於租借開始日期！');
+                return;
+            }
+
             if (start && end) {
                 const selectedSticks = [];
                 const ls1 = document.getElementById('selectedLightstick1');
@@ -1191,7 +1214,7 @@
                     if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
                         for (let stick of selectedSticks) {
                             if (order.item.includes(stick.split(' ')[0])) {
-                                alert(`⚠️ 預約失敗：您選擇的手燈在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！請重新選擇日期或手燈。`);
+                                alert(`⚠️ 預約失敗：您選擇的手燈在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！`);
                                 return;
                             }
                         }
@@ -1231,7 +1254,6 @@
                 itemDesc = `Samsung S24 Ultra + 手燈: ${lsSummary} (每支折抵$100)`;
             }
 
-            // 1. 儲存至瀏覽器本地後台 (localStorage)
             const nowTime = new Date().toLocaleString();
             const newOrder = {
                 mode: modeTitle,
@@ -1251,9 +1273,7 @@
             existingOrders.push(newOrder);
             localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
 
-            // 2. 傳送到 Google 試算表
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
-            
             const payload = {
                 mode: modeTitle,
                 start: start || '未填',
@@ -1270,17 +1290,10 @@
             fetch(scriptURL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
-            }).then(() => {
-                console.log('資料已送出至試算表');
-            }).catch(error => {
-                console.error('傳送失敗!', error);
-            });
+            }).catch(error => console.error('傳送失敗!', error));
 
-            // 3. 複製明細並跳轉 LINE
             const message = `【 rayeonzz 演唱會租借預約單 】\n` +
                 `📌 預約類型：${modeTitle}\n` +
                 `📅 租借期間：${start} ~ ${end}\n` +
@@ -1324,22 +1337,47 @@
             }
         }
 
+        // 人性化後台：支援分類篩選、即時搜尋、單筆刪除
         function loadOrders() {
             const orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
-            document.getElementById('orderCount').innerText = orders.length;
+            const filterVal = document.getElementById('adminFilter').value;
+            const searchVal = document.getElementById('adminSearch').value.toLowerCase();
+
+            let filteredOrders = orders.filter(ord => {
+                let matchFilter = true;
+                if (filterVal === 'phone') matchFilter = ord.mode.includes('手機');
+                else if (filterVal === 'lightstick') matchFilter = ord.mode.includes('手燈');
+                else if (filterVal === 'combo') matchFilter = ord.mode.includes('配套');
+
+                let matchSearch = true;
+                if (searchVal) {
+                    const textCombined = `${ord.name} ${ord.social} ${ord.line} ${ord.item} ${ord.remarks}`.toLowerCase();
+                    matchSearch = textCombined.includes(searchVal);
+                }
+                return matchFilter && matchSearch;
+            });
+
+            document.getElementById('orderCount').innerText = filteredOrders.length;
             const listEl = document.getElementById('orderList');
             listEl.innerHTML = '';
-            if (orders.length === 0) {
-                listEl.innerHTML = '<p class="text-stone-500 text-center py-4">目前尚無客戶預約單</p>';
+
+            if (filteredOrders.length === 0) {
+                listEl.innerHTML = '<p class="text-stone-500 text-center py-6">目前沒有符合條件的預約單</p>';
                 return;
             }
-            orders.reverse().forEach((ord, index) => {
+
+            filteredOrders.slice().reverse().forEach((ord) => {
+                // 找出原始陣列中的真實索引以便進行單筆刪除
+                const originalIndex = orders.indexOf(ord);
                 const div = document.createElement('div');
-                div.className = 'bg-[#DCEEFF]/60 border border-[#23466B]/20 p-3.5 rounded-2xl space-y-1 text-stone-900';
+                div.className = 'bg-[#DCEEFF]/60 border border-[#23466B]/20 p-3.5 rounded-2xl space-y-1.5 text-stone-900 relative';
                 div.innerHTML = `
-                    <div class="flex justify-between font-black text-[#23466B]">
+                    <div class="flex justify-between items-center font-black text-[#23466B]">
                         <span>#[${ord.mode}]</span>
-                        <span class="text-[10px] text-stone-600">${ord.time}</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] text-stone-600">${ord.time}</span>
+                            <button onclick="deleteSingleOrder(${originalIndex})" class="bg-red-500 hover:bg-red-600 text-white text-[10px] px-2.5 py-1 rounded-lg transition shadow-sm font-bold">刪除此筆</button>
+                        </div>
                     </div>
                     <p><b>姓名：</b>${ord.name} ｜ <b>IG：</b>${ord.social} ｜ <b>LINE：</b>${ord.line}</p>
                     <p><b>期間：</b>${ord.start} ~ ${ord.end}</p>
@@ -1351,8 +1389,18 @@
             });
         }
 
+        // 單筆刪除功能
+        function deleteSingleOrder(index) {
+            if (confirm('確定要刪除這筆預約單嗎？')) {
+                let orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
+                orders.splice(index, 1);
+                localStorage.setItem('rayeonzz_orders', JSON.stringify(orders));
+                loadOrders();
+            }
+        }
+
         function clearOrders() {
-            if (confirm('確定要清除所有測試預約單資料嗎？')) {
+            if (confirm('確定要清空所有預約單資料嗎？')) {
                 localStorage.removeItem('rayeonzz_orders');
                 loadOrders();
             }
