@@ -28,7 +28,8 @@ gtag('config', 'G-LLDMC8FKXE');
 body { font-family: 'Noto Serif TC', serif; font-weight: 500; background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('租借用天空.jpg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat; background-color: #23466B; }
 .ios-glass { background: rgba(255, 255, 255, 0.78); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 20px 40px rgba(35, 70, 107, 0.12); }
 .ios-header { background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(255, 255, 255, 0.7); }
-.ios-input { background: rgba(255, 255, 255, 0.9) !important; border: 1px solid rgba(186, 212, 240, 0.8) !important; font-weight: 700; width: 100% !important; box-sizing: border-box !important; }
+.ios-input { background: rgba(255, 255, 255, 0.9) !important; border: 1px solid rgba(186, 212, 240, 0.8) !important; font-weight: 700; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
+input[type="date"].ios-input { -webkit-appearance: none; appearance: none; min-width: 0; }
 .ios-input:focus { background: #ffffff !important; border-color: #23466B !important; }
 .tab-btn.active { background-color: #23466B !important; color: #ffffff !important; box-shadow: 0 4px 12px rgba(35, 70, 107, 0.25); }
 section[id] { scroll-margin-top: 90px; }
@@ -38,7 +39,7 @@ section[id] { scroll-margin-top: 90px; }
 <!-- 導覽列：手機專屬優化，不擁擠、不跑版 -->
 <header class="sticky top-0 z-50 ios-header shadow-sm">
 <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 flex justify-between items-center">
-<!-- 左上角 Logo（可透過 style 隨時微調大小與位置） -->
+<!-- 左上角 Logo -->
 <a href="#" class="flex items-center">
 <img src="去背左上logo.png" alt="rayeonzz" style="width: 100px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm">
 </a>
@@ -576,13 +577,13 @@ section[id] { scroll-margin-top: 90px; }
 </div>
 <form id="bookingForm" class="space-y-5 sm:space-y-6" onsubmit="handleFormSubmit(event)">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-<div class="w-full min-w-0 overflow-hidden">
+<div class="w-full min-w-0">
 <label class="block text-xs font-bold text-stone-900 mb-1.5">租借開始日期</label>
-<input type="date" id="startDate" required onchange="onDateChange()" class="w-full max-w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+<input type="date" id="startDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
 </div>
-<div class="w-full min-w-0 overflow-hidden">
+<div class="w-full min-w-0">
 <label class="block text-xs font-bold text-stone-900 mb-1.5">租借歸還日期</label>
-<input type="date" id="endDate" required onchange="onDateChange()" class="w-full max-w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+<input type="date" id="endDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
 </div>
 </div>
 <div id="lightstick-selection" class="space-y-4">
@@ -612,8 +613,8 @@ section[id] { scroll-margin-top: 90px; }
 <div id="deposit-selection-container" class="space-y-2">
 <label class="block text-xs font-bold text-stone-900">選擇手機押金方案 <span class="text-red-600">*</span></label>
 <select id="depositOption" onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
-<option value="ID_CARD">押證件（身分證／健保卡）＋ 押金 NT$ 3,000</option>
-<option value="NO_ID">不壓證件，押金 NT$ 30,000</option>
+<option value="ID_CARD">1. 押金 NT$ 3,000 ＋ 證件（身分證／健保卡擇一）</option>
+<option value="NO_ID">2. 押金 NT$ 30,000，免押證件</option>
 </select>
 </div>
 <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 rounded-2xl p-4 sm:p-5 text-stone-950 space-y-2.5 font-bold shadow-sm">
@@ -627,7 +628,7 @@ section[id] { scroll-margin-top: 90px; }
 </div>
 <div class="flex justify-between text-xs">
 <span>預估押金方案：</span>
-<span id="deposit" class="font-black text-[#23466B]">NT$ 3,000 (壓證件)</span>
+<span id="deposit" class="font-black text-[#23466B]">NT$ 3,000 ＋ 證件</span>
 </div>
 </div>
 <div class="space-y-4 pt-2">
@@ -1125,9 +1126,9 @@ if (currentMode === 'lightstick') {
 depositText.innerText = `NT$ ${totalDepositLs.toLocaleString()} (手燈押金)`;
 } else {
 if (depOpt === 'ID_CARD') {
-depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 3,000 (壓證件) + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 3,000 (壓證件)';
+depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 3,000 ＋ 證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 3,000 ＋ 證件';
 } else {
-depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 30,000 (不壓證件) + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 30,000 (不壓證件)';
+depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 30,000，免押證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 30,000，免押證件';
 }
 }
 }
