@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rayeonzz 演唱會手機 & 手燈租借服務</title>
+    <!-- 引入 Google Fonts Noto Serif TC (思源宋體) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #23466B;
+            --light-bg: #DCEEFF;
+            --accent: #A94F00;
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 500;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('租借用天空.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #23466B;
+        }
+
+        .ios-glass {
+            background: rgba(255, 255, 255, 0.72); 
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 40px rgba(35, 70, 107, 0.12);
+        }
+
+        .ios-header {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .ios-input {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: 1px solid rgba(186, 212, 240, 0.8) !important;
+            font-weight: 700;
+        }
+        .ios-input:focus {
+            background: #ffffff !important;
+            border-color: #23466B !important;
+        }
+
+        .tab-btn.active {
+            background-color: #23466B;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(35, 70, 107, 0.25);
+        }
+
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+<body class="text-stone-950 min-h-screen flex flex-col selection:bg-[#A94F00] selection:text-white">
+
+    <!-- 導覽列 -->
+    <header class="sticky top-0 z-50 ios-header shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#23466B] to-[#3a6d9e]">rayeonzz</span>
+                <span class="text-xs bg-[#DCEEFF] text-[#23466B] font-bold px-3 py-1 rounded-full border border-[#23466B]/20">演唱會租借</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="#order-section" class="bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-4 py-2 rounded-2xl transition shadow-lg shadow-[#23466B]/20 active:scale-95">
+                    立即試算預約
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主頁 Banner -->
+    <section class="py-10 px-4 text-center">
+        <div class="max-w-3xl mx-auto ios-glass p-8 sm:p-10 rounded-[32px] space-y-4">
+            <h1 class="text-3xl sm:text-5xl font-black text-[#23466B] tracking-tight">
+                演唱會追星應援必備
+            </h1>
+
+            <div class="text-xl sm:text-2xl font-bold">
+                <span class="text-[#23466B]">S24 Ultra 手機</span> <span class="text-stone-950">及</span> <span class="text-[#23466B]">手燈</span> <span class="text-stone-950">租借</span>
+            </div>
+
+            <p class="text-stone-900 text-sm sm:text-base font-bold pb-2">
+                5,000萬長焦鏡頭與無縫變焦錄影，讓你輕鬆記錄演唱會最美瞬間！
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-3 text-xs font-bold text-stone-900 pt-1">
+                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-gift text-[#A94F00]"></i> 手機加租手燈折抵 100 元</span>
+                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-location-dot text-[#23466B]"></i> 台南面交 ｜ 台中面交 ｜ 賣貨便</span>
+                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-bolt text-[#23466B]"></i> 租借手續簡便｜預約檔期保障</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 獨立四格跳轉選單 -->
+    <div class="max-w-3xl mx-auto px-4 pb-6 w-full">
+        <div class="ios-glass p-4 rounded-[28px] grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <a href="#phone-section" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                <i class="fa-solid fa-mobile-screen text-base"></i> 手機租借
+            </a>
+            <a href="#lightstick-section-view" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                <i class="fa-solid fa-wand-magic-sparkles text-base"></i> 手燈租借
+            </a>
+            <a href="#order-section" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                <i class="fa-solid fa-calculator text-base"></i> 租金試算與預約
+            </a>
+            <a href="#contact-section" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                <i class="fa-solid fa-address-book text-base"></i> 聯絡資訊
+            </a>
+        </div>
+    </div>
+
+    <!-- 設備介紹區 -->
+    <main class="max-w-5xl mx-auto px-4 py-2 flex-grow w-full space-y-10">
+
+        <!-- 手機出租 -->
+        <section id="phone-section">
+            <h2 class="text-xl font-black mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📱 手機租借</h2>
+            <div class="ios-glass rounded-[32px] p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-center">
+                <div class="w-full md:w-1/3 text-center">
+                    <img src="galaxy s24u.jpg" alt="S24 Ultra" class="rounded-2xl mx-auto object-cover h-48 w-full shadow-md border border-white/80">
+                </div>
+                <div class="w-full md:w-2/3 space-y-3">
+                    <div class="flex flex-wrap justify-between items-baseline pb-2 border-b border-[#23466B]/15 gap-2">
+                        <div>
+                            <h3 class="text-xl sm:text-2xl font-black text-[#23466B]">Samsung Galaxy S24 Ultra</h3>
+                            <p class="text-sm text-[#23466B] font-bold pl-0.5">256GB 旗艦演唱會神機</p>
+                        </div>
+                        <div class="text-right flex items-baseline">
+                            <span class="text-xl sm:text-2xl font-black text-[#23466B]">NT$ 550</span>
+                            <span class="text-xs font-bold text-stone-700 ml-1">/ 天</span>
+                        </div>
+                    </div>
+
+                    <div class="text-xs sm:text-sm text-stone-900 leading-relaxed font-bold pt-1 space-y-1">
+                        <p>演唱會錄影推薦！</p>
+                        <p>100 倍超高倍變焦、4K 120fps 高畫質攝影，遠距離也能清晰捕捉愛豆對視瞬間。</p>
+                        <p class="text-[#23466B]">附贈配件組：保護殼、保護貼、充電線、快充頭與手機保護外盒。</p>
+                        <p class="text-stone-900">💡 <b>租期說明：</b>10/23 租借、10/24 歸還為 1 天 ，即租金 NT $550。</p>
+                    </div>
+
+                    <div class="bg-[#DCEEFF]/70 border border-[#23466B]/20 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold shadow-sm mt-3">
+                        <p>🔹 <b>押金說明：</b></p>
+                        <p class="pl-4 font-bold">1. 押證件（身分證／健保卡）＋ 押金 NT$ 3,000</p>
+                        <p class="pl-4 font-bold">2. 不壓證件則押金 NT$ 30,000</p>
+                        <p class="pt-1">🔹 <b>取機方式：</b> 台南面交 ｜ 台中面交（手機限面交）</p>
+                        <p class="pt-1 text-stone-900">🔹 <b>取消規定：</b> 預約後，於租借日<b>7天前</b>可取消；若於租借日<b>7天內</b>取消，將會收取 NT$ 200 之跑單費。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 手燈出租區 -->
+        <section id="lightstick-section-view">
+            <h2 class="text-xl font-black mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
+
+            <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-6 shadow-sm">
+                <p>🪄 <b>手燈單租價格：</b> 單次租金 NT$ 400 (部分指定款式優惠價 NT$ 300)，押金每支 NT$ 1,000。</p>
+                <p class="text-[#A94F00]"> 🔥 <b>配套優惠：</b> 若與 S24 Ultra 手機一起租借，每支手燈租金直接享有折抵 NT$ 100 優惠！</p>
+                <p>🪄 <b>租借說明：</b> 手燈租借均不含電池，請自備電池。</p>
+                <p>🪄 <b>歸還方式：</b> 演唱會結束後一週內歸還，海外場可延後歸還。台南面交 ｜ 賣貨便。</p>
+                <p class="text-stone-900">🪄 <b>取消規定：</b> 於租借日<b>5天內</b>取消，將會收取NT$ 100 之跑單費。</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                
+                <!-- aespa 互動手燈卡片 (圖片放大 200% 並帶有左右切換) -->
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between">
+                    <div>
+                        <div class="font-black text-[#23466B]">aespa</div>
+                        <div id="aespa-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
+                        
+                        <!-- 圖片放大容器 (放大約200%視覺大小) -->
+                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden flex items-center justify-center mb-2 border border-[#23466B]/10">
+                            <img id="aespa-slider-img" src="aespa lightstick ver1.png" alt="aespa手燈" class="h-full object-contain scale-[2.0] transition-transform duration-300">
+                            
+                            <!-- 左切換按鈕 -->
+                            <button onclick="slideAespa(-1)" type="button" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <!-- 右切換按鈕 -->
+                            <button onclick="slideAespa(1)" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="text-[10px] text-[#23466B] font-bold mb-1"></b></b>Ver. 1｜Ver. 2 皆有提供</div>
+                        <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    </div>
+                </div>
+
+                <!-- 其他手燈卡片維持原樣 -->
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">BABYMONSTER</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">BLACKPINK</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">粉錘 Ver. 2</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">BOYNEXTDOOR</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">BTS</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">阿米棒 Ver. 4</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">CLOSE YOUR EYES</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">CNBLUE</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">CORTIS</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">EVNNE</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">EXO</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 3</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">fromis_9</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">FTISLAND</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">GFRIEND</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 3／日本</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">ILLIT</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">ITZY</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">IVE</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1／Ver. 2</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">izna</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">Kep1er</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">KISS OF LIFE</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">LE SSERAFIM</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">NMIXX</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">Red Velvet</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">RIIZE</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">SEVENTEEN</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">十週年克拉棒</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">SNSD</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">STAYC</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">STRAY KIDS</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">TREASURE</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">tripleS</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">TWICE</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 3 糖果棒</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">TXT</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                </div>
+                <div class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02]">
+                    <div class="font-black text-[#23466B]">WJSN</div>
+                    <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
+                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 試算與預約表單 -->
+        <section id="order-section" class="ios-glass p-6 sm:p-10 rounded-[32px]">
+            <h2 class="text-2xl font-black text-[#23466B] mb-4 text-center">租金線上試算與預約</h2>
+
+            <!-- 三大模式分頁選擇按鈕 -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8 bg-[#DCEEFF]/50 p-2 rounded-2xl border border-[#23466B]/20">
+                <button type="button" onclick="switchMode('combo')" id="tab-combo" class="tab-btn active text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition">
+                    📱💡 手機 + 手燈配套 <span class="text-xs text-[#A94F00] ml-1">(手燈折$100)</span>
+                </button>
+                <button type="button" onclick="switchMode('phone')" id="tab-phone" class="tab-btn text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition text-[#23466B]">
+                    📱 單租 S24 Ultra 手機
+                </button>
+                <button type="button" onclick="switchMode('lightstick')" id="tab-lightstick" class="tab-btn text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition text-[#23466B]">
+                    💡 單租應援手燈
+                </button>
+            </div>
+
+            <form id="bookingForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
+
+                <!-- 日期選擇區 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5" id="start-date-label">租借開始日期</label>
+                        <input type="date" id="startDate" required onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5" id="end-date-label">歸還日期</label>
+                        <input type="date" id="endDate" required onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                    </div>
+                </div>
+
+                <!-- 手燈數量與款式選擇區 -->
+                <div id="lightstick-selection" class="space-y-4">
+                    <label class="block text-xs font-bold text-stone-900">選擇欲租借的手燈款式 <span class="text-[11px] font-normal text-[#A94F00] ml-1">📱搭配手機租借，每支手燈自動折抵 100 元！</span></label>
+
+                    <!-- 第一支手燈 -->
+                    <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1">
+                        <div class="text-[11px] font-bold text-[#23466B]">第一支手燈款式</div>
+                        <select id="selectedLightstick1" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                        </select>
+                    </div>
+
+                    <!-- 勾選框 -->
+                    <div class="flex items-center gap-2 pt-1 px-1">
+                        <input type="checkbox" id="moreLightsticksCheck" onchange="toggleMoreLightsticks()" class="w-4 h-4 accent-[#23466B] rounded cursor-pointer">
+                        <label for="moreLightsticksCheck" class="text-xs font-bold text-stone-900 cursor-pointer">是否租借一支以上的手燈？</label>
+                    </div>
+
+                    <!-- 第二支與第三支手燈區塊 -->
+                    <div id="extraLightsticksContainer" class="space-y-3 hidden pl-3 border-l-2 border-[#23466B]/30 pt-1">
+                        <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1">
+                            <div class="text-[11px] font-bold text-[#23466B]">第二支手燈款式 (必填)</div>
+                            <select id="selectedLightstick2" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                            </select>
+                        </div>
+
+                        <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1">
+                            <div class="text-[11px] font-bold text-[#23466B]">第三支手燈款式 (不必填)</div>
+                            <select id="selectedLightstick3" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 押金方案選擇欄位 -->
+                <div id="deposit-selection-container" class="space-y-2">
+                    <label class="block text-xs font-bold text-stone-900">選擇押金方案 <span class="text-red-600">*</span></label>
+                    <select id="depositOption" onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                        <option value="ID_CARD">押證件（身分證／健保卡）＋ 押金 NT$ 3,000</option>
+                        <option value="NO_ID">不壓證件，押金 NT$ 30,000</option>
+                    </select>
+                </div>
+
+                <!-- 試算結果動態卡片 -->
+                <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 rounded-2xl p-5 text-stone-950 space-y-2.5 font-bold shadow-sm">
+                    <div class="flex justify-between text-xs" id="row-days">
+                        <span>手機租借天數：</span>
+                        <span id="rentalDays" class="font-black text-[#23466B]">0 天</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span>預估租金總額：</span>
+                        <span id="totalRent" class="text-[#A94F00] text-sm font-black">NT$ 0</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span>預估押金方案：</span>
+                        <span id="deposit" class="font-black text-[#23466B]">NT$ 3,000 (壓證件)</span>
+                    </div>
+                </div>
+
+                <!-- 客戶聯絡資料 -->
+                <div class="space-y-4 pt-2">
+                    <div id="name-field-container">
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5" id="nameLabel">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">租手機者必填，單租手燈免填</span></label>
+                        <input type="text" id="custName" placeholder="例：金傑尼" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Instagram / Threads <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">多留一個方式避免找不到人或沒看到訊息</span></label>
+                        <input type="text" id="socialId" required placeholder="例：rayeonzz" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">LINE ID <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1 font-normal">小本租借無官方LINE •́‸ก</span></label>
+                        <input type="text" id="lineId" required placeholder="請輸入您的 LINE ID" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">備註</label>
+                        <textarea id="remarks" placeholder="其他需求請留這邊(。・・)ノ" rows="1" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-[#23466B] hover:bg-[#1a3552] text-white font-black py-3.5 rounded-2xl shadow-lg shadow-[#23466B]/20 transition text-sm active:scale-98">
+                    送出預約並聯繫 rayeonzz
+                </button>
+            </form>
+        </section>
+
+        <!-- 聯絡資訊區塊 -->
+        <section id="contact-section" class="ios-glass p-6 sm:p-8 rounded-[32px] space-y-4">
+            <h2 class="text-xl font-black mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📞 聯絡資訊</h2>
+            <p class="text-xs sm:text-sm text-stone-900 font-bold">如果您有任何租借檔期、面交細節或其他疑問，歡迎透過以下方式直接聯繫我：</p>
+            <div class="flex flex-wrap gap-4 pt-2">
+                <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" class="flex items-center gap-2.5 bg-[#06C755] hover:bg-[#05b34c] text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
+                    <img src="lineicon.PNG" alt="LINE" class="w-6 h-6 object-contain"> 加入 LINE 好友
+                </a>
+                <a href="https://www.threads.com/@rayeonzz?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="flex items-center gap-2.5 bg-stone-900 hover:bg-stone-800 text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
+                    <img src="threadsicon.PNG" alt="Threads" class="w-6 h-6 object-contain"> Threads 主頁
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 右下角懸浮按鈕 -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" title="聯繫 LINE" class="w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition hover:scale-110 overflow-hidden bg-[#4CAF50]">
+            <img src="lineicon.PNG" alt="LINE" class="w-full h-full object-cover translate-y-0.5">
+        </a>
+        <a href="https://www.threads.com/@rayeonzz?igshid=NTc4MTIwNjQ2YQ==" target="_blank" title="瀏覽 Threads" class="w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition hover:scale-110 overflow-hidden bg-[#000000]">
+            <img src="threadsicon.PNG" alt="Threads" class="w-full h-full object-cover">
+        </a>
+    </div>
+
+    <!-- 管理員登入 Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-[#23466B]/40 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="ios-glass rounded-[32px] max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto font-bold">
+            <div class="flex justify-between items-center border-b border-[#23466B]/20 pb-4">
+                <h3 class="text-lg font-black text-[#23466B] flex items-center"><i class="fa-solid fa-user-gear text-[#23466B] mr-2"></i>rayeonzz 管理員後台</h3>
+                <button onclick="closeAdminModal()" class="text-stone-600 hover:text-stone-950 text-2xl font-black w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-200/50">&times;</button>
+            </div>
+
+            <div id="adminAuth" class="space-y-4 py-4">
+                <p class="text-xs text-stone-900 font-bold">請輸入管理員密碼以進入預約訂單管理後台：</p>
+                <input type="password" id="adminPassword" placeholder="輸入密碼" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none text-stone-950 font-bold">
+                <button onclick="checkAdminPass()" class="w-full bg-[#23466B] text-white font-black py-3 rounded-2xl text-sm hover:bg-[#1a3552] transition shadow-md">登入後台</button>
+            </div>
+
+            <div id="adminContent" class="hidden space-y-4">
+                <div class="flex justify-between items-center bg-[#DCEEFF]/70 p-3.5 rounded-2xl text-xs border border-[#23466B]/20">
+                    <span class="font-bold text-stone-900">當前總預約單：<b id="orderCount" class="text-[#23466B] font-black">0</b> 筆</span>
+                    <button onclick="clearOrders()" class="text-red-600 hover:underline font-bold">清除測試資料</button>
+                </div>
+
+                <h4 class="font-black text-sm text-[#23466B]">📋 客戶預約單列表：</h4>
+                <div id="orderList" class="space-y-3 max-h-60 overflow-y-auto text-xs font-bold">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾版權文字 -->
+    <footer class="ios-header text-stone-900 font-bold py-6 px-4 text-center text-xs mt-12 border-t border-[#23466B]/15">
+        <p>© 2026 rayeonzz 演唱會手機/手燈出租 All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const lightstickList = [
+            { name: "aespa (Ver. 1)", price: 400 },
+            { name: "aespa (Ver. 2)", price: 400 },
+            { name: "BABYMONSTER", price: 400 },
+            { name: "BLACKPINK (粉錘 Ver. 2)", price: 400 },
+            { name: "BOYNEXTDOOR", price: 400 },
+            { name: "BTS (阿米棒 Ver. 4)", price: 400 },
+            { name: "CLOSE YOUR EYES", price: 400 },
+            { name: "CNBLUE", price: 400 },
+            { name: "CORTIS", price: 400 },
+            { name: "EVNNE (Ver. 1)", price: 400 },
+            { name: "EXO (Ver. 3)", price: 400 },
+            { name: "fromis_9 (Ver. 1)", price: 400 },
+            { name: "FTISLAND", price: 400 },
+            { name: "GFRIEND (Ver. 3)", price: 400 },
+            { name: "GFRIEND (日本)", price: 400 },
+            { name: "ILLIT", price: 400 },
+            { name: "ITZY (Ver. 2)", price: 400 },
+            { name: "IVE (Ver. 1／Ver. 2)", price: 400 },
+            { name: "izna", price: 400 },
+            { name: "Kep1er (Ver. 1)", price: 400 },
+            { name: "KISS OF LIFE", price: 400 },
+            { name: "LE SSERAFIM", price: 400 },
+            { name: "NMIXX (Ver. 1)", price: 300 },
+            { name: "Red Velvet (Ver. 1)", price: 400 },
+            { name: "RIIZE", price: 400 },
+            { name: "SEVENTEEN (十週年克拉棒)", price: 400 },
+            { name: "SNSD", price: 300 },
+            { name: "STAYC", price: 300 },
+            { name: "STRAY KIDS (Ver. 2)", price: 400 },
+            { name: "TREASURE", price: 300 },
+            { name: "tripleS", price: 300 },
+            { name: "TWICE (Ver. 3 糖果棒)", price: 400 },
+            { name: "TXT (Ver. 2)", price: 400 },
+            { name: "WJSN (Ver. 2)", price: 300 }
+        ];
+
+        // aespa 手燈輪播控制變數
+        let aespaCurrentIndex = 0;
+        const aespaImages = [
+            { ver: "Ver. 1", src: "aespa lightstick ver1.png" },
+            { ver: "Ver. 2", src: "aespa lightstick ver2.png" }
+        ];
+
+        function slideAespa(direction) {
+            aespaCurrentIndex += direction;
+            if (aespaCurrentIndex >= aespaImages.length) {
+                aespaCurrentIndex = 0;
+            } else if (aespaCurrentIndex < 0) {
+                aespaCurrentIndex = aespaImages.length - 1;
+            }
+            const currentObj = aespaImages[aespaCurrentIndex];
+            document.getElementById('aespa-slider-img').src = currentObj.src;
+            document.getElementById('aespa-version-text').innerText = currentObj.ver;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('rayeonzz1124')) {
+                openAdminModal();
+            }
+            initLightstickSelects();
+            calculatePrice();
+        });
+
+        const PHONE_RENT_PER_DAY = 550;
+        let currentMode = 'combo';
+
+        function initLightstickSelects() {
+            const isCombo = (currentMode === 'combo');
+            const selects = ['selectedLightstick1', 'selectedLightstick2'];
+
+            selects.forEach(id => {
+                const sel = document.getElementById(id);
+                const currentVal = sel.value;
+                let html = '';
+                lightstickList.forEach(item => {
+                    let displayPrice = item.price;
+                    if (isCombo) {
+                        displayPrice = Math.max(0, item.price - 100);
+                    }
+                    let priceText = item.price === 300 ? ` (優惠價 NT$ ${displayPrice})` : '';
+                    html += `<option value="${item.price}">${item.name}${priceText}</option>`;
+                });
+                sel.innerHTML = html;
+                if (currentVal) sel.value = currentVal;
+            });
+
+            const sel3 = document.getElementById('selectedLightstick3');
+            const currentVal3 = sel3.value;
+            let html3 = '<option value="0">-- 不需要第三支手燈 --</option>';
+            lightstickList.forEach(item => {
+                let displayPrice = item.price;
+                if (isCombo) {
+                    displayPrice = Math.max(0, item.price - 100);
+                }
+                let priceText = item.price === 300 ? ` (優惠價 NT$ ${displayPrice})` : '';
+                html3 += `<option value="${item.price}">${item.name}${priceText}</option>`;
+            });
+            sel3.innerHTML = html3;
+            if (currentVal3) sel3.value = currentVal3;
+        }
+
+        function toggleMoreLightsticks() {
+            const isChecked = document.getElementById('moreLightsticksCheck').checked;
+            const container = document.getElementById('extraLightsticksContainer');
+            if (isChecked) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+                document.getElementById('selectedLightstick3').value = "0";
+            }
+            calculatePrice();
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${mode}`).classList.add('active');
+
+            const lsBox = document.getElementById('lightstick-selection');
+            const depositContainer = document.getElementById('deposit-selection-container');
+            const rowDays = document.getElementById('row-days');
+            const nameContainer = document.getElementById('name-field-container');
+            const nameInput = document.getElementById('custName');
+
+            initLightstickSelects();
+
+            if (mode === 'combo') {
+                lsBox.style.display = 'block';
+                depositContainer.style.display = 'block';
+                rowDays.style.display = 'flex';
+                nameContainer.style.display = 'block';
+                nameInput.required = true;
+            } else if (mode === 'phone') {
+                lsBox.style.display = 'none';
+                depositContainer.style.display = 'block';
+                rowDays.style.display = 'flex';
+                nameContainer.style.display = 'block';
+                nameInput.required = true;
+            } else if (mode === 'lightstick') {
+                lsBox.style.display = 'block';
+                depositContainer.style.display = 'none';
+                rowDays.style.display = 'none';
+                nameContainer.style.display = 'none';
+                nameInput.required = false;
+                nameInput.value = '';
+            }
+
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const start = new Date(document.getElementById('startDate').value);
+            const end = new Date(document.getElementById('endDate').value);
+            const depOpt = document.getElementById('depositOption').value;
+            const isMoreChecked = document.getElementById('moreLightsticksCheck').checked;
+
+            let base1 = parseInt(document.getElementById('selectedLightstick1').value) || 0;
+            let base2 = isMoreChecked ? (parseInt(document.getElementById('selectedLightstick2').value) || 0) : 0;
+            let base3 = isMoreChecked ? (parseInt(document.getElementById('selectedLightstick3').value) || 0) : 0;
+
+            let countLs = 1;
+            let totalLsPrice = base1;
+
+            if (isMoreChecked) {
+                countLs++;
+                totalLsPrice += base2;
+                if (base3 > 0) {
+                    countLs++;
+                    totalLsPrice += base3;
+                }
+            }
+
+            let finalLsPrice = totalLsPrice;
+            if (currentMode === 'combo') {
+                finalLsPrice = Math.max(0, totalLsPrice - (countLs * 100));
+            }
+
+            let totalDepositLs = countLs * 1000;
+
+            let days = 0;
+            if (start && end && end >= start) {
+                const diffTime = Math.abs(end - start);
+                const rawDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+                days = (rawDays <= 1) ? 1 : rawDays;
+            }
+
+            let phoneRentTotal = (days > 0 ? days * PHONE_RENT_PER_DAY : 0);
+            if (currentMode === 'combo' || currentMode === 'phone') {
+                document.getElementById('rentalDays').innerText = `${days} 天 (${days}天 × $550 = $${phoneRentTotal.toLocaleString()}元)`;
+            } else {
+                document.getElementById('rentalDays').innerText = `${days} 天`;
+            }
+
+            let total = 0;
+            if (currentMode === 'combo') {
+                total = phoneRentTotal + finalLsPrice;
+            } else if (currentMode === 'phone') {
+                total = phoneRentTotal;
+            } else if (currentMode === 'lightstick') {
+                total = totalLsPrice;
+            }
+
+            document.getElementById('totalRent').innerText = `NT$ ${total.toLocaleString()}`;
+
+            const depositText = document.getElementById('deposit');
+            if (currentMode === 'lightstick') {
+                depositText.innerText = `NT$ ${totalDepositLs.toLocaleString()} (手燈押金)`;
+            } else {
+                if (depOpt === 'ID_CARD') {
+                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 3,000 (壓證件) + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 3,000 (壓證件)';
+                } else {
+                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 30,000 (不壓證件) + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 30,000 (不壓證件)';
+                }
+            }
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            const name = document.getElementById('custName').value || '（單租手燈免填）';
+            const social = document.getElementById('socialId').value;
+            const line = document.getElementById('lineId').value;
+            const remarks = document.getElementById('remarks').value || '無';
+            const total = document.getElementById('totalRent').innerText;
+            const deposit = document.getElementById('deposit').innerText;
+            const isMoreChecked = document.getElementById('moreLightsticksCheck').checked;
+
+            let modeTitle = '手機 + 手燈配套預約';
+            let itemDesc = '';
+
+            const ls1Select = document.getElementById('selectedLightstick1');
+            const ls1Text = ls1Select.options[ls1Select.selectedIndex].text;
+
+            let lsSummary = ls1Text;
+            if (isMoreChecked) {
+                const ls2Select = document.getElementById('selectedLightstick2');
+                lsSummary += ` ｜ ${ls2Select.options[ls2Select.selectedIndex].text}`;
+
+                const ls3Select = document.getElementById('selectedLightstick3');
+                if (ls3Select.value !== "0") {
+                    lsSummary += ` ｜ ${ls3Select.options[ls3Select.selectedIndex].text}`;
+                }
+            }
+
+            if (currentMode === 'phone') {
+                modeTitle = '單租 S24 Ultra 手機預約';
+                itemDesc = 'Samsung Galaxy S24 Ultra';
+            } else if (currentMode === 'lightstick') {
+                modeTitle = '單租應援手燈預約';
+                itemDesc = lsSummary;
+            } else {
+                itemDesc = `Samsung S24 Ultra + 手燈: ${lsSummary} (每支折抵$100)`;
+            }
+
+            const formData = new URLSearchParams();
+            formData.append('mode', modeTitle);
+            formData.append('start', start || '未填');
+            formData.append('end', end || '未填');
+            formData.append('item', itemDesc);
+            formData.append('name', name);
+            formData.append('social', social);
+            formData.append('line', line);
+            formData.append('total', total);
+            formData.append('deposit', deposit);
+            formData.append('remarks', remarks);
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxZICxPN75deJlCiwu8jg5zaMM70cCuycWzCpbK-UmRGZz7lcvs01OQwbopQke8XZs/exec';
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => response.json())
+                .then(data => console.log('成功寫入試算表', data))
+                .catch(error => console.error('寫入試算表失敗', error));
+
+            const message = `【 rayeonzz 演唱會租借預約單 】\n` +
+                `📌 預約類型：${modeTitle}\n` +
+                `📅 租借期間：${start} ~ ${end}\n` +
+                `📱💡 租借項目：${itemDesc}\n` +
+                `💰 預估總額：${total}\n` +
+                `🔒 選擇押金方案：${deposit}\n` +
+                `👤 姓名：${name}\n` +
+                `📸 IG / Threads：${social}\n` +
+                `💬 LINE ID：${line}\n` +
+                `📝 備註：${remarks}\n\n` +
+                `-----------------------------------\n` +
+                `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
+
+            navigator.clipboard.writeText(message).then(() => {
+                alert('預約資訊已成功複製並記錄至後台！\n即將為您導向至 LINE 聯繫 rayeonzz，請將明細貼上！');
+                window.open(`https://line.me/ti/p/Z7bIHvC4lF`, '_blank');
+            }).catch(err => {
+                alert('複製失敗，請手動複製表單資訊。');
+            });
+        }
+
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminAuth').classList.remove('hidden');
+            document.getElementById('adminContent').classList.add('hidden');
+        }
+
+        function checkAdminPass() {
+            const pass = document.getElementById('adminPassword').value;
+            const encodedCorrectPass = 'OTExMTE0ZnJhbms=';
+
+            try {
+                if (btoa(pass) === encodedCorrectPass) {
+                    document.getElementById('adminAuth').classList.add('hidden');
+                    document.getElementById('adminContent').classList.remove('hidden');
+                    loadOrders();
+                } else {
+                    alert('密碼錯誤！');
+                }
+            } catch (e) {
+                alert('密碼錯誤！');
+            }
+        }
+
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
+            document.getElementById('orderCount').innerText = orders.length;
+            const listEl = document.getElementById('orderList');
+            listEl.innerHTML = '';
+
+            if (orders.length === 0) {
+                listEl.innerHTML = '<p class="text-stone-500 text-center py-4">目前尚無客戶預約單</p>';
+                return;
+            }
+
+            orders.reverse().forEach((ord, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-[#DCEEFF]/60 border border-[#23466B]/20 p-3.5 rounded-2xl space-y-1 text-stone-900';
+                div.innerHTML = `
+                    <div class="flex justify-between font-black text-[#23466B]">
+                        <span>#[${ord.mode}]</span>
+                        <span class="text-[10px] text-stone-600">${ord.time}</span>
+                    </div>
+                    <p><b>姓名：</b>${ord.name} ｜ <b>IG：</b>${ord.social} ｜ <b>LINE：</b>${ord.line}</p>
+                    <p><b>期間：</b>${ord.start} ~ ${ord.end}</p>
+                    <p><b>項目：</b>${ord.item}</p>
+                    <p><b>金額：</b><span class="text-[#A94F00] font-black">${ord.total}</span> (押金: ${ord.deposit})</p>
+                    <p><b>備註：</b>${ord.remarks}</p>
+                `;
+                listEl.appendChild(div);
+            });
+        }
+
+        function clearOrders() {
+            if (confirm('確定要清除所有測試預約單資料嗎？')) {
+                localStorage.removeItem('rayeonzz_orders');
+                loadOrders();
+            }
+        }
+    </script>
+</body>
+</html>
