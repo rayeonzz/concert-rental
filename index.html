@@ -1086,7 +1086,7 @@
         }
 
         // 使用 iframe form 提交避開 CORS 阻擋，保證 100% 寫入 Google 試算表
-        function handleFormSubmit(event) {
+     function handleFormSubmit(event) {
             event.preventDefault();
             const start = document.getElementById('startDate').value;
             const end = document.getElementById('endDate').value;
@@ -1143,23 +1143,9 @@
             existingOrders.push(newOrder);
             localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
 
-            // 2. 利用隱藏 iframe 以 form 提交方式傳送到 Google 試算表（完美避開 CORS 阻擋）
+            // 2. 使用標準 fetch POST 傳送至 Google 試算表
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             
-            let iframe = document.getElementById('hidden_iframe');
-            if (!iframe) {
-                iframe = document.createElement('iframe');
-                iframe.name = 'hidden_iframe';
-                iframe.id = 'hidden_iframe';
-                iframe.style.display = 'none';
-                document.body.appendChild(iframe);
-            }
-
-            const form = document.createElement('form');
-            form.action = scriptURL;
-            form.method = 'POST';
-            form.target = 'hidden_iframe';
-
             const payload = {
                 mode: modeTitle,
                 start: start || '未填',
@@ -1173,17 +1159,18 @@
                 remarks: remarks
             };
 
-            for (const key in payload) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = payload[key];
-                form.appendChild(input);
-            }
-
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // 繞過瀏覽器 CORS 限制的關鍵
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                console.log('資料已送出至試算表');
+            }).catch(error => {
+                console.error('傳送失敗!', error);
+            });
 
             // 3. 複製明細並跳轉 LINE
             const message = `【 rayeonzz 演唱會租借預約單 】\n` +
@@ -1200,7 +1187,7 @@
                 `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
 
             navigator.clipboard.writeText(message).then(() => {
-                alert('預約資訊已成功儲存至試算表與後台！\n即將為您導向至 LINE 聯繫 rayeonzz，請將明細貼上！');
+                alert('預約資訊已成功儲存！\n即將為您導向至 LINE 聯繫 rayeonzz，請將明細貼上！');
                 window.open(`https://line.me/ti/p/Z7bIHvC4lF`, '_blank');
             }).catch(err => {
                 alert('複製失敗，請手動複製表單資訊。');
