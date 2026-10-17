@@ -858,25 +858,30 @@ function fetchRentedStatus() {
         .catch(err => console.log('檢查檔期失敗：', err));
 }
 function checkCurrentStatusToday() {
-const today = new Date().toISOString().split('T')[0];
-const phoneBannersContainer = document.getElementById('phone-rented-banners');
-if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
-allOrders.forEach(order => {
-if (order.start && order.end && today >= order.start && today <= order.end) {
-const cleanStart = cleanDateStr(order.start);
-const cleanEnd = cleanDateStr(order.end);
-const rangeText = `${cleanStart} ~ ${cleanEnd} 已出租`;
-if (order.item.includes('S24 Ultra') || order.item.includes('手機')) {
-addPhoneRentedBanner(rangeText);
+    const phoneBannersContainer = document.getElementById('phone-rented-banners');
+    if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
+    
+    // 清除舊有的已出租標籤避免重複
+    document.querySelectorAll('.rented-badge').forEach(el => el.remove());
+
+    allOrders.forEach(order => {
+        if (order.start && order.end) {
+            const cleanStart = cleanDateStr(order.start);
+            const cleanEnd = cleanDateStr(order.end);
+            const rangeText = `${cleanStart} ~ ${cleanEnd} 已出租`;
+            
+            if (order.item.includes('S24 Ultra') || order.item.includes('手機')) {
+                addPhoneRentedBanner(rangeText);
+            }
+            lightstickList.forEach(item => {
+                if (order.item.includes(item.name)) {
+                    markAsRented(item.name, `${cleanStart} ~ ${cleanEnd}`);
+                }
+            });
+        }
+    });
 }
-lightstickList.forEach(item => {
-if (order.item.includes(item.name)) {
-markAsRented(item.name, `${cleanStart} ~ ${cleanEnd}`);
-}
-});
-}
-});
-}
+
 function addPhoneRentedBanner(text) {
 const container = document.getElementById('phone-rented-banners');
 if (container) {
