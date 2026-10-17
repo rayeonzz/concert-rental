@@ -1161,6 +1161,27 @@
                 itemDesc = `Samsung S24 Ultra + 手燈: ${lsSummary} (每支折抵$100)`;
             }
 
+            // 1. 寫入本地瀏覽器 localStorage (確保管理員後台看得見)
+            const nowTime = new Date().toLocaleString();
+            const newOrder = {
+                mode: modeTitle,
+                start: start || '未填',
+                end: end || '未填',
+                item: itemDesc,
+                name: name,
+                social: social,
+                line: line,
+                total: total,
+                deposit: deposit,
+                remarks: remarks,
+                time: nowTime
+            };
+
+            const existingOrders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
+            existingOrders.push(newOrder);
+            localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
+
+            // 2. 傳送到 Google 試算表（使用 no-cors 模式防止前端跨域報錯）
             const formData = new URLSearchParams();
             formData.append('mode', modeTitle);
             formData.append('start', start || '未填');
@@ -1174,9 +1195,8 @@
             formData.append('remarks', remarks);
 
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxZICxPN75deJlCiwu8jg5zaMM70cCuycWzCpbK-UmRGZz7lcvs01OQwbopQke8XZs/exec';
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => response.json())
-                .then(data => console.log('成功寫入試算表', data))
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: formData })
+                .then(() => console.log('已發送至試算表'))
                 .catch(error => console.error('寫入試算表失敗', error));
 
             const message = `【 rayeonzz 演唱會租借預約單 】\n` +
@@ -1213,7 +1233,7 @@
 
         function checkAdminPass() {
             const pass = document.getElementById('adminPassword').value;
-            // 直接比對明文密碼，避免 btoa 編碼在不同瀏覽器或環境下跑版
+            // 直接比對明文密碼，避免編碼出錯
             if (pass === '911124frank') {
                 document.getElementById('adminAuth').classList.add('hidden');
                 document.getElementById('adminContent').classList.remove('hidden');
