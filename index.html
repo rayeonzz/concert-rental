@@ -171,11 +171,17 @@
 
         <!-- 手燈出租區 -->
         <section id="lightstick-section-view">
-            <h2 class="text-xl font-black mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
-            <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-6 shadow-sm space-y-1">
+            <!-- 標題與貼心提示並排 -->
+            <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
+                <h2 class="text-xl font-black border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
+                <span class="text-xs bg-[#DCEEFF] text-[#23466B] border border-[#23466B]/30 px-3 py-1.5 rounded-full font-black shadow-sm">
+                    ✨ 點擊任一手燈圖片即可自動代入預約
+                </span>
+            </div>
+
+            <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-6 shadow-sm">
                 <p>🪄 <b>手燈單租價格：</b> 單次租金 NT$ 400 (部分指定款式優惠價 NT$ 300)，押金每支 NT$ 1,000。</p>
                 <p class="text-[#A94F00]"> 🔥 <b>配套優惠：</b> 若與 S24 Ultra 手機一起租借，每支手燈租金直接享有折抵 NT$ 100 優惠！</p>
-                <p>✨ <b class="text-[#23466B]">貼心提醒：點擊任一手燈圖片或卡片，即可自動代入下方金額試算與預約！</b></p>
                 <p>🪄 <b>租借說明：</b> 手燈租借均不含電池，請自備電池。</p>
                 <p>🪄 <b>歸還方式：</b> 演唱會結束後一週內歸還，海外場可延後歸還。台南面交 ｜ 賣貨便。</p>
                 <p class="text-stone-900">🪄 <b>取消規定：</b> 於租借日<b>5天內</b>取消，將會收取NT$ 100 之跑單費。</p>
@@ -1207,7 +1213,7 @@
 
         function checkAdminPass() {
             const pass = document.getElementById('adminPassword').value;
-            const encodedCorrectPass = 'OTExMTE0ZnJhbms=';
+            const encodedCorrectPass = 'OTExMTE0ZnJhbms='; // 密碼 911124frank
             try {
                 if (btoa(pass) === encodedCorrectPass) {
                     document.getElementById('adminAuth').classList.add('hidden');
