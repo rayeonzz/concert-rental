@@ -28,7 +28,7 @@ gtag('config', 'G-LLDMC8FKXE');
 body { font-family: 'Noto Serif TC', serif; font-weight: 500; background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('租借用天空.jpg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat; background-color: #23466B; }
 .ios-glass { background: rgba(255, 255, 255, 0.78); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 20px 40px rgba(35, 70, 107, 0.12); }
 .ios-header { background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(255, 255, 255, 0.7); }
-.ios-input { background: rgba(255, 255, 255, 0.9) !important; border: 1px solid rgba(186, 212, 240, 0.8) !important; font-weight: 700; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
+.ios-input { background: rgba(255, 255, 255, 0.9) !important; border: 1px solid rgba(186, 212, 240, 0.8) !important; font-weight: 700; width: 100% !important; box-sizing: border-box !important; }
 .ios-input:focus { background: #ffffff !important; border-color: #23466B !important; }
 .tab-btn.active { background-color: #23466B !important; color: #ffffff !important; box-shadow: 0 4px 12px rgba(35, 70, 107, 0.25); }
 section[id] { scroll-margin-top: 90px; }
@@ -568,21 +568,21 @@ section[id] { scroll-margin-top: 90px; }
 <!-- 試算與預約表單 -->
 <section id="order-section" class="ios-glass p-5 sm:p-10 rounded-[28px] sm:rounded-[32px]">
 <h2 class="text-xl sm:text-2xl font-black text-[#23466B] mb-4 text-center">租金線上試算與預約</h2>
-<!-- 三大模式分頁選擇按鈕：強制手機檢視時列在同行並均分空間 -->
+<!-- 三大模式分頁選擇按鈕：手機檢視時列在同行並均分空間 -->
 <div class="flex flex-row items-center justify-between gap-1 sm:gap-2 mb-6 sm:mb-8 bg-[#DCEEFF]/50 p-2 rounded-2xl border border-[#23466B]/20 w-full">
 <button type="button" onclick="switchMode('combo')" id="tab-combo" class="tab-btn active flex-1 min-w-0 text-center py-2 px-1 text-[10px] sm:text-sm font-bold rounded-xl transition text-[#23466B] truncate"> 📱💡 配套 </button>
 <button type="button" onclick="switchMode('phone')" id="tab-phone" class="tab-btn flex-1 min-w-0 text-center py-2 px-1 text-[10px] sm:text-sm font-bold rounded-xl transition text-[#23466B] truncate"> 📱 手機 </button>
 <button type="button" onclick="switchMode('lightstick')" id="tab-lightstick" class="tab-btn flex-1 min-w-0 text-center py-2 px-1 text-[10px] sm:text-sm font-bold rounded-xl transition text-[#23466B] truncate"> 💡 手燈 </button>
 </div>
 <form id="bookingForm" class="space-y-5 sm:space-y-6" onsubmit="handleFormSubmit(event)">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+<div class="w-full min-w-0 overflow-hidden">
 <label class="block text-xs font-bold text-stone-900 mb-1.5">租借開始日期</label>
-<input type="date" id="startDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+<input type="date" id="startDate" required onchange="onDateChange()" class="w-full max-w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
 </div>
-<div>
+<div class="w-full min-w-0 overflow-hidden">
 <label class="block text-xs font-bold text-stone-900 mb-1.5">租借歸還日期</label>
-<input type="date" id="endDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+<input type="date" id="endDate" required onchange="onDateChange()" class="w-full max-w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
 </div>
 </div>
 <div id="lightstick-selection" class="space-y-4">
