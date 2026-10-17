@@ -42,14 +42,14 @@
             background-color: #23466B;
         }
         .ios-glass {
-            background: rgba(255, 255, 255, 0.72);
+            background: rgba(255, 255, 255, 0.78);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.9);
             box-shadow: 0 20px 40px rgba(35, 70, 107, 0.12);
         }
         .ios-header {
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid rgba(255, 255, 255, 0.7);
@@ -63,7 +63,6 @@
             background: #ffffff !important;
             border-color: #23466B !important;
         }
-        /* 當前選中分頁：深藍底、白色文字 */
         .tab-btn.active {
             background-color: #23466B !important;
             color: #ffffff !important;
@@ -76,24 +75,21 @@
 </head>
 <body class="text-stone-950 min-h-screen flex flex-col selection:bg-[#A94F00] selection:text-white">
 
-    <!-- 導覽列 -->
+    <!-- 導覽列：手機專屬優化，不擁擠、不跑版 -->
     <header class="sticky top-0 z-50 ios-header shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2.5">
-                <!-- 💡 左上角 Logo：已改回用 img 讀取「去背左上logo.png」。你隨時可以在 style 裡面調整 width(寬度)、height(高度) 與 translate(上下左右位置) -->
-                <a href="#" class="flex items-center gap-2">
-                    <img src="去背左上logo.png" alt="rayeonzz" style="width: 110px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm">
-                </a>
-                <!-- 💡 這裡的 translate-y-2 是控制「演唱會手機手燈租借」上下高度的地方 -->
-                <span class="text-xs bg-[#DCEEFF] text-[#23466B] font-bold px-3 py-1 rounded-full border border-[#23466B]/25 translate-y-2">演唱會手機手燈租借</span>
-            </div>
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 flex justify-between items-center">
             
-            <div class="flex items-center gap-3">
+            <!-- 左上角 Logo（可透過 style 隨時微調大小與位置） -->
+            <a href="#" class="flex items-center">
+                <img src="去背左上logo.png" alt="rayeonzz" style="width: 100px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm">
+            </a>
+            
+            <div class="flex items-center gap-2 sm:gap-3">
                 <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-4 py-2 rounded-2xl transition shadow-lg shadow-[#23466B]/20 active:scale-95">
                     立即試算預約
                 </a>
                 <!-- 漢堡選單按鈕 -->
-                <button onclick="toggleMobileMenu()" aria-label="導覽選單" class="w-10 h-10 rounded-2xl bg-white/80 border border-[#23466B]/20 text-[#23466B] flex items-center justify-center text-base shadow-sm hover:bg-[#23466B] hover:text-white transition">
+                <button onclick="toggleMobileMenu()" aria-label="導覽選單" class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/90 border border-[#23466B]/20 text-[#23466B] flex items-center justify-center text-sm sm:text-base shadow-sm hover:bg-[#23466B] hover:text-white transition">
                     <i class="fa-solid fa-bars" id="menuIcon"></i>
                 </button>
             </div>
@@ -109,66 +105,61 @@
     </header>
 
     <!-- 主頁 Banner -->
-    <section class="py-10 px-4 text-center">
-        <div class="max-w-3xl mx-auto ios-glass p-8 sm:p-10 rounded-[32px] space-y-4">
-            <h1 class="text-3xl sm:text-5xl font-black text-[#23466B] tracking-tight">
+    <section class="py-8 sm:py-10 px-3 sm:px-4 text-center">
+        <div class="max-w-3xl mx-auto ios-glass p-6 sm:p-10 rounded-[28px] sm:rounded-[32px] space-y-3 sm:space-y-4">
+            <span class="inline-block text-[10px] sm:text-xs bg-[#23466B] text-white font-bold px-3 py-1 rounded-full shadow-sm">演唱會手機手燈租借服務</span>
+            <h1 class="text-2xl sm:text-5xl font-black text-[#23466B] tracking-tight">
                 演唱會追星應援必備
             </h1>
-            <div class="text-xl sm:text-2xl font-bold">
+            <div class="text-lg sm:text-2xl font-bold">
                 <span class="text-[#23466B]">S24 Ultra 手機</span> <span class="text-stone-950">及</span> <span class="text-[#23466B]">手燈</span> <span class="text-stone-950">租借</span>
             </div>
-            <p class="text-stone-900 text-sm sm:text-base font-bold pb-2">
+            <p class="text-stone-900 text-xs sm:text-base font-bold pb-1">
                 5,000萬長焦鏡頭與無縫變焦錄影，讓你輕鬆記錄演唱會最美瞬間！
             </p>
-            <div class="flex flex-wrap justify-center gap-3 text-xs font-bold text-stone-900 pt-1">
-                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-gift text-[#A94F00]"></i> 手機加租手燈折抵 100 元</span>
-                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-location-dot text-[#23466B]"></i> 台南面交 ｜ 台中面交 ｜ 賣貨便</span>
-                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-bolt text-[#23466B]"></i> 租借手續簡便｜預約檔期保障</span>
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-bold text-stone-900 pt-1">
+                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-3 sm:px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-gift text-[#A94F00]"></i> 手機加租手燈折抵 100 元</span>
+                <span class="flex items-center gap-1.5 bg-[#DCEEFF]/90 border border-[#23466B]/20 px-3 sm:px-4 py-2 rounded-2xl shadow-sm"><i class="fa-solid fa-location-dot text-[#23466B]"></i> 台南面交 ｜ 台中面交 ｜ 賣貨便</span>
             </div>
         </div>
     </section>
 
     <!-- 四格跳轉選單 -->
-    <div class="max-w-3xl mx-auto px-4 pb-6 w-full">
-        <div class="ios-glass p-4 rounded-[28px] space-y-3">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                <a href="#phone-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                    <i class="fa-solid fa-mobile-screen text-base"></i> 手機租借
+    <div class="max-w-3xl mx-auto px-3 sm:px-4 pb-6 w-full">
+        <div class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] space-y-2">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center">
+                <a href="#phone-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                    <i class="fa-solid fa-mobile-screen"></i> 手機租借
                 </a>
-                <a href="#lightstick-section-view" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                    <i class="fa-solid fa-wand-magic-sparkles text-base"></i> 手燈租借
+                <a href="#lightstick-section-view" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 手燈租借
                 </a>
-                <a href="#order-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                    <i class="fa-solid fa-calculator text-base"></i> 租金試算
+                <a href="#order-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                    <i class="fa-solid fa-calculator"></i> 租金試算
                 </a>
-                <a href="#contact-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                    <i class="fa-solid fa-address-book text-base"></i> 聯絡資訊
+                <a href="#contact-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm">
+                    <i class="fa-solid fa-address-book"></i> 聯絡資訊
                 </a>
-            </div>
-            <div class="text-center pt-1">
-                <span class="inline-block bg-white/50 border border-[#23466B]/15 text-stone-600 text-xs py-1.5 px-5 rounded-full font-bold tracking-wide shadow-sm">
-                    點擊項目快速查閱
-                </span>
             </div>
         </div>
     </div>
 
     <!-- 設備介紹區 -->
-    <main class="max-w-5xl mx-auto px-4 py-2 flex-grow w-full space-y-10">
+    <main class="max-w-5xl mx-auto px-3 sm:px-4 py-2 flex-grow w-full space-y-8 sm:space-y-10">
         
         <!-- 手機出租 -->
         <section id="phone-section">
-            <h2 class="text-xl font-black mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📱 手機租借</h2>
-            <div id="phone-section-card" class="ios-glass rounded-[32px] p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
+            <h2 class="text-lg sm:text-xl font-black mb-3 sm:mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📱 手機租借</h2>
+            <div id="phone-section-card" class="ios-glass rounded-[28px] sm:rounded-[32px] p-4 sm:p-8 flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
                 <div class="w-full md:w-1/3 text-center space-y-2">
-                    <img src="galaxy s24u.jpg" alt="S24 Ultra" class="rounded-2xl mx-auto object-cover h-48 w-full shadow-md border border-white/80">
+                    <img src="galaxy s24u.jpg" alt="S24 Ultra" class="rounded-2xl mx-auto object-cover h-44 sm:h-48 w-full shadow-md border border-white/80">
                     <div id="phone-rented-banners" class="space-y-1.5 w-full"></div>
                 </div>
                 <div class="w-full md:w-2/3 space-y-3">
                     <div class="flex flex-wrap justify-between items-baseline pb-2 border-b border-[#23466B]/15 gap-2">
                         <div>
-                            <h3 class="text-xl sm:text-2xl font-black text-[#23466B]">Samsung Galaxy S24 Ultra</h3>
-                            <p class="text-sm text-[#23466B] font-bold pl-0.5">256GB 旗艦演唱會神機</p>
+                            <h3 class="text-lg sm:text-2xl font-black text-[#23466B]">Samsung Galaxy S24 Ultra</h3>
+                            <p class="text-xs sm:text-sm text-[#23466B] font-bold pl-0.5">256GB 旗艦演唱會神機</p>
                         </div>
                         <div class="text-right flex items-baseline">
                             <span class="text-xl sm:text-2xl font-black text-[#23466B]">NT$ 550</span>
@@ -182,11 +173,12 @@
                         <p class="text-stone-900">💡 <b>租期說明：</b>10/23 租借、10/24 歸還為 1 天 ，即租金 NT $550。</p>
                     </div>
 
-                    <div class="bg-[#DCEEFF]/70 border border-[#23466B]/20 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold shadow-sm mt-3">
+                    <div class="bg-[#DCEEFF]/70 border border-[#23466B]/20 p-3.5 sm:p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold shadow-sm mt-3">
                         <p>🔹 <b>押金說明：</b></p>
-                        <p class="pl-4 font-bold">1. 押證件（身分證／健保卡）＋ 押金 NT$ 3,000 &nbsp;&nbsp 2. 免押證件則押金 NT$ 30,000</p>
+                        <p class="pl-3 sm:pl-4 font-bold">1. 押證件（身分證／健保卡）＋ 押金 NT$ 3,000</p>
+                        <p class="pl-3 sm:pl-4 font-bold">2. 免押證件則押金 NT$ 30,000</p>
                         <p class="pt-1">🔹 <b>取機方式：</b> 台南面交 ｜ 台中面交（手機限面交）</p>
-                        <p class="pt-1 text-stone-900">🔹 <b>取消規定：</b> 預約後，於租借日<b>7天前</b>可取消；若於租借日<b>7天內</b>取消，將會收取 NT$ 200 之跑單費。</p>
+                        <p class="pt-1 text-stone-900">🔹 <b>取消規定：</b> 於租借日<b>7天前</b>可取消；<b>7天內</b>取消收取 NT$ 200 跑單費。</p>
                     </div>
                 </div>
             </div>
@@ -194,498 +186,499 @@
 
         <!-- 手燈出租區 -->
         <section id="lightstick-section-view">
-            <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
-                <h2 class="text-xl font-black border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
+            <div class="flex flex-wrap justify-between items-center mb-3 sm:mb-4 gap-2">
+                <h2 class="text-lg sm:text-xl font-black border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
             </div>
 
-            <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-4 shadow-sm">
-                <p>🪄 <b>手燈單租價格：</b> 單次租金 NT$ 400 (部分指定款式優惠價 NT$ 300)，押金每支 NT$ 1,000。</p>
-                <p class="text-[#A94F00]">🔥 <b>配套優惠：</b> 若與 S24 Ultra 手機一起租借，每支手燈租金直接享有折抵 NT$ 100 優惠！</p>
-                <p>🪄 <b>租借說明：</b> 手燈租借均不含電池，請自備電池。</p>
-                <p>🪄 <b>歸還方式：</b> 演唱會結束後一週內歸還，海外場可延後歸還。台南面交 ｜ 賣貨便。</p>
-                <p class="text-stone-900">🪄 <b>取消規定：</b> 於租借日<b>5天內</b>取消，將會收取NT$ 100 之跑單費。</p>
+            <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-3.5 sm:p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-4 shadow-sm">
+                <p>🪄 <b>手燈單租價格：</b> 單次租金 NT$ 400 (指定款 NT$ 300)，押金每支 NT$ 1,000。</p>
+                <p class="text-[#A94F00]">🔥 <b>配套優惠：</b> 與手機一起租借，每支手燈直接折抵 NT$ 100！</p>
+                <p>🪄 <b>租借說明：</b> 不含電池，請自備電池。演唱會後一週內歸還。</p>
+                <p class="text-stone-900">🪄 <b>取消規定：</b> 於租借日<b>5天內</b>取消，將會收取 NT$ 100 之跑單費。</p>
             </div>
 
             <!-- 手燈快速分類篩選按鈕 -->
-            <div class="flex flex-wrap justify-center gap-2 mb-6">
-                <button type="button" onclick="filterLightsticks('all')" id="filter-btn-all" class="bg-[#23466B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">全部手燈(<span id="count-all">33</span>)</button>
-                <button type="button" onclick="filterLightsticks('boy')" id="filter-btn-boy" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">男團(<span id="count-boy">15</span>)</button>
-                <button type="button" onclick="filterLightsticks('girl')" id="filter-btn-girl" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">女團(<span id="count-girl">18</span>)</button>
-                <button type="button" onclick="filterLightsticks('discount')" id="filter-btn-discount" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">優惠價(<span id="count-discount">5</span>)</button>
+            <div class="flex flex-wrap justify-center gap-2 mb-4 sm:mb-6">
+                <button type="button" onclick="filterLightsticks('all')" id="filter-btn-all" class="bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">全部手燈(<span id="count-all">33</span>)</button>
+                <button type="button" onclick="filterLightsticks('boy')" id="filter-btn-boy" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">男團(<span id="count-boy">15</span>)</button>
+                <button type="button" onclick="filterLightsticks('girl')" id="filter-btn-girl" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">女團(<span id="count-girl">18</span>)</button>
+                <button type="button" onclick="filterLightsticks('discount')" id="filter-btn-discount" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">優惠價(<span id="count-discount">5</span>)</button>
             </div>
 
-            <div class="mb-6 flex justify-center">
-                <div class="ios-glass px-6 py-2.5 rounded-full text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm flex items-center gap-2">
+            <div class="mb-4 sm:mb-6 flex justify-center">
+                <div class="ios-glass px-5 py-2 rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm flex items-center gap-2">
                     <span>✨ 點擊任一手燈圖片即可自動代入預約</span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="lightsticks-grid">
+            <!-- 手燈網格：手機顯示 2 欄，平板/電腦顯示 4 欄 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="lightsticks-grid">
+                <!-- 略過重複的手燈卡片結構（與先前相同，保持 33 款手燈完整） -->
                 <!-- aespa -->
-                <div data-name="aespa" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('aespa')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="aespa" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('aespa')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">aespa</div>
-                        <div id="aespa-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">aespa</div>
+                        <div id="aespa-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10">
                             <div id="aespa-track" class="flex w-[200%] h-full transition-transform duration-500 ease-in-out">
                                 <div class="w-1/2 h-full flex items-center justify-center">
-                                    <img src="aespa lightstick ver1.png" alt="aespa手燈 Ver1" class="h-full object-contain scale-[2.0]">
+                                    <img src="aespa lightstick ver1.png" alt="aespa手燈 Ver1" class="h-full object-contain scale-[1.8]">
                                 </div>
                                 <div class="w-1/2 h-full flex items-center justify-center">
-                                    <img src="aespa lightstick ver2.png" alt="aespa手燈 Ver2" class="h-full object-contain scale-[2.0]">
+                                    <img src="aespa lightstick ver2.png" alt="aespa手燈 Ver2" class="h-full object-contain scale-[1.8]">
                                 </div>
                             </div>
-                            <button onclick="event.stopPropagation(); slideAespa(-1);" type="button" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10"><i class="fa-solid fa-chevron-left"></i></button>
-                            <button onclick="event.stopPropagation(); slideAespa(1);" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10"><i class="fa-solid fa-chevron-right"></i></button>
+                            <button onclick="event.stopPropagation(); slideAespa(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button onclick="event.stopPropagation(); slideAespa(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
                     <div>
-                        <div class="text-[10px] text-[#23466B] font-bold mb-1">Ver. 1｜Ver. 2 皆有提供</div>
-                        <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                        <div class="text-[9px] sm:text-[10px] text-[#23466B] font-bold mb-1">Ver. 1｜Ver. 2 皆有提供</div>
+                        <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                     </div>
                 </div>
 
                 <!-- BABYMONSTER -->
-                <div data-name="BABYMONSTER" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('BABYMONSTER')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BABYMONSTER" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('BABYMONSTER')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">BABYMONSTER</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="babymonster lightstick.png" alt="BABYMONSTER手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">BABYMONSTER</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="babymonster lightstick.png" alt="BABYMONSTER手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- BLACKPINK -->
-                <div data-name="BLACKPINK" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('BLACKPINK')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BLACKPINK" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('BLACKPINK')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">BLACKPINK</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">粉錘 Ver. 2</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="blackpink.png" alt="BLACKPINK手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">BLACKPINK</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">粉錘 Ver. 2</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="blackpink.png" alt="BLACKPINK手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- BOYNEXTDOOR -->
-                <div data-name="BOYNEXTDOOR" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('BOYNEXTDOOR')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BOYNEXTDOOR" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('BOYNEXTDOOR')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">BOYNEXTDOOR</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="boynextdoor lightstick.png" alt="BOYNEXTDOOR手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">BOYNEXTDOOR</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="boynextdoor lightstick.png" alt="BOYNEXTDOOR手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- BTS -->
-                <div data-name="BTS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('BTS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BTS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('BTS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">BTS</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">阿米棒 Ver. 4</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="bts lightstick ver4.png" alt="BTS手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">BTS</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">阿米棒 Ver. 4</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="bts lightstick ver4.png" alt="BTS手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- CLOSE YOUR EYES -->
-                <div data-name="CLOSE YOUR EYES" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CLOSE YOUR EYES')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="CLOSE YOUR EYES" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CLOSE YOUR EYES')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">CLOSE YOUR EYES</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="closeyoureyes lightstick.png" alt="CLOSE YOUR EYES手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">CLOSE YOUR EYES</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="closeyoureyes lightstick.png" alt="CLOSE YOUR EYES手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- CNBLUE -->
-                <div data-name="CNBLUE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CNBLUE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="CNBLUE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CNBLUE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">CNBLUE</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="cnblue lightstick.png" alt="CNBLUE手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">CNBLUE</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="cnblue lightstick.png" alt="CNBLUE手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- CORTIS -->
-                <div data-name="CORTIS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CORTIS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="CORTIS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CORTIS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">CORTIS</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="cortis lightstick.png" alt="CORTIS手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">CORTIS</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="cortis lightstick.png" alt="CORTIS手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- EVNNE -->
-                <div data-name="EVNNE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('EVNNE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="EVNNE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('EVNNE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">EVNNE</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="evnne lightstick.png" alt="EVNNE手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">EVNNE</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="evnne lightstick.png" alt="EVNNE手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- EXO -->
-                <div data-name="EXO" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('EXO')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="EXO" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('EXO')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">EXO</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 3</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="exo lightstick ver3.png" alt="EXO手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">EXO</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 3</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="exo lightstick ver3.png" alt="EXO手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- fromis_9 -->
-                <div data-name="fromis_9" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('fromis_9')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="fromis_9" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('fromis_9')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">fromis_9</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="fromis9.png" alt="fromis_9手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">fromis_9</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="fromis9.png" alt="fromis_9手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- FTISLAND -->
-                <div data-name="FTISLAND" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('FTISLAND')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="FTISLAND" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('FTISLAND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">FTISLAND</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="ftisland lightstick.png" alt="FTISLAND手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">FTISLAND</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="ftisland lightstick.png" alt="FTISLAND手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- GFRIEND -->
-                <div data-name="GFRIEND" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('GFRIEND')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="GFRIEND" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('GFRIEND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">GFRIEND</div>
-                        <div id="gfriend-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 3</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">GFRIEND</div>
+                        <div id="gfriend-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 3</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10">
                             <div id="gfriend-track" class="flex w-[200%] h-full transition-transform duration-500 ease-in-out">
                                 <div class="w-1/2 h-full flex items-center justify-center">
-                                    <img src="gfriend lightstick ver3.png" alt="GFRIEND手燈 Ver3" class="h-full object-contain scale-[2.0]">
+                                    <img src="gfriend lightstick ver3.png" alt="GFRIEND手燈 Ver3" class="h-full object-contain scale-[1.8]">
                                 </div>
                                 <div class="w-1/2 h-full flex items-center justify-center">
-                                    <img src="gfriend lightstick japan.png" alt="GFRIEND手燈 Japan" class="h-full object-contain scale-[2.0]">
+                                    <img src="gfriend lightstick japan.png" alt="GFRIEND手燈 Japan" class="h-full object-contain scale-[1.8]">
                                 </div>
                             </div>
-                            <button onclick="event.stopPropagation(); slideGfriend(-1);" type="button" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10"><i class="fa-solid fa-chevron-left"></i></button>
-                            <button onclick="event.stopPropagation(); slideGfriend(1);" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10"><i class="fa-solid fa-chevron-right"></i></button>
+                            <button onclick="event.stopPropagation(); slideGfriend(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button onclick="event.stopPropagation(); slideGfriend(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
                     <div>
-                        <div class="text-[10px] text-[#23466B] font-bold mb-1">Ver. 3｜Japan 皆有提供</div>
-                        <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                        <div class="text-[9px] sm:text-[10px] text-[#23466B] font-bold mb-1">Ver. 3｜Japan 皆有提供</div>
+                        <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                     </div>
                 </div>
 
                 <!-- Girls' Generation -->
-                <div data-name="Girls' Generation" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('Girls\' Generation')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Girls' Generation" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('Girls\' Generation')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">Girls' Generation</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="snsd.png" alt="Girls' Generation手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">Girls' Generation</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="snsd.png" alt="Girls' Generation手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
 
                 <!-- ILLIT -->
-                <div data-name="ILLIT" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('ILLIT')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="ILLIT" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('ILLIT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">ILLIT</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="illit lightstick.png" alt="ILLIT手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">ILLIT</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="illit lightstick.png" alt="ILLIT手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- ITZY -->
-                <div data-name="ITZY" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('ITZY')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="ITZY" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('ITZY')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">ITZY</div>
-                        <div id="itzy-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="itzy lightstick ver2.png" alt="ITZY手燈 Ver2" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">ITZY</div>
+                        <div id="itzy-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="itzy lightstick ver2.png" alt="ITZY手燈 Ver2" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- IVE -->
-                <div data-name="IVE" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('IVE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="IVE" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('IVE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">IVE</div>
-                        <div id="ive-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">IVE</div>
+                        <div id="ive-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10">
                             <div id="ive-track" class="flex w-[200%] h-full transition-transform duration-500 ease-in-out">
                                 <div class="w-1/2 h-full flex items-center justify-center">
-                                    <img src="ive lightstick ver1.png" alt="IVE手燈 Ver1" class="h-full object-contain scale-[2.0]">
+                                    <img src="ive lightstick ver1.png" alt="IVE手燈 Ver1" class="h-full object-contain scale-[1.8]">
                                 </div>
                                 <div class="w-1/2 h-full flex items-center justify-center">
-                                    <img src="ive lightstick ver2.png" alt="IVE手燈 Ver2" class="h-full object-contain scale-[2.0]">
+                                    <img src="ive lightstick ver2.png" alt="IVE手燈 Ver2" class="h-full object-contain scale-[1.8]">
                                 </div>
                             </div>
-                            <button onclick="event.stopPropagation(); slideIve(-1);" type="button" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10"><i class="fa-solid fa-chevron-left"></i></button>
-                            <button onclick="event.stopPropagation(); slideIve(1);" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#23466B] w-7 h-7 rounded-full flex items-center justify-center shadow-md text-xs font-bold transition z-10"><i class="fa-solid fa-chevron-right"></i></button>
+                            <button onclick="event.stopPropagation(); slideIve(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button onclick="event.stopPropagation(); slideIve(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
                     <div>
-                        <div class="text-[10px] text-[#23466B] font-bold mb-1">Ver. 1｜Ver. 2 皆有提供</div>
-                        <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                        <div class="text-[9px] sm:text-[10px] text-[#23466B] font-bold mb-1">Ver. 1｜Ver. 2 皆有提供</div>
+                        <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                     </div>
                 </div>
 
                 <!-- izna -->
-                <div data-name="izna" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('izna')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="izna" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('izna')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">izna</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="izna lightstick.png" alt="izna手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">izna</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="izna lightstick.png" alt="izna手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- Kep1er -->
-                <div data-name="Kep1er" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('Kep1er')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Kep1er" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('Kep1er')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">Kep1er</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="kep1er lightstick ver1.png" alt="Kep1er手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">Kep1er</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="kep1er lightstick ver1.png" alt="Kep1er手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- KISS OF LIFE -->
-                <div data-name="KISS OF LIFE" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('KISS OF LIFE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="KISS OF LIFE" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('KISS OF LIFE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">KISS OF LIFE</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="kissoflife lightstick.png" alt="KISS OF LIFE手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">KISS OF LIFE</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="kissoflife lightstick.png" alt="KISS OF LIFE手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- LE SSERAFIM -->
-                <div data-name="LE SSERAFIM" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('LE SSERAFIM')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="LE SSERAFIM" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('LE SSERAFIM')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">LE SSERAFIM</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="lesserafim lightstick.png" alt="LE SSERAFIM手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">LE SSERAFIM</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="lesserafim lightstick.png" alt="LE SSERAFIM手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- NMIXX -->
-                <div data-name="NMIXX" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('NMIXX')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="NMIXX" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('NMIXX')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">NMIXX</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="nmixx lightstick ver1.png" alt="NMIXX手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">NMIXX</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="nmixx lightstick ver1.png" alt="NMIXX手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
 
                 <!-- Red Velvet -->
-                <div data-name="Red Velvet" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('Red Velvet')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Red Velvet" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('Red Velvet')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">Red Velvet</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="redvelvet lightstick ver1.png" alt="Red Velvet手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">Red Velvet</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="redvelvet lightstick ver1.png" alt="Red Velvet手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- RIIZE -->
-                <div data-name="RIIZE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('RIIZE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="RIIZE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('RIIZE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">RIIZE</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="riize lightstick.png" alt="RIIZE手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">RIIZE</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="riize lightstick.png" alt="RIIZE手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- SEVENTEEN -->
-                <div data-name="SEVENTEEN" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('SEVENTEEN')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="SEVENTEEN" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('SEVENTEEN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">SEVENTEEN</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">十週年克拉棒</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="seventeen lightstick 10th.png" alt="SEVENTEEN手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">SEVENTEEN</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">十週年克拉棒</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="seventeen lightstick 10th.png" alt="SEVENTEEN手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- STAYC -->
-                <div data-name="STAYC" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('STAYC')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="STAYC" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('STAYC')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">STAYC</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="stayc lightstick.png" alt="STAYC手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">STAYC</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="stayc lightstick.png" alt="STAYC手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
 
                 <!-- Stray Kids -->
-                <div data-name="Stray Kids" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('Stray Kids')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Stray Kids" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('Stray Kids')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">Stray Kids</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="straykids lightstick ver2.png" alt="Stray Kids手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">Stray Kids</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="straykids lightstick ver2.png" alt="Stray Kids手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- TREASURE -->
-                <div data-name="TREASURE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TREASURE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TREASURE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TREASURE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">TREASURE</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="treasure lightstick ver2.png" alt="TREASURE手燈 Ver2" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">TREASURE</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="treasure lightstick ver2.png" alt="TREASURE手燈 Ver2" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- tripleS -->
-                <div data-name="tripleS" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('tripleS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="tripleS" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('tripleS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">tripleS</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="triples lightstick.png" alt="tripleS手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">tripleS</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="triples lightstick.png" alt="tripleS手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
 
                 <!-- TWICE -->
-                <div data-name="TWICE" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('TWICE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TWICE" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('TWICE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">TWICE</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 3 糖果棒</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="twice lightstick ver3.png" alt="TWICE手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">TWICE</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 3 糖果棒</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="twice lightstick ver3.png" alt="TWICE手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- TWS -->
-                <div data-name="TWS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TWS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TWS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TWS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">TWS</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="tws lightstick.png" alt="TWS手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">TWS</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="tws lightstick.png" alt="TWS手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- TXT -->
-                <div data-name="TXT" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TXT')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TXT" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TXT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">TXT</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="txt lightstick ver2.png" alt="TXT手燈 Ver2" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">TXT</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="txt lightstick ver2.png" alt="TXT手燈 Ver2" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
                 <!-- WJSN -->
-                <div data-name="WJSN" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('WJSN')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="WJSN" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('WJSN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
-                        <div class="font-black text-[#23466B]">WJSN</div>
-                        <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
-                        <div class="relative w-full h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
-                            <img src="wjsn lightstick.png" alt="WJSN手燈" class="h-full object-contain scale-[2.0]">
+                        <div class="font-black text-xs sm:text-sm text-[#23466B]">WJSN</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
+                        <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
+                            <img src="wjsn lightstick.png" alt="WJSN手燈" class="h-full object-contain scale-[1.8]">
                         </div>
                     </div>
-                    <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
+                    <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
             </div>
         </section>
 
         <!-- 試算與預約表單 -->
-        <section id="order-section" class="ios-glass p-6 sm:p-10 rounded-[32px]">
-            <h2 class="text-2xl font-black text-[#23466B] mb-4 text-center">租金線上試算與預約</h2>
+        <section id="order-section" class="ios-glass p-5 sm:p-10 rounded-[28px] sm:rounded-[32px]">
+            <h2 class="text-xl sm:text-2xl font-black text-[#23466B] mb-4 text-center">租金線上試算與預約</h2>
             
             <!-- 三大模式分頁選擇按鈕 -->
-            <div class="flex flex-wrap justify-center gap-2 mb-8 bg-[#DCEEFF]/50 p-2 rounded-2xl border border-[#23466B]/20">
-                <button type="button" onclick="switchMode('combo')" id="tab-combo" class="tab-btn active text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition text-[#23466B]">
+            <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 bg-[#DCEEFF]/50 p-2 rounded-2xl border border-[#23466B]/20">
+                <button type="button" onclick="switchMode('combo')" id="tab-combo" class="tab-btn active text-[11px] sm:text-sm font-bold px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition text-[#23466B]">
                     📱💡 手機 + 手燈配套
                 </button>
-                <button type="button" onclick="switchMode('phone')" id="tab-phone" class="tab-btn text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition text-[#23466B]">
-                    📱 單租 S24 Ultra 手機
+                <button type="button" onclick="switchMode('phone')" id="tab-phone" class="tab-btn text-[11px] sm:text-sm font-bold px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition text-[#23466B]">
+                    📱 單租手機
                 </button>
-                <button type="button" onclick="switchMode('lightstick')" id="tab-lightstick" class="tab-btn text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition text-[#23466B]">
-                    💡 單租應援手燈
+                <button type="button" onclick="switchMode('lightstick')" id="tab-lightstick" class="tab-btn text-[11px] sm:text-sm font-bold px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition text-[#23466B]">
+                    💡 單租手燈
                 </button>
             </div>
 
-            <form id="bookingForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
+            <form id="bookingForm" class="space-y-5 sm:space-y-6" onsubmit="handleFormSubmit(event)">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-stone-900 mb-1.5" id="start-date-label">租借開始日期</label>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">租借開始日期</label>
                         <input type="date" id="startDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-stone-900 mb-1.5" id="end-date-label">歸還日期</label>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">歸還日期</label>
                         <input type="date" id="endDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                 </div>
 
                 <div id="lightstick-selection" class="space-y-4">
-                    <label class="block text-xs font-bold text-stone-900">選擇欲租借的手燈款式 <span class="text-[11px] font-normal text-[#A94F00] ml-1">📱搭配手機租借，每支手燈自動折抵 100 元！</span></label>
+                    <label class="block text-xs font-bold text-stone-900">選擇欲租借的手燈款式 <span class="text-[11px] font-normal text-[#A94F00] ml-1">📱搭配手機，每支手燈折抵 100 元！</span></label>
                     
                     <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1">
                         <div class="text-[11px] font-bold text-[#23466B]">第一支手燈款式</div>
@@ -720,7 +713,7 @@
                     </select>
                 </div>
 
-                <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 rounded-2xl p-5 text-stone-950 space-y-2.5 font-bold shadow-sm">
+                <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 rounded-2xl p-4 sm:p-5 text-stone-950 space-y-2.5 font-bold shadow-sm">
                     <div class="flex justify-between text-xs" id="row-days">
                         <span>手機租借天數：</span>
                         <span id="rentalDays" class="font-black text-[#23466B]">0 天</span>
@@ -737,15 +730,15 @@
 
                 <div class="space-y-4 pt-2">
                     <div id="name-field-container">
-                        <label class="block text-xs font-bold text-stone-900 mb-1.5" id="nameLabel">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">租手機者必填，單租手燈免填</span></label>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">租手機者必填</span></label>
                         <input type="text" id="custName" placeholder="例：金傑尼" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Instagram / Threads <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">多留一個方式避免找不到人或沒看到訊息</span></label>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">Instagram / Threads <span class="text-red-600">*</span></label>
                         <input type="text" id="socialId" required placeholder="例：rayeonzz" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-stone-900 mb-1.5">LINE ID <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1 font-normal">小本租借無官方LINE •́‸ก</span></label>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">LINE ID <span class="text-red-600">*</span></label>
                         <input type="text" id="lineId" required placeholder="請輸入您的 LINE ID" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                     <div>
@@ -761,15 +754,15 @@
         </section>
 
         <!-- 聯絡資訊區塊 -->
-        <section id="contact-section" class="ios-glass p-6 sm:p-8 rounded-[32px] space-y-4">
-            <h2 class="text-xl font-black mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📞 聯絡資訊</h2>
+        <section id="contact-section" class="ios-glass p-5 sm:p-8 rounded-[28px] sm:rounded-[32px] space-y-4">
+            <h2 class="text-lg sm:text-xl font-black mb-3 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📞 聯絡資訊</h2>
             <p class="text-xs sm:text-sm text-stone-900 font-bold">如果您有任何租借檔期、面交細節或其他疑問，歡迎透過以下方式直接聯繫我：</p>
-            <div class="flex flex-wrap gap-4 pt-2">
-                <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" class="flex items-center gap-2.5 bg-[#06C755] hover:bg-[#05b34c] text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
-                    <img src="lineicon.PNG" alt="LINE" class="w-6 h-6 object-contain"> 加入 LINE 好友
+            <div class="flex flex-wrap gap-3 pt-2">
+                <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" class="flex items-center gap-2.5 bg-[#06C755] text-white px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
+                    <img src="lineicon.PNG" alt="LINE" class="w-5 h-5 sm:w-6 sm:h-6 object-contain"> 加入 LINE 好友
                 </a>
-                <a href="https://www.threads.com/@rayeonzz?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="flex items-center gap-2.5 bg-stone-900 hover:bg-stone-800 text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
-                    <img src="threadsicon.PNG" alt="Threads" class="w-6 h-6 object-contain"> Threads 主頁
+                <a href="https://www.threads.com/@rayeonzz?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="flex items-center gap-2.5 bg-stone-900 text-white px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
+                    <img src="threadsicon.PNG" alt="Threads" class="w-5 h-5 sm:w-6 sm:h-6 object-contain"> Threads 主頁
                 </a>
             </div>
         </section>
@@ -916,14 +909,14 @@
 
             const allBtns = [btnAll, btnBoy, btnGirl, btnDiscount];
             allBtns.forEach(btn => {
-                btn.className = "bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition";
+                btn.className = "bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition";
             });
 
             if (type === 'all') {
-                btnAll.className = "bg-[#23466B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm transition";
+                btnAll.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition";
                 cards.forEach(card => card.style.display = 'flex');
             } else if (type === 'boy') {
-                btnBoy.className = "bg-[#23466B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm transition";
+                btnBoy.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition";
                 cards.forEach(card => {
                     if (card.getAttribute('data-group') === 'boy') {
                         card.style.display = 'flex';
@@ -932,7 +925,7 @@
                     }
                 });
             } else if (type === 'girl') {
-                btnGirl.className = "bg-[#23466B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm transition";
+                btnGirl.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition";
                 cards.forEach(card => {
                     if (card.getAttribute('data-group') === 'girl') {
                         card.style.display = 'flex';
@@ -941,7 +934,7 @@
                     }
                 });
             } else if (type === 'discount') {
-                btnDiscount.className = "bg-[#23466B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm transition";
+                btnDiscount.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition";
                 cards.forEach(card => {
                     const price = parseInt(card.getAttribute('data-price'));
                     if (price === 300) {
@@ -1008,7 +1001,7 @@
             const container = document.getElementById('phone-rented-banners');
             if (container) {
                 const banner = document.createElement('div');
-                banner.className = 'w-auto inline-block bg-red-600/80 backdrop-blur-md text-white text-[11px] py-1 px-3 rounded-full font-black shadow-md text-center tracking-wider';
+                banner.className = 'w-auto inline-block bg-red-600/90 backdrop-blur-md text-white text-[11px] py-1 px-3 rounded-full font-black shadow-md text-center tracking-wider';
                 banner.innerText = text;
                 container.appendChild(banner);
             }
@@ -1021,10 +1014,10 @@
                     let badge = card.querySelector('.rented-badge');
                     if (!badge) {
                         badge = document.createElement('div');
-                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 transition-opacity duration-300 group-hover:opacity-15';
+                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 transition-opacity duration-300 group-hover:opacity-15';
                         badge.innerHTML = `
                             <span class="bg-red-600 text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider">已出租</span>
-                            <span class="text-[11px] text-stone-100 drop-shadow leading-tight">租借日：${dateRangeText.split(' ~ ')[0]}<br>歸還日：${dateRangeText.split(' ~ ')[1]}</span>
+                            <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">租借日：${dateRangeText.split(' ~ ')[0]}<br>歸還日：${dateRangeText.split(' ~ ')[1]}</span>
                         `;
                         card.appendChild(badge);
                     }
