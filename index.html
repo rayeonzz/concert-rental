@@ -754,12 +754,10 @@
 
         let allOrders = []; 
 
-        // 強制轉換為 2026/10/30 格式的專用函式
         function formatDateToFriendly(dateStr) {
             if (!dateStr) return '';
             let clean = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
             clean = clean.trim();
-            // 如果格式是 yyyy-mm-dd 或 yyyy/mm/dd，直接轉斜線
             if (clean.length >= 10) {
                 let parts = clean.split(/[-/]/);
                 if (parts.length === 3) {
@@ -842,11 +840,21 @@
                 .then(response => response.json()) 
                 .then(data => { 
                     if (data.result === 'success' && data.orders) { 
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+
+                        // 自動過濾掉歸還日期已經過期的訂單，並且只保留包含有效日期的訂單
                         allOrders = data.orders.map(o => ({ 
                             start: o.start ? String(o.start).replace(/\//g, '-').substring(0, 10) : '', 
                             end: o.end ? String(o.end).replace(/\//g, '-').substring(0, 10) : '', 
                             item: o.item || '' 
-                        })); 
+                        })).filter(o => {
+                            if (!o.end) return false;
+                            const endDateObj = new Date(o.end);
+                            endDateObj.setHours(0, 0, 0, 0);
+                            return endDateObj >= today; // 只有當歸還日大於或等於今天，才視為有效出租中！
+                        }); 
+
                         renderRentedStatus(); 
                     } 
                 }) 
@@ -867,9 +875,38 @@
                     if (order.item.includes('S24 Ultra') || order.item.includes('手機')) { 
                         addPhoneRentedBanner(cleanStart, cleanEnd); 
                     } 
+                    
+                    // 智慧精準辨識：針對有多版本的手燈（如 aespa ver2, gfriend japan 等），只鎖定被租走的特定版本！
                     lightstickList.forEach(item => { 
                         if (order.item.includes(item.name)) { 
-                            markAsRented(item.name, cleanStart, cleanEnd); 
+                            // 檢查是否包含特定版本字眼
+                            if (item.name === 'aespa') {
+                                if (order.item.includes('ver2') || order.item.includes('Ver. 2')) {
+                                    markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
+                                } else if (order.item.includes('ver1') || order.item.includes('Ver. 1')) {
+                                    markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd);
+                                } else {
+                                    markAsRented(item.name, cleanStart, cleanEnd); // 若沒寫版本則全鎖
+                                }
+                            } else if (item.name === 'GFRIEND') {
+                                if (order.item.includes('japan') || order.item.includes('Japan')) {
+                                    markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd);
+                                } else if (order.item.includes('ver3') || order.item.includes('Ver. 3')) {
+                                    markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd);
+                                } else {
+                                    markAsRented(item.name, cleanStart, cleanEnd);
+                                }
+                            } else if (item.name === 'IVE') {
+                                if (order.item.includes('ver2') || order.item.includes('Ver. 2')) {
+                                    markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd);
+                                } else if (order.item.includes('ver1') || order.item.includes('Ver. 1')) {
+                                    markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd);
+                                } else {
+                                    markAsRented(item.name, cleanStart, cleanEnd);
+                                }
+                            } else {
+                                markAsRented(item.name, cleanStart, cleanEnd); 
+                            }
                         } 
                     }); 
                 } 
@@ -907,6 +944,30 @@
                 } 
             }); 
         } 
+
+        // 針對多版本手燈（如 aespa ver2），只提示特定版本已被租走
+        function markSpecificVersionRented(lightstickName, versionName, startDate, endDate) {
+            const cards = document.querySelectorAll('#lightsticks-grid > div'); 
+            cards.forEach(card => { 
+                if (card.getAttribute('data-name') === lightstickName) { 
+                    const versionTextEl = card.querySelector(`#${lightstickName.toLowerCase()}-version-text`) || card.querySelector('.text-[11px].text-stone-700');
+                    // 如果目前輪播正好在被租走的那個版本，才加上已出租遮罩
+                    const friendlyStart = formatDateToFriendly(startDate);
+                    const friendlyEnd = formatDateToFriendly(endDate);
+                    
+                    let badge = card.querySelector(`.rented-badge-${versionName.replace(/[\s.]/g, '')}`);
+                    if (!badge) {
+                        badge = document.createElement('div'); 
+                        badge.className = `rented-badge rented-badge-${versionName.replace(/[\s.]/g, '')} absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2`; 
+                        badge.innerHTML = ` 
+                            <span class="bg-red-600/80 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> ${versionName} 已出租</span> 
+                            <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">${friendlyStart} ~ ${friendlyEnd}</span> 
+                        `; 
+                        card.appendChild(badge); 
+                    }
+                } 
+            });
+        }
 
         function isDateOverlap(start1, end1, start2, end2) { 
             return (start1 <= end2) && (end1 >= start2); 
@@ -1363,7 +1424,7 @@
             } 
         } 
         function clearOrders() { 
-            if (confirm('確定要清空所有預約單資料嗎？')) { 
+            if (confirm('確定要清空所有版本與訂單資料嗎？')) { 
                 localStorage.removeItem('rayeonzz_orders'); 
                 loadOrders(); 
             } 
