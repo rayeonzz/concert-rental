@@ -754,10 +754,18 @@
 
         let allOrders = []; 
 
-        // 日期格式化：完美顯示為 2026/10/30 格式
+        // 強制轉換為 2026/10/30 格式的專用函式
         function formatDateToFriendly(dateStr) {
             if (!dateStr) return '';
             let clean = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+            clean = clean.trim();
+            // 如果格式是 yyyy-mm-dd 或 yyyy/mm/dd，直接轉斜線
+            if (clean.length >= 10) {
+                let parts = clean.split(/[-/]/);
+                if (parts.length === 3) {
+                    return `${parts[0]}/${parts[1]}/${parts[2]}`;
+                }
+            }
             return clean.replace(/-/g, '/'); 
         }
 
