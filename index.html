@@ -1124,7 +1124,7 @@
             }
         }
 
-     function handleFormSubmit(event) {
+    function handleFormSubmit(event) {
             event.preventDefault();
             const start = document.getElementById('startDate').value;
             const end = document.getElementById('endDate').value;
@@ -1181,28 +1181,47 @@
             existingOrders.push(newOrder);
             localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
 
-            // 2. 傳送到 Google 試算表
+            // 2. 利用隱藏 iframe 以 form 提交方式傳送到 Google 試算表（完美避開 CORS 阻擋）
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxZICxPN75deJlCiwu8jg5zaMM70cCuycWzCpbK-UmRGZz7lcvs01OQwbopQke8XZs/exec';
             
-            const formData = new URLSearchParams();
-            formData.append('mode', modeTitle);
-            formData.append('start', start || '未填');
-            formData.append('end', end || '未填');
-            formData.append('item', itemDesc);
-            formData.append('name', name);
-            formData.append('social', social);
-            formData.append('line', line);
-            formData.append('total', total);
-            formData.append('deposit', deposit);
-            formData.append('remarks', remarks);
+            let iframe = document.getElementById('hidden_iframe');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.name = 'hidden_iframe';
+                iframe.id = 'hidden_iframe';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+            }
 
-            fetch(scriptURL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => console.log('成功寫入試算表：', data))
-            .catch(error => console.error('寫入試算表失敗：', error));
+            const form = document.createElement('form');
+            form.action = scriptURL;
+            form.method = 'POST';
+            form.target = 'hidden_iframe';
+
+            const payload = {
+                mode: modeTitle,
+                start: start || '未填',
+                end: end || '未填',
+                item: itemDesc,
+                name: name,
+                social: social,
+                line: line,
+                total: total,
+                deposit: deposit,
+                remarks: remarks
+            };
+
+            for (const key in payload) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = payload[key];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
 
             // 3. 複製明細並跳轉 LINE
             const message = `【 rayeonzz 演唱會租借預約單 】\n` +
