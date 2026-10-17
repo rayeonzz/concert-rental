@@ -753,7 +753,6 @@
 
         let allOrders = []; 
 
-        // 轉換為 YYYY/MM/DD 中文格式供前端顯示
         function cleanDateStr(dateStr) { 
             if (!dateStr) return ''; 
             let clean = dateStr; 
@@ -841,19 +840,16 @@
                 .catch(err => console.log('檢查檔期失敗：', err)); 
         } 
 
-        // 只要有預約就直接顯示，不限今天是否在檔期內
         function renderRentedStatus() { 
             const phoneBannersContainer = document.getElementById('phone-rented-banners'); 
             if (phoneBannersContainer) phoneBannersContainer.innerHTML = ''; 
             
-            // 清除舊有的已出租標籤與手機Banner
             document.querySelectorAll('.rented-badge').forEach(el => el.remove()); 
 
             allOrders.forEach(order => { 
                 if (order.start && order.end) { 
                     const cleanStart = cleanDateStr(order.start); 
                     const cleanEnd = cleanDateStr(order.end); 
-                    const rangeText = `${cleanStart} ~ ${cleanEnd} 已出租`; 
                     
                     if (order.item.includes('S24 Ultra') || order.item.includes('手機')) { 
                         addPhoneRentedBanner(cleanStart, cleanEnd); 
@@ -867,7 +863,6 @@
             }); 
         } 
 
-        // 使用指定打叉叉 Icon，不使用 Emoji
         function addPhoneRentedBanner(startDate, endDate) { 
             const container = document.getElementById('phone-rented-banners'); 
             if (container) { 
@@ -878,7 +873,6 @@
             } 
         } 
 
-        // 手燈已出租標籤顯示格式
         function markAsRented(lightstickName, startDate, endDate) { 
             const cards = document.querySelectorAll('#lightsticks-grid > div'); 
             cards.forEach(card => { 
@@ -901,12 +895,22 @@
             return (start1 <= end2) && (end1 >= start2); 
         } 
 
-        // 初始化設定起始日最小值為今天，並處理日期限制
+        // 初始化設定手機與電腦的日期上下限
         window.addEventListener('DOMContentLoaded', () => { 
-            const todayStr = new Date().toISOString().split('T')[0]; 
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${year}-${month}-${day}`;
+
             const startInput = document.getElementById('startDate'); 
             const endInput = document.getElementById('endDate'); 
-            startInput.min = todayStr; // 開始日期不能小於今天
+            
+            // 強制設定手機與電腦的 min 限制
+            startInput.setAttribute('min', todayStr); 
+            startInput.value = todayStr; // 預設帶入今天，方便手機操作
+            endInput.setAttribute('min', todayStr);
+            endInput.value = todayStr;
 
             const urlParams = new URLSearchParams(window.location.search); 
             if (urlParams.has('rayeonzz1124')) { 
@@ -919,20 +923,33 @@
         }); 
 
         function onDateChange() { 
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${year}-${month}-${day}`;
+
             const startInput = document.getElementById('startDate'); 
             const endInput = document.getElementById('endDate'); 
             const startVal = startInput.value; 
             const endVal = endInput.value; 
 
+            // 防呆：若開始日期小於今天，強制修正為今天
+            if (startVal && startVal < todayStr) {
+                alert('⚠️ 租借開始日期不得早於今天！');
+                startInput.value = todayStr;
+                return;
+            }
+
             // 設定歸還日期的最小限制不能早於開始日期
             if (startVal) { 
-                endInput.min = startVal; 
+                endInput.setAttribute('min', startVal); 
             } 
 
             // 邏輯檢查：歸還日期不能早於開始日期
             if (startVal && endVal && endVal < startVal) { 
                 alert('⚠️ 歸還日期不得早於租借開始日期！請重新選擇。'); 
-                endInput.value = ''; 
+                endInput.value = startVal; 
                 return; 
             } 
 
@@ -1157,12 +1174,25 @@
 
         function handleFormSubmit(event) { 
             event.preventDefault(); 
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${year}-${month}-${day}`;
+
             const start = document.getElementById('startDate').value; 
             const end = document.getElementById('endDate').value; 
+
+            // 手機端點擊送出時的強制安全防呆檢查
+            if (start < todayStr) {
+                alert('⚠️ 預約失敗：租借開始日期不得早於今天！');
+                return;
+            }
             if (end < start) { 
                 alert('⚠️ 歸還日期不得早於租借開始日期！'); 
                 return; 
             } 
+
             if (start && end) { 
                 const selectedSticks = []; 
                 const ls1 = document.getElementById('selectedLightstick1'); 
