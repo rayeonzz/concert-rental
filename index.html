@@ -1213,16 +1213,12 @@
 
         function checkAdminPass() {
             const pass = document.getElementById('adminPassword').value;
-            const encodedCorrectPass = 'OTExMTE0ZnJhbms='; // 密碼 911124frank
-            try {
-                if (btoa(pass) === encodedCorrectPass) {
-                    document.getElementById('adminAuth').classList.add('hidden');
-                    document.getElementById('adminContent').classList.remove('hidden');
-                    loadOrders();
-                } else {
-                    alert('密碼錯誤！');
-                }
-            } catch (e) {
+            // 直接比對明文密碼，避免 btoa 編碼在不同瀏覽器或環境下跑版
+            if (pass === '911124frank') {
+                document.getElementById('adminAuth').classList.add('hidden');
+                document.getElementById('adminContent').classList.remove('hidden');
+                loadOrders();
+            } else {
                 alert('密碼錯誤！');
             }
         }
