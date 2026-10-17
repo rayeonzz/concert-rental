@@ -62,24 +62,37 @@
             box-shadow: 0 4px 12px rgba(35, 70, 107, 0.25);
         }
         section[id] {
-            scroll-margin-top: 80px;
+            scroll-margin-top: 90px;
         }
     </style>
 </head>
 <body class="text-stone-950 min-h-screen flex flex-col selection:bg-[#A94F00] selection:text-white">
 
-    <!-- 導覽列 -->
+    <!-- 導覽列 (修復左側對齊與加入右上角漢堡選單) -->
     <header class="sticky top-0 z-50 ios-header shadow-sm">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2.5">
                 <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#23466B] to-[#3a6d9e]">rayeonzz</span>
-                <span class="text-xs bg-[#DCEEFF] text-[#23466B] font-bold px-3 py-1 rounded-full border border-[#23466B]/20">演唱會租借</span>
+                <span class="text-xs bg-[#DCEEFF] text-[#23466B] font-bold px-3 py-1 rounded-full border border-[#23466B]/20 leading-none flex items-center">演唱會租借</span>
             </div>
+            
             <div class="flex items-center gap-3">
-                <a href="#order-section" class="bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-4 py-2 rounded-2xl transition shadow-lg shadow-[#23466B]/20 active:scale-95">
+                <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-4 py-2 rounded-2xl transition shadow-lg shadow-[#23466B]/20 active:scale-95">
                     立即試算預約
                 </a>
+                <!-- 漢堡選單按鈕 -->
+                <button onclick="toggleMobileMenu()" aria-label="導覽選單" class="w-10 h-10 rounded-2xl bg-white/80 border border-[#23466B]/20 text-[#23466B] flex items-center justify-center text-base shadow-sm hover:bg-[#23466B] hover:text-white transition">
+                    <i class="fa-solid fa-bars" id="menuIcon"></i>
+                </button>
             </div>
+        </div>
+
+        <!-- 下拉展開式導覽清單 -->
+        <div id="mobileMenuDropdown" class="hidden ios-header border-t border-[#23466B]/10 px-4 py-3 space-y-2 text-xs font-bold shadow-xl transition-all">
+            <a href="#phone-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📱 手機租借</a>
+            <a href="#lightstick-section-view" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">💡 手燈租借</a>
+            <a href="#order-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">🧮 租金試算與預約</a>
+            <a href="#contact-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📞 聯絡資訊</a>
         </div>
     </header>
 
@@ -103,20 +116,24 @@
         </div>
     </section>
 
-    <!-- 獨立四格跳轉選單 -->
+    <!-- 獨立四格跳轉選單（加上灰字說明） -->
     <div class="max-w-3xl mx-auto px-4 pb-6 w-full">
         <div class="ios-glass p-4 rounded-[28px] grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-            <a href="#phone-section" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                <i class="fa-solid fa-mobile-screen text-base"></i> 手機租借
+            <a href="#phone-section" class="flex flex-col items-center justify-center gap-1 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm group">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-mobile-screen text-base"></i> 手機租借</span>
+                <span class="text-[10px] text-stone-700 group-hover:text-stone-200 font-normal">點擊項目快速查閱</span>
             </a>
-            <a href="#lightstick-section-view" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                <i class="fa-solid fa-wand-magic-sparkles text-base"></i> 手燈租借
+            <a href="#lightstick-section-view" class="flex flex-col items-center justify-center gap-1 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm group">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles text-base"></i> 手燈租借</span>
+                <span class="text-[10px] text-stone-700 group-hover:text-stone-200 font-normal">點擊項目快速查閱</span>
             </a>
-            <a href="#order-section" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                <i class="fa-solid fa-calculator text-base"></i> 租金試算與預約
+            <a href="#order-section" class="flex flex-col items-center justify-center gap-1 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm group">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-calculator text-base"></i> 租金試算</span>
+                <span class="text-[10px] text-stone-700 group-hover:text-stone-200 font-normal">點擊項目快速查閱</span>
             </a>
-            <a href="#contact-section" class="flex flex-col items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm">
-                <i class="fa-solid fa-address-book text-base"></i> 聯絡資訊
+            <a href="#contact-section" class="flex flex-col items-center justify-center gap-1 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-3 rounded-2xl text-xs font-bold transition shadow-sm group">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-address-book text-base"></i> 聯絡資訊</span>
+                <span class="text-[10px] text-stone-700 group-hover:text-stone-200 font-normal">點擊項目快速查閱</span>
             </a>
         </div>
     </div>
@@ -128,8 +145,10 @@
         <section id="phone-section">
             <h2 class="text-xl font-black mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📱 手機租借</h2>
             <div id="phone-section-card" class="ios-glass rounded-[32px] p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
-                <div class="w-full md:w-1/3 text-center">
+                <div class="w-full md:w-1/3 text-center space-y-2">
                     <img src="galaxy s24u.jpg" alt="S24 Ultra" class="rounded-2xl mx-auto object-cover h-48 w-full shadow-md border border-white/80">
+                    <!-- 手機多時段已出租 Banner 放置於圖片下方，往下整齊排列 -->
+                    <div id="phone-rented-banners" class="space-y-1.5 w-full"></div>
                 </div>
                 <div class="w-full md:w-2/3 space-y-3">
                     <div class="flex flex-wrap justify-between items-baseline pb-2 border-b border-[#23466B]/15 gap-2">
@@ -145,7 +164,7 @@
                     <div class="text-xs sm:text-sm text-stone-900 leading-relaxed font-bold pt-1 space-y-1">
                         <p>演唱會錄影推薦！</p>
                         <p>100 倍超高倍變焦、4K 120fps 高畫質攝影，遠距離也能清晰捕捉愛豆對視瞬間。</p>
-                        <p class="text-[#23466B]">附贈配件組：保護殼、保護貼、充電線、快充頭與手機保護外盒。</p>
+                        <p class="text-[#23466B]">附贈配件組：保護殼, 保護貼, 充電線, 快充頭與手機保護外盒。</p>
                         <p class="text-stone-900">💡 <b>租期說明：</b>10/23 租借、10/24 歸還為 1 天 ，即租金 NT $550。</p>
                     </div>
                     <div class="bg-[#DCEEFF]/70 border border-[#23466B]/20 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold shadow-sm mt-3">
@@ -177,7 +196,7 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="lightsticks-grid">
                 <!-- aespa -->
-                <div data-name="aespa" onclick="selectLightstick('aespa')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="aespa" onclick="selectLightstick('aespa')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">aespa</div>
                         <div id="aespa-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
@@ -201,7 +220,7 @@
                 </div>
 
                 <!-- BABYMONSTER -->
-                <div data-name="BABYMONSTER" onclick="selectLightstick('BABYMONSTER')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="BABYMONSTER" onclick="selectLightstick('BABYMONSTER')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">BABYMONSTER</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -213,7 +232,7 @@
                 </div>
 
                 <!-- BLACKPINK -->
-                <div data-name="BLACKPINK" onclick="selectLightstick('BLACKPINK')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="BLACKPINK" onclick="selectLightstick('BLACKPINK')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">BLACKPINK</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">粉錘 Ver. 2</div>
@@ -225,7 +244,7 @@
                 </div>
 
                 <!-- BOYNEXTDOOR -->
-                <div data-name="BOYNEXTDOOR" onclick="selectLightstick('BOYNEXTDOOR')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="BOYNEXTDOOR" onclick="selectLightstick('BOYNEXTDOOR')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">BOYNEXTDOOR</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -237,7 +256,7 @@
                 </div>
 
                 <!-- BTS -->
-                <div data-name="BTS" onclick="selectLightstick('BTS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="BTS" onclick="selectLightstick('BTS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">BTS</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">阿米棒 Ver. 4</div>
@@ -249,7 +268,7 @@
                 </div>
 
                 <!-- CLOSE YOUR EYES -->
-                <div data-name="CLOSE YOUR EYES" onclick="selectLightstick('CLOSE YOUR EYES')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="CLOSE YOUR EYES" onclick="selectLightstick('CLOSE YOUR EYES')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">CLOSE YOUR EYES</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -261,7 +280,7 @@
                 </div>
 
                 <!-- CNBLUE -->
-                <div data-name="CNBLUE" onclick="selectLightstick('CNBLUE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="CNBLUE" onclick="selectLightstick('CNBLUE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">CNBLUE</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -273,7 +292,7 @@
                 </div>
 
                 <!-- CORTIS -->
-                <div data-name="CORTIS" onclick="selectLightstick('CORTIS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="CORTIS" onclick="selectLightstick('CORTIS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">CORTIS</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -285,7 +304,7 @@
                 </div>
 
                 <!-- EVNNE -->
-                <div data-name="EVNNE" onclick="selectLightstick('EVNNE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="EVNNE" onclick="selectLightstick('EVNNE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">EVNNE</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
@@ -297,7 +316,7 @@
                 </div>
 
                 <!-- EXO -->
-                <div data-name="EXO" onclick="selectLightstick('EXO')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="EXO" onclick="selectLightstick('EXO')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">EXO</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 3</div>
@@ -309,7 +328,7 @@
                 </div>
 
                 <!-- fromis_9 -->
-                <div data-name="fromis_9" onclick="selectLightstick('fromis_9')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="fromis_9" onclick="selectLightstick('fromis_9')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">fromis_9</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
@@ -321,7 +340,7 @@
                 </div>
 
                 <!-- FTISLAND -->
-                <div data-name="FTISLAND" onclick="selectLightstick('FTISLAND')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="FTISLAND" onclick="selectLightstick('FTISLAND')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">FTISLAND</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -333,7 +352,7 @@
                 </div>
 
                 <!-- GFRIEND -->
-                <div data-name="GFRIEND" onclick="selectLightstick('GFRIEND')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="GFRIEND" onclick="selectLightstick('GFRIEND')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">GFRIEND</div>
                         <div id="gfriend-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 3</div>
@@ -357,7 +376,7 @@
                 </div>
 
                 <!-- Girls' Generation -->
-                <div data-name="Girls' Generation" onclick="selectLightstick('Girls\' Generation')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="Girls' Generation" onclick="selectLightstick('Girls\' Generation')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">Girls' Generation</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -369,7 +388,7 @@
                 </div>
 
                 <!-- ILLIT -->
-                <div data-name="ILLIT" onclick="selectLightstick('ILLIT')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="ILLIT" onclick="selectLightstick('ILLIT')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">ILLIT</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -381,7 +400,7 @@
                 </div>
 
                 <!-- ITZY -->
-                <div data-name="ITZY" onclick="selectLightstick('ITZY')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="ITZY" onclick="selectLightstick('ITZY')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">ITZY</div>
                         <div id="itzy-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
@@ -393,7 +412,7 @@
                 </div>
 
                 <!-- IVE -->
-                <div data-name="IVE" onclick="selectLightstick('IVE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="IVE" onclick="selectLightstick('IVE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">IVE</div>
                         <div id="ive-version-text" class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
@@ -417,7 +436,7 @@
                 </div>
 
                 <!-- izna -->
-                <div data-name="izna" onclick="selectLightstick('izna')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="izna" onclick="selectLightstick('izna')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">izna</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -429,7 +448,7 @@
                 </div>
 
                 <!-- Kep1er -->
-                <div data-name="Kep1er" onclick="selectLightstick('Kep1er')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="Kep1er" onclick="selectLightstick('Kep1er')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">Kep1er</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
@@ -441,7 +460,7 @@
                 </div>
 
                 <!-- KISS OF LIFE -->
-                <div data-name="KISS OF LIFE" onclick="selectLightstick('KISS OF LIFE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="KISS OF LIFE" onclick="selectLightstick('KISS OF LIFE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">KISS OF LIFE</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -453,7 +472,7 @@
                 </div>
 
                 <!-- LE SSERAFIM -->
-                <div data-name="LE SSERAFIM" onclick="selectLightstick('LE SSERAFIM')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="LE SSERAFIM" onclick="selectLightstick('LE SSERAFIM')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">LE SSERAFIM</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -465,7 +484,7 @@
                 </div>
 
                 <!-- NMIXX -->
-                <div data-name="NMIXX" onclick="selectLightstick('NMIXX')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="NMIXX" onclick="selectLightstick('NMIXX')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">NMIXX</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
@@ -477,7 +496,7 @@
                 </div>
 
                 <!-- Red Velvet -->
-                <div data-name="Red Velvet" onclick="selectLightstick('Red Velvet')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="Red Velvet" onclick="selectLightstick('Red Velvet')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">Red Velvet</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 1</div>
@@ -489,7 +508,7 @@
                 </div>
 
                 <!-- RIIZE -->
-                <div data-name="RIIZE" onclick="selectLightstick('RIIZE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="RIIZE" onclick="selectLightstick('RIIZE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">RIIZE</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -501,7 +520,7 @@
                 </div>
 
                 <!-- SEVENTEEN -->
-                <div data-name="SEVENTEEN" onclick="selectLightstick('SEVENTEEN')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="SEVENTEEN" onclick="selectLightstick('SEVENTEEN')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">SEVENTEEN</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">十週年克拉棒</div>
@@ -513,7 +532,7 @@
                 </div>
 
                 <!-- STAYC -->
-                <div data-name="STAYC" onclick="selectLightstick('STAYC')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="STAYC" onclick="selectLightstick('STAYC')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">STAYC</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -525,7 +544,7 @@
                 </div>
 
                 <!-- Stray Kids -->
-                <div data-name="Stray Kids" onclick="selectLightstick('Stray Kids')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="Stray Kids" onclick="selectLightstick('Stray Kids')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">Stray Kids</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
@@ -537,7 +556,7 @@
                 </div>
 
                 <!-- TREASURE -->
-                <div data-name="TREASURE" onclick="selectLightstick('TREASURE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="TREASURE" onclick="selectLightstick('TREASURE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">TREASURE</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
@@ -549,7 +568,7 @@
                 </div>
 
                 <!-- tripleS -->
-                <div data-name="tripleS" onclick="selectLightstick('tripleS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="tripleS" onclick="selectLightstick('tripleS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">tripleS</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -561,7 +580,7 @@
                 </div>
 
                 <!-- TWICE -->
-                <div data-name="TWICE" onclick="selectLightstick('TWICE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="TWICE" onclick="selectLightstick('TWICE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">TWICE</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 3 糖果棒</div>
@@ -573,7 +592,7 @@
                 </div>
 
                 <!-- TWS -->
-                <div data-name="TWS" onclick="selectLightstick('TWS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="TWS" onclick="selectLightstick('TWS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">TWS</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">官方手燈</div>
@@ -585,7 +604,7 @@
                 </div>
 
                 <!-- TXT -->
-                <div data-name="TXT" onclick="selectLightstick('TXT')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="TXT" onclick="selectLightstick('TXT')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">TXT</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
@@ -597,7 +616,7 @@
                 </div>
 
                 <!-- WJSN -->
-                <div data-name="WJSN" onclick="selectLightstick('WJSN')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden">
+                <div data-name="WJSN" onclick="selectLightstick('WJSN')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">WJSN</div>
                         <div class="text-xs text-stone-700 mb-2 font-bold">Ver. 2</div>
@@ -749,7 +768,7 @@
         </a>
     </div>
 
-    <!-- 管理員登入 Modal (更人性化、支援分類檢視與單筆刪除) -->
+    <!-- 管理員登入 Modal -->
     <div id="adminModal" class="fixed inset-0 bg-[#23466B]/40 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="ios-glass rounded-[32px] max-w-3xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto font-bold">
             <div class="flex justify-between items-center border-b border-[#23466B]/20 pb-4">
@@ -762,7 +781,6 @@
                 <button onclick="checkAdminPass()" class="w-full bg-[#23466B] text-white font-black py-3 rounded-2xl text-sm hover:bg-[#1a3552] transition shadow-md">登入後台</button>
             </div>
             <div id="adminContent" class="hidden space-y-4">
-                <!-- 後台頂部控制列：分類、搜尋、清除 -->
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-[#DCEEFF]/70 p-4 rounded-2xl text-xs border border-[#23466B]/20">
                     <div class="flex items-center gap-2">
                         <span class="text-stone-900 font-black">篩選分類：</span>
@@ -783,7 +801,6 @@
                     <span>符合條件的預約單：<b id="orderCount" class="text-[#23466B] font-black">0</b> 筆</span>
                 </div>
 
-                <!-- 訂單列表 -->
                 <div id="orderList" class="space-y-3 max-h-72 overflow-y-auto text-xs font-bold pr-1">
                 </div>
             </div>
@@ -848,6 +865,18 @@
             return dateStr.split('T')[0].replace(/-/g, '/');
         }
 
+        // 漢堡選單切換開合
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenuDropdown');
+            const icon = document.getElementById('menuIcon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = "fa-solid fa-bars";
+            } else {
+                icon.className = "fa-solid fa-xmark";
+            }
+        }
+
         function fetchRentedStatus() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             fetch(scriptURL)
@@ -867,60 +896,52 @@
 
         function checkCurrentStatusToday() {
             const today = new Date().toISOString().split('T')[0];
+            const phoneBannersContainer = document.getElementById('phone-rented-banners');
+            if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
+
             allOrders.forEach(order => {
                 if (order.start && order.end && today >= order.start && today <= order.end) {
                     const cleanStart = cleanDateStr(order.start);
                     const cleanEnd = cleanDateStr(order.end);
-                    const rangeText = `${cleanStart} ~ ${cleanEnd}`;
+                    const rangeText = `${cleanStart} ~ ${cleanEnd} 已出租`;
 
                     if (order.item.includes('S24 Ultra') || order.item.includes('手機')) {
-                        markPhoneAsRented(rangeText);
+                        addPhoneRentedBanner(rangeText);
                     }
                     lightstickList.forEach(item => {
                         if (order.item.includes(item.name)) {
-                            markAsRented(item.name, rangeText);
+                            markAsRented(item.name, `${cleanStart} ~ ${cleanEnd}`);
                         }
                     });
                 }
             });
         }
 
-        function markPhoneAsRented(dateRangeText) {
-            const phoneSection = document.querySelector('#phone-section-card');
-            if (phoneSection && !phoneSection.querySelector('.phone-rented-badge')) {
-                phoneSection.classList.add('opacity-85', 'bg-stone-200/85');
-                const badge = document.createElement('div');
-                badge.className = 'phone-rented-badge absolute top-4 right-4 bg-red-600 text-white text-xs px-3.5 py-1.5 rounded-full shadow-lg font-black tracking-wider z-20 flex items-center gap-1.5';
-                badge.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> 手機已出租 (${dateRangeText})`;
-                phoneSection.appendChild(badge);
+        // 手機多時段 Banner 往下整齊排列在圖片下方
+        function addPhoneRentedBanner(text) {
+            const container = document.getElementById('phone-rented-banners');
+            if (container) {
+                const banner = document.createElement('div');
+                banner.className = 'w-full bg-red-600 text-white text-xs py-1.5 px-3 rounded-xl font-black shadow-md text-center tracking-wider';
+                banner.innerText = text;
+                container.appendChild(banner);
             }
         }
 
-        // 手燈已出租標籤最佳化：不遮擋背景與圖片，精簡清爽
+        // 手燈還原上一版精緻半透明遮罩，滑鼠移入時顯示，點擊依然可預約其他時段
         function markAsRented(lightstickName, dateRangeText) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             cards.forEach(card => {
                 if (card.getAttribute('data-name') === lightstickName) {
-                    card.removeAttribute('onclick');
-                    card.classList.remove('cursor-pointer', 'hover:scale-[1.02]');
-                    card.classList.add('opacity-80', 'bg-stone-200/80');
-                    
-                    // 左上角精簡狀態徽章
                     let badge = card.querySelector('.rented-badge');
                     if (!badge) {
                         badge = document.createElement('div');
-                        badge.className = 'rented-badge absolute top-2 left-2 bg-red-600 text-white text-[10px] px-2.5 py-1 rounded-full shadow-md font-black tracking-wider z-20 flex items-center gap-1';
-                        badge.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> 已出租`;
+                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 transition-opacity duration-300 group-hover:opacity-15';
+                        badge.innerHTML = `
+                            <span class="bg-red-600 text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider">已出租</span>
+                            <span class="text-[11px] text-stone-100 drop-shadow leading-tight">租借日：${dateRangeText.split(' ~ ')[0]}<br>歸還日：${dateRangeText.split(' ~ ')[1]}</span>
+                        `;
                         card.appendChild(badge);
-                    }
-
-                    // 底部日期提示條
-                    let infoBar = card.querySelector('.rented-info-bar');
-                    if (!infoBar) {
-                        infoBar = document.createElement('div');
-                        infoBar.className = 'rented-info-bar text-[10px] text-red-700 bg-red-100/90 py-1 px-2 rounded-xl border border-red-200 font-black mt-1';
-                        infoBar.innerText = `檔期：${dateRangeText}`;
-                        card.querySelector('div:last-child').appendChild(infoBar);
                     }
                 }
             });
@@ -930,14 +951,12 @@
             return (start1 <= end2) && (end1 >= start2);
         }
 
-        // 檢查日期與防呆（防範歸還日選得比租借日早）
         function onDateChange() {
             const startInput = document.getElementById('startDate');
             const endInput = document.getElementById('endDate');
             const startVal = startInput.value;
             const endVal = endInput.value;
 
-            // 檢查歸還日是否早於租借日
             if (startVal && endVal && endVal < startVal) {
                 alert('⚠️ 歸還日期不得早於租借開始日期！請重新選擇。');
                 endInput.value = '';
@@ -1337,7 +1356,6 @@
             }
         }
 
-        // 人性化後台：支援分類篩選、即時搜尋、單筆刪除
         function loadOrders() {
             const orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
             const filterVal = document.getElementById('adminFilter').value;
@@ -1367,7 +1385,6 @@
             }
 
             filteredOrders.slice().reverse().forEach((ord) => {
-                // 找出原始陣列中的真實索引以便進行單筆刪除
                 const originalIndex = orders.indexOf(ord);
                 const div = document.createElement('div');
                 div.className = 'bg-[#DCEEFF]/60 border border-[#23466B]/20 p-3.5 rounded-2xl space-y-1.5 text-stone-900 relative';
@@ -1389,7 +1406,6 @@
             });
         }
 
-        // 單筆刪除功能
         function deleteSingleOrder(index) {
             if (confirm('確定要刪除這筆預約單嗎？')) {
                 let orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
