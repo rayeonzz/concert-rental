@@ -63,7 +63,7 @@
             background: #ffffff !important;
             border-color: #23466B !important;
         }
-        /* 強制修正當前選中分頁：深藍底、白色粗體字，解決看不清楚的問題 */
+        /* 當前選中分頁：深藍底、白色文字 */
         .tab-btn.active {
             background-color: #23466B !important;
             color: #ffffff !important;
@@ -80,9 +80,9 @@
     <header class="sticky top-0 z-50 ios-header shadow-sm">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2.5">
-                <!-- 左上角換上你的去背 Logo 圖片檔案 rayeonzz logo.png 並加大尺寸確保清晰 -->
+                <!-- 💡 左上角 Logo：已換成「去背左上logo.png」。你可以在下面的 style 裡面隨時手動調整寬度(width)、高度(height)、以及上下左右位置(translate)。 -->
                 <a href="#" class="flex items-center gap-2">
-                    <img src="rayeonzz logo.png" alt="rayeonzz" class="h-12 sm:h-14 object-contain drop-shadow-sm">
+                    <img src="去背左上logo.png" alt="rayeonzz" style="width: 110px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm">
                 </a>
                 <!-- 💡 這裡的 translate-y-2 用來讓你手動隨時調高度 -->
                 <span class="text-xs bg-[#DCEEFF] text-[#23466B] font-bold px-3 py-1 rounded-full border border-[#23466B]/20 translate-y-2">演唱會租借</span>
@@ -198,7 +198,6 @@
                 <h2 class="text-xl font-black border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
             </div>
 
-            <!-- 常駐版面公告區塊 -->
             <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-4 shadow-sm">
                 <p>🪄 <b>手燈單租價格：</b> 單次租金 NT$ 400 (部分指定款式優惠價 NT$ 300)，押金每支 NT$ 1,000。</p>
                 <p class="text-[#A94F00]">🔥 <b>配套優惠：</b> 若與 S24 Ultra 手機一起租借，每支手燈租金直接享有折抵 NT$ 100 優惠！</p>
@@ -207,15 +206,14 @@
                 <p class="text-stone-900">🪄 <b>取消規定：</b> 於租借日<b>5天內</b>取消，將會收取NT$ 100 之跑單費。</p>
             </div>
 
-            <!-- 手燈快速分類篩選按鈕 (動態帶入數量) -->
+            <!-- 手燈快速分類篩選按鈕 -->
             <div class="flex flex-wrap justify-center gap-2 mb-6">
-                <button type="button" onclick="filterLightsticks('all')" id="filter-btn-all" class="bg-[#23466B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">全部手燈 (<span id="count-all">33</span>)</button>
-                <button type="button" onclick="filterLightsticks('boy')" id="filter-btn-boy" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">男團 (<span id="count-boy">15</span>)</button>
-                <button type="button" onclick="filterLightsticks('girl')" id="filter-btn-girl" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">女團 (<span id="count-girl">18</span>)</button>
-                <button type="button" onclick="filterLightsticks('discount')" id="filter-btn-discount" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">優惠價 (<span id="count-discount">5</span>)</button>
+                <button type="button" onclick="filterLightsticks('all')" id="filter-btn-all" class="bg-[#23466B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">全部手燈(<span id="count-all">33</span>)</button>
+                <button type="button" onclick="filterLightsticks('boy')" id="filter-btn-boy" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">男團(<span id="count-boy">15</span>)</button>
+                <button type="button" onclick="filterLightsticks('girl')" id="filter-btn-girl" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">女團(<span id="count-girl">18</span>)</button>
+                <button type="button" onclick="filterLightsticks('discount')" id="filter-btn-discount" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-4 py-2 rounded-full shadow-sm transition">優惠價(<span id="count-discount">5</span>)</button>
             </div>
 
-            <!-- 提示 Banner -->
             <div class="mb-6 flex justify-center">
                 <div class="ios-glass px-6 py-2.5 rounded-full text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm flex items-center gap-2">
                     <span>✨ 點擊任一手燈圖片即可自動代入預約</span>
@@ -223,7 +221,7 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="lightsticks-grid">
-                <!-- aespa (女團, ver1/ver2雙版本視為2個) -->
+                <!-- aespa -->
                 <div data-name="aespa" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('aespa')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">aespa</div>
@@ -379,7 +377,7 @@
                     <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
-                <!-- GFRIEND (雙版本視為2個) -->
+                <!-- GFRIEND -->
                 <div data-name="GFRIEND" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('GFRIEND')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">GFRIEND</div>
@@ -403,7 +401,7 @@
                     </div>
                 </div>
 
-                <!-- Girls' Generation (優惠) -->
+                <!-- Girls' Generation -->
                 <div data-name="Girls' Generation" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('Girls\' Generation')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">Girls' Generation</div>
@@ -439,7 +437,7 @@
                     <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
-                <!-- IVE (雙版本視為2個) -->
+                <!-- IVE -->
                 <div data-name="IVE" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('IVE')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">IVE</div>
@@ -511,7 +509,7 @@
                     <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
-                <!-- NMIXX (優惠) -->
+                <!-- NMIXX -->
                 <div data-name="NMIXX" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('NMIXX')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">NMIXX</div>
@@ -559,7 +557,7 @@
                     <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
-                <!-- STAYC (優惠) -->
+                <!-- STAYC -->
                 <div data-name="STAYC" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('STAYC')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">STAYC</div>
@@ -595,7 +593,7 @@
                     <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
-                <!-- tripleS (優惠) -->
+                <!-- tripleS -->
                 <div data-name="tripleS" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('tripleS')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">tripleS</div>
@@ -643,7 +641,7 @@
                     <div class="text-[#23466B] font-bold text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
 
-                <!-- WJSN (優惠) -->
+                <!-- WJSN -->
                 <div data-name="WJSN" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('WJSN')" class="ios-glass p-4 rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-[#23466B]">WJSN</div>
@@ -663,8 +661,8 @@
             
             <!-- 三大模式分頁選擇按鈕 -->
             <div class="flex flex-wrap justify-center gap-2 mb-8 bg-[#DCEEFF]/50 p-2 rounded-2xl border border-[#23466B]/20">
-                <button type="button" onclick="switchMode('combo')" id="tab-combo" class="tab-btn active text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition">
-                    📱💡 手機 + 手燈配套 <span class="text-xs text-[#A94F00] ml-1">(手燈折$100)</span>
+                <button type="button" onclick="switchMode('combo')" id="tab-combo" class="tab-btn active text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition text-[#23466B]">
+                    📱💡 手機 + 手燈配套
                 </button>
                 <button type="button" onclick="switchMode('phone')" id="tab-phone" class="tab-btn text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition text-[#23466B]">
                     📱 單租 S24 Ultra 手機
@@ -885,7 +883,6 @@
             return dateStr.split('T')[0].replace(/-/g, '/');
         }
 
-        // 計算並更新分類按鈕上的浮動數量 (ver1/ver2多版本算2隻)
         function updateLightstickCounts() {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             let totalAll = 0;
@@ -910,7 +907,6 @@
             document.getElementById('count-discount').innerText = totalDiscount;
         }
 
-        // 手燈分類篩選功能
         function filterLightsticks(type) {
             const btnAll = document.getElementById('filter-btn-all');
             const btnBoy = document.getElementById('filter-btn-boy');
@@ -957,7 +953,6 @@
             }
         }
 
-        // 漢堡選單切換開合
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenuDropdown');
             const icon = document.getElementById('menuIcon');
