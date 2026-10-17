@@ -632,11 +632,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-stone-900 mb-1.5" id="start-date-label">租借開始日期</label>
-                        <input type="date" id="startDate" required onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                        <input type="date" id="startDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-stone-900 mb-1.5" id="end-date-label">歸還日期</label>
-                        <input type="date" id="endDate" required onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                        <input type="date" id="endDate" required onchange="onDateChange()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                 </div>
 
@@ -647,7 +647,7 @@
                     <!-- 第一支手燈 -->
                     <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1">
                         <div class="text-[11px] font-bold text-[#23466B]">第一支手燈款式</div>
-                        <select id="selectedLightstick1" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                        <select id="selectedLightstick1" onchange="onLightstickChange()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                         </select>
                     </div>
 
@@ -815,46 +815,79 @@
             { name: "WJSN", price: 300 }
         ];
 
-        // 自動向 Google 試算表查詢預約檔期，並自動標記手機與手燈「已出租」
-        function checkRentedStatus() {
+        let allOrders = []; // 儲存從試算表撈回來的歷史訂單
+
+        // 格式化日期字串 (清除醜醜的亂碼，轉成 YYYY/MM/DD)
+        function cleanDateStr(dateStr) {
+            if (!dateStr) return '';
+            if (dateStr.includes('T')) {
+                const d = new Date(dateStr);
+                if (!isNaN(d.getTime())) {
+                    const year = d.getFullYear();
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${year}/${month}/${day}`;
+                }
+            }
+            return dateStr.split('T')[0].replace(/-/g, '/');
+        }
+
+        // 取得試算表預約資料
+        function fetchRentedStatus() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
                     if (data.result === 'success' && data.orders) {
-                        const today = new Date().toISOString().split('T')[0];
-                        data.orders.forEach(order => {
-                            if (order.start && order.end && today >= order.start && today <= order.end) {
-                                if (order.item.includes('S24 Ultra') || order.item.includes('手機')) {
-                                    markPhoneAsRented(`${order.start} ~ ${order.end}`);
-                                }
-                                lightstickList.forEach(item => {
-                                    if (order.item.includes(item.name)) {
-                                        markAsRented(item.name, `${order.start} ~ ${order.end}`);
-                                    }
-                                });
-                            }
-                        });
+                        allOrders = data.orders.map(o => ({
+                            start: o.start ? o.start.split('T')[0] : '',
+                            end: o.end ? o.end.split('T')[0] : '',
+                            item: o.item || ''
+                        }));
+                        
+                        // 初始先依今天日期標記目前已出租的設備
+                        checkCurrentStatusToday();
                     }
                 })
                 .catch(err => console.log('檢查檔期失敗：', err));
         }
 
-        function markPhoneAsRented(dateRange) {
+        // 畫面載入時：依據「今天」標記目前正在被租借的設備
+        function checkCurrentStatusToday() {
+            const today = new Date().toISOString().split('T')[0];
+            allOrders.forEach(order => {
+                if (order.start && order.end && today >= order.start && today <= order.end) {
+                    const cleanStart = cleanDateStr(order.start);
+                    const cleanEnd = cleanDateStr(order.end);
+                    const rangeText = `租借日：${cleanStart}<br>歸還日：${cleanEnd}`;
+
+                    if (order.item.includes('S24 Ultra') || order.item.includes('手機')) {
+                        markPhoneAsRented(rangeText);
+                    }
+                    lightstickList.forEach(item => {
+                        if (order.item.includes(item.name)) {
+                            markAsRented(item.name, rangeText);
+                        }
+                    });
+                }
+            });
+        }
+
+        function markPhoneAsRented(dateRangeText) {
             const phoneSection = document.querySelector('#phone-section-card');
             if (phoneSection && !phoneSection.querySelector('.phone-rented-badge')) {
                 phoneSection.classList.add('opacity-75', 'bg-stone-200/85');
                 const badge = document.createElement('div');
-                badge.className = 'phone-rented-badge absolute inset-0 bg-stone-900/40 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[32px] z-20 text-white font-black space-y-2 shadow-inner';
+                badge.className = 'phone-rented-badge absolute inset-0 bg-stone-900/50 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[32px] z-20 text-white font-black space-y-1.5 shadow-inner text-center p-4';
                 badge.innerHTML = `
-                    <span class="bg-red-600 text-white text-sm px-4 py-1.5 rounded-full shadow-lg tracking-wider">🔴 手機目前已出租</span>
-                    <span class="text-xs text-stone-100 drop-shadow">租借檔期：${dateRange}</span>
+                    <span class="bg-red-600 text-white text-xs px-3.5 py-1 rounded-full shadow-lg tracking-wider">🔴 手機目前已出租</span>
+                    <span class="text-xs text-stone-100 drop-shadow leading-relaxed">${dateRangeText}</span>
                 `;
                 phoneSection.appendChild(badge);
             }
         }
 
-        function markAsRented(lightstickName, dateRange) {
+        function markAsRented(lightstickName, dateRangeText) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             cards.forEach(card => {
                 if (card.getAttribute('data-name') === lightstickName) {
@@ -864,10 +897,10 @@
                     let badge = card.querySelector('.rented-badge');
                     if (!badge) {
                         badge = document.createElement('div');
-                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/40 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner';
+                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/50 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2';
                         badge.innerHTML = `
-                            <span class="bg-red-600 text-white text-xs px-3 py-1 rounded-full shadow-lg tracking-wider">🔴 已出租</span>
-                            <span class="text-[11px] text-stone-100 drop-shadow">${dateRange}</span>
+                            <span class="bg-red-600 text-white text-[11px] px-2.5 py-0.5 rounded-full shadow-lg tracking-wider">🔴 已出租</span>
+                            <span class="text-[11px] text-stone-100 drop-shadow leading-tight">${dateRangeText}</span>
                         `;
                         card.appendChild(badge);
                     }
@@ -875,6 +908,55 @@
             });
         }
 
+        // ==========================================
+        // 核心防撞與雙向連動檢查邏輯
+        // ==========================================
+        function isDateOverlap(start1, end1, start2, end2) {
+            return (start1 <= end2) && (end1 >= start2);
+        }
+
+        // 當客人選擇了「日期區間」
+        function onDateChange() {
+            const startVal = document.getElementById('startDate').value;
+            const endVal = document.getElementById('endDate').value;
+
+            initLightstickSelects(); // 重新載入並排除已被預約的手燈
+
+            if (startVal && endVal && endVal >= startVal) {
+                // 檢查哪些手燈在此區間被租走了
+                const conflictedSticks = [];
+                allOrders.forEach(order => {
+                    if (order.start && order.end) {
+                        if (isDateOverlap(startVal, endVal, order.start, order.end)) {
+                            lightstickList.forEach(ls => {
+                                if (order.item.includes(ls.name)) {
+                                    conflictedSticks.push(ls.name);
+                                }
+                            });
+                        }
+                    }
+                });
+
+                // 從選單中移除被撞期的手燈
+                ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'].forEach(selId => {
+                    const sel = document.getElementById(selId);
+                    for (let i = sel.options.length - 1; i >= 0; i--) {
+                        const optVal = sel.options[i].text;
+                        if (conflictedSticks.some(cs => optVal.includes(cs))) {
+                            sel.remove(i);
+                        }
+                    }
+                });
+            }
+            calculatePrice();
+        }
+
+        // 當客人先選擇了「手燈款式」
+        function onLightstickChange() {
+            calculatePrice();
+        }
+
+        // 點擊卡片代入預約
         function selectLightstick(keyword) {
             switchMode('lightstick');
             const select1 = document.getElementById('selectedLightstick1');
@@ -933,7 +1015,7 @@
             }
             initLightstickSelects();
             calculatePrice();
-            checkRentedStatus();
+            fetchRentedStatus(); // 載入所有歷史訂單並初始化檢查
         });
 
         const PHONE_RENT_PER_DAY = 550;
@@ -996,6 +1078,7 @@
             const nameInput = document.getElementById('custName');
             
             initLightstickSelects();
+            onDateChange(); // 切換模式時重新套用日期防撞檢查
 
             if (mode === 'combo') {
                 lsBox.style.display = 'block';
@@ -1085,18 +1168,43 @@
             }
         }
 
-        // 使用 iframe form 提交避開 CORS 阻擋，保證 100% 寫入 Google 試算表
-     function handleFormSubmit(event) {
+        // 表單送出
+        function handleFormSubmit(event) {
             event.preventDefault();
             const start = document.getElementById('startDate').value;
             const end = document.getElementById('endDate').value;
+
+            // 最終防撞二次檢查
+            if (start && end) {
+                const selectedSticks = [];
+                const ls1 = document.getElementById('selectedLightstick1');
+                if (ls1 && ls1.options[ls1.selectedIndex]) selectedSticks.push(ls1.options[ls1.selectedIndex].text);
+                const isMoreChecked = document.getElementById('moreLightsticksCheck').checked;
+                if (isMoreChecked) {
+                    const ls2 = document.getElementById('selectedLightstick2');
+                    if (ls2 && ls2.options[ls2.selectedIndex]) selectedSticks.push(ls2.options[ls2.selectedIndex].text);
+                    const ls3 = document.getElementById('selectedLightstick3');
+                    if (ls3 && ls3.value !== "0" && ls3.options[ls3.selectedIndex]) selectedSticks.push(ls3.options[ls3.selectedIndex].text);
+                }
+
+                for (let order of allOrders) {
+                    if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
+                        for (let stick of selectedSticks) {
+                            if (order.item.includes(stick.split(' ')[0])) {
+                                alert(`⚠️ 預約失敗：您選擇的手燈在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！請重新選擇日期或手燈。`);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
             const name = document.getElementById('custName').value || '（單租手燈免填）';
             const social = document.getElementById('socialId').value;
             const line = document.getElementById('lineId').value;
             const remarks = document.getElementById('remarks').value || '無';
             const total = document.getElementById('totalRent').innerText;
             const deposit = document.getElementById('deposit').innerText;
-            const isMoreChecked = document.getElementById('moreLightsticksCheck').checked;
 
             let modeTitle = '手機 + 手燈配套預約';
             let itemDesc = '';
@@ -1104,7 +1212,7 @@
             const ls1Text = ls1Select.options[ls1Select.selectedIndex].text;
             let lsSummary = ls1Text;
 
-            if (isMoreChecked) {
+            if (document.getElementById('moreLightsticksCheck').checked) {
                 const ls2Select = document.getElementById('selectedLightstick2');
                 lsSummary += ` ｜ ${ls2Select.options[ls2Select.selectedIndex].text}`;
                 const ls3Select = document.getElementById('selectedLightstick3');
@@ -1143,7 +1251,7 @@
             existingOrders.push(newOrder);
             localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
 
-            // 2. 使用標準 fetch POST 傳送至 Google 試算表
+            // 2. 傳送到 Google 試算表
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             
             const payload = {
@@ -1161,7 +1269,7 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', // 繞過瀏覽器 CORS 限制的關鍵
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
