@@ -841,16 +841,21 @@ icon.className = "fa-solid fa-xmark";
 }
 }
 function fetchRentedStatus() {
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
-fetch(scriptURL)
-.then(response => response.json())
-.then(data => {
-if (data.result === 'success' && data.orders) {
-allOrders = data.orders.map(o => ({ start: o.start ? o.start.split('T')[0] : '', end: o.end ? o.end.split('T')[0] : '', item: o.item || '' }));
-checkCurrentStatusToday();
-}
-})
-.catch(err => console.log('檢查檔期失敗：', err));
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
+    fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === 'success' && data.orders) {
+                allOrders = data.orders.map(o => ({
+                    // 強制將日期中的斜線改為橫線，並確保只取前 10 個字元 (YYYY-MM-DD)
+                    start: o.start ? String(o.start).replace(/\//g, '-').substring(0, 10) : '',
+                    end: o.end ? String(o.end).replace(/\//g, '-').substring(0, 10) : '',
+                    item: o.item || ''
+                }));
+                checkCurrentStatusToday();
+            }
+        })
+        .catch(err => console.log('檢查檔期失敗：', err));
 }
 function checkCurrentStatusToday() {
 const today = new Date().toISOString().split('T')[0];
