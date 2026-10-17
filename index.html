@@ -170,7 +170,6 @@
                         <p>演唱會錄影推薦！</p>
                         <p>100 倍數位變焦、UHD60 高畫質攝影，遠距離也能清晰捕捉愛豆對視瞬間。</p>
                         <p class="text-[#23466B]">附贈配件組：保護殼, 保護貼, 充電線, 快充頭與手機保護外盒。</p>
-                        <p class="text-stone-900">💡 <b>租期說明：</b>10/23 租借、10/24 歸還為 1 天 ，即租金 NT $550。</p>
                     </div>
 
                     <div class="bg-[#DCEEFF]/70 border border-[#23466B]/20 p-3.5 sm:p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold shadow-sm mt-3">
@@ -179,6 +178,7 @@
                         <p class="pl-3 sm:pl-4 font-bold">2. 免押證件則押金 NT$ 30,000</p>
                         <p class="pt-1">🔹 <b>取機方式：</b> 台南面交 ｜ 台中面交（手機限面交）</p>
                         <p class="pt-1 text-stone-900">🔹 <b>取消規定：</b> 租借日<b>7天前</b>可取消；<b>7天內</b>取消收取 NT$ 200 跑單費。</p>
+                        <p class="pt-1 text-stone-900">💡 <b>租期說明：</b> 10/23 租借、10/24 歸還為 1 天 ，即租金 NT $550。</p>
                     </div>
                 </div>
             </div>
@@ -213,7 +213,6 @@
 
             <!-- 手燈網格：手機顯示 2 欄，平板/電腦顯示 4 欄 -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="lightsticks-grid">
-                <!-- 略過重複的手燈卡片結構（與先前相同，保持 33 款手燈完整） -->
                 <!-- aespa -->
                 <div data-name="aespa" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('aespa')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -598,11 +597,11 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
 
-                <!-- TWICE -->
+                <!-- TWICE (已改為 糖果棒 Ver.3) -->
                 <div data-name="TWICE" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('TWICE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">TWICE</div>
-                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 3 糖果棒</div>
+                        <div class="text-[11px] text-stone-700 mb-1.5 font-bold">糖果棒 Ver.3</div>
                         <div class="relative w-full h-36 sm:h-48 bg-white/50 rounded-xl overflow-hidden mb-2 border border-[#23466B]/10 flex items-center justify-center">
                             <img src="twice lightstick ver3.png" alt="TWICE手燈" class="h-full object-contain scale-[1.8]">
                         </div>
@@ -756,10 +755,10 @@
         <!-- 聯絡資訊區塊 -->
         <section id="contact-section" class="ios-glass p-5 sm:p-8 rounded-[28px] sm:rounded-[32px] space-y-4">
             <h2 class="text-lg sm:text-xl font-black mb-3 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📞 聯絡資訊</h2>
-            <p class="text-xs sm:text-sm text-stone-900 font-bold">如果您有任何租借檔期、面交細節或其他疑問，歡迎透過以下方式直接聯繫我：</p>
+            <p class="text-xs sm:text-sm text-stone-900 font-bold">若您有任何租借檔期、面交細節等疑問，歡迎透過以下方式聯繫我</p>
             <div class="flex flex-wrap gap-3 pt-2">
                 <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" class="flex items-center gap-2.5 bg-[#06C755] text-white px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
-                    <img src="lineicon.PNG" alt="LINE" class="w-5 h-5 sm:w-6 sm:h-6 object-contain"> 加入 LINE 好友
+                    <img src="lineicon.PNG" alt="LINE" class="w-5 h-5 sm:w-6 sm:h-6 object-contain"> LINE
                 </a>
                 <a href="https://www.threads.com/@rayeonzz?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="flex items-center gap-2.5 bg-stone-900 text-white px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition shadow-md">
                     <img src="threadsicon.PNG" alt="Threads" class="w-5 h-5 sm:w-6 sm:h-6 object-contain"> Threads 主頁
@@ -1001,7 +1000,7 @@
             const container = document.getElementById('phone-rented-banners');
             if (container) {
                 const banner = document.createElement('div');
-                banner.className = 'w-auto inline-block bg-red-600/90 backdrop-blur-md text-white text-[11px] py-1 px-3 rounded-full font-black shadow-md text-center tracking-wider';
+                banner.className = 'w-auto inline-block bg-red-600/80 backdrop-blur-md text-white text-[11px] py-1 px-3 rounded-full font-black shadow-md text-center tracking-wider';
                 banner.innerText = text;
                 container.appendChild(banner);
             }
@@ -1016,7 +1015,7 @@
                         badge = document.createElement('div');
                         badge.className = 'rented-badge absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 transition-opacity duration-300 group-hover:opacity-15';
                         badge.innerHTML = `
-                            <span class="bg-red-600 text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider">已出租</span>
+                            <span class="bg-red-600/80 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider">已出租</span>
                             <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">租借日：${dateRangeText.split(' ~ ')[0]}<br>歸還日：${dateRangeText.split(' ~ ')[1]}</span>
                         `;
                         card.appendChild(badge);
