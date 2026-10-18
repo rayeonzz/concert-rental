@@ -80,21 +80,35 @@
             color: #ffffff !important; 
             box-shadow: 0 4px 12px rgba(35, 70, 107, 0.25); 
         } 
-        section[id] { scroll-margin-top: 110px; } 
+        /* 電腦版與預設的滾動停靠距離 */
+section[id] { 
+    scroll-margin-top: 110px; 
+} 
+
+/* 當螢幕小於 768px（也就是手機版時）的滾動停靠距離 */
+@media (max-width: 768px) {
+    section[id] { 
+        scroll-margin-top: 80px; /* 手機版專用的高度，可自己微調 */
+    }
+}
     </style> 
 </head> 
 <body class="text-stone-950 min-h-screen flex flex-col selection:bg-[#A94F00] selection:text-white"> 
     <!-- 導覽列 --> 
+<!-- 導覽列 --> 
     <header class="sticky top-0 z-50 ios-header shadow-sm"> 
-        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-1 flex justify-between items-center"> 
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-1 relative flex justify-between items-center"> 
             
-            <!-- 兩張 Logo (保留你隨心所欲自訂的控制碼) -->
-            <a href="#" class="flex items-center" style="transform: translate(15px, 0px);"> 
-                <img src="logo.png" alt="rayeonzz" style="width: 60px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm my-[-15px]"> 
-                <img src="logo-text.png" alt="rayeonzz text" style="width: 115px; height: auto; transform: translate(-5px, 0px);" class="object-contain drop-shadow-sm my-[-15px]">
+            <!-- 手機版隱形佔位區（平衡右側按鈕，確保 Logo 絕對置中） -->
+            <div class="flex items-center sm:hidden w-16"></div>
+
+            <!-- Logo 區塊：手機版絕對置中，電腦版靠左並微調位置 -->
+            <a href="#" class="flex items-center absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 sm:translate-x-[15px]"> 
+                <img src="logo.png" alt="rayeonzz" style="width: 60px; height: auto;" class="object-contain drop-shadow-sm my-[-15px]"> 
+                <img src="logo-text.png" alt="rayeonzz text" style="width: 115px; height: auto; margin-left: -5px;" class="object-contain drop-shadow-sm my-[-15px]">
             </a> 
 
-          <!-- 右側按鈕群組：已加上 transform 左右微調軸 -->
+            <!-- 右側按鈕群組 -->
             <div class="flex items-center gap-2 sm:gap-3" style="transform: translate(-10px, 0px);"> 
                 <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl transition shadow-lg shadow-[#23466B]/20 active:scale-95"> 
                     立即試算預約 
@@ -104,14 +118,16 @@
                 </button> 
             </div> 
         </div> 
+
+        <!-- 手機選單下拉內容 -->
         <div id="mobileMenuDropdown" class="hidden ios-header border-t border-[#23466B]/10 px-4 py-3 space-y-2 text-xs font-bold shadow-xl transition-all"> 
             <a href="#phone-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📱 手機租借</a> 
             <a href="#lightstick-section-view" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">💡 手燈租借</a> 
             <a href="#order-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">💰 租金試算與預約</a> 
             <a href="#contact-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📞 聯絡資訊</a> 
         </div> 
-    </header> 
-
+    </header>
+    
     <!-- 主頁 Banner --> 
     <section class="py-8 sm:py-10 px-3 sm:px-4 text-center"> 
         <div class="max-w-3xl mx-auto ios-glass p-6 sm:p-10 rounded-[28px] sm:rounded-[32px] space-y-3 sm:space-y-4"> 
