@@ -4,6 +4,10 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>rayeonzz 演唱會手機 & 手燈租借服務</title> 
+    
+    <!-- 瀏覽器分頁圖示 (Favicon) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <!-- Google tag (gtag.js) - Google Analytics 流量追蹤 --> 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LLDMC8FKXE"></script> 
     <script> 
@@ -12,11 +16,13 @@
         gtag('js', new Date()); 
         gtag('config', 'G-LLDMC8FKXE'); 
     </script> 
-    <!-- 社群分享預覽設定 (Open Graph) --> 
+
+    <!-- 社群分享預覽設定 (Open Graph) - 讓 LINE、IG 顯示精美大圖與預覽 --> 
     <meta property="og:title" content="rayeonzz 演唱會手機 & 手燈租借服務"> 
     <meta property="og:description" content="S24 Ultra 演唱會神機與全網最齊全應援手燈出租，台南台中面交、檔期線上查詢預約！"> 
-    <meta property="og:image" content="rayeonzz租借logo已剪裁.jpg"> 
+    <meta property="og:image" content="og-image.jpg"> 
     <meta property="og:type" content="website"> 
+
     <!-- 引入 Google Fonts Noto Serif TC (思源宋體) --> 
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
@@ -78,7 +84,7 @@
     <header class="sticky top-0 z-50 ios-header shadow-sm"> 
         <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 flex justify-between items-center"> 
             <a href="#" class="flex items-center"> 
-                <img src="去背左上logo.png" alt="rayeonzz" style="width: 100px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm"> 
+                <img src="logo.png" alt="rayeonzz" style="width: 110px; height: auto;" class="object-contain drop-shadow-sm"> 
             </a> 
             <div class="flex items-center gap-2 sm:gap-3"> 
                 <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-4 py-2 rounded-2xl transition shadow-lg shadow-[#23466B]/20 active:scale-95"> 
@@ -843,7 +849,6 @@
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
 
-                        // 自動過濾掉歸還日期已經過期的訂單，並且只保留包含有效日期的訂單
                         allOrders = data.orders.map(o => ({ 
                             start: o.start ? String(o.start).replace(/\//g, '-').substring(0, 10) : '', 
                             end: o.end ? String(o.end).replace(/\//g, '-').substring(0, 10) : '', 
@@ -852,7 +857,7 @@
                             if (!o.end) return false;
                             const endDateObj = new Date(o.end);
                             endDateObj.setHours(0, 0, 0, 0);
-                            return endDateObj >= today; // 只有當歸還日大於或等於今天，才視為有效出租中！
+                            return endDateObj >= today; 
                         }); 
 
                         renderRentedStatus(); 
@@ -876,17 +881,15 @@
                         addPhoneRentedBanner(cleanStart, cleanEnd); 
                     } 
                     
-                    // 智慧精準辨識：針對有多版本的手燈（如 aespa ver2, gfriend japan 等），只鎖定被租走的特定版本！
                     lightstickList.forEach(item => { 
                         if (order.item.includes(item.name)) { 
-                            // 檢查是否包含特定版本字眼
                             if (item.name === 'aespa') {
                                 if (order.item.includes('ver2') || order.item.includes('Ver. 2')) {
                                     markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
                                 } else if (order.item.includes('ver1') || order.item.includes('Ver. 1')) {
                                     markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd);
                                 } else {
-                                    markAsRented(item.name, cleanStart, cleanEnd); // 若沒寫版本則全鎖
+                                    markAsRented(item.name, cleanStart, cleanEnd); 
                                 }
                             } else if (item.name === 'GFRIEND') {
                                 if (order.item.includes('japan') || order.item.includes('Japan')) {
@@ -945,13 +948,10 @@
             }); 
         } 
 
-        // 針對多版本手燈（如 aespa ver2），只提示特定版本已被租走
         function markSpecificVersionRented(lightstickName, versionName, startDate, endDate) {
             const cards = document.querySelectorAll('#lightsticks-grid > div'); 
             cards.forEach(card => { 
                 if (card.getAttribute('data-name') === lightstickName) { 
-                    const versionTextEl = card.querySelector(`#${lightstickName.toLowerCase()}-version-text`) || card.querySelector('.text-[11px].text-stone-700');
-                    // 如果目前輪播正好在被租走的那個版本，才加上已出租遮罩
                     const friendlyStart = formatDateToFriendly(startDate);
                     const friendlyEnd = formatDateToFriendly(endDate);
                     
@@ -1424,7 +1424,7 @@
             } 
         } 
         function clearOrders() { 
-            if (confirm('確定要清空所有版本與訂單資料嗎？')) { 
+            if (confirm('確定要清空所有預約單資料嗎？')) { 
                 localStorage.removeItem('rayeonzz_orders'); 
                 loadOrders(); 
             } 
