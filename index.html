@@ -20,7 +20,7 @@
     <!-- 社群分享預覽設定 (Open Graph) - 讓 LINE、IG 顯示精美大圖與預覽 --> 
     <meta property="og:title" content="rayeonzz 演唱會手機 & 手燈租借服務"> 
     <meta property="og:description" content="S24 Ultra 演唱會神機與全網最齊全應援手燈出租，台南台中面交、檔期線上查詢預約！"> 
-    <meta property="og:image" content="og-image.png"> 
+    <meta property="og:image" content="https://rayeonzz.github.io/concert-rental/og-image.png"> 
     <meta property="og:type" content="website"> 
 
     <!-- 引入 Google Fonts Noto Serif TC (思源宋體) --> 
@@ -97,18 +97,26 @@ section[id] {
     <!-- 導覽列 --> 
 <!-- 導覽列 --> 
     <header class="sticky top-0 z-50 ios-header shadow-sm"> 
-        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-1.5 flex justify-between items-center relative"> 
+        <!-- 手機版 py-2 (讓手機工具列稍微高一點點)，電腦版 sm:py-1 (保持精緻不厚) -->
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-1 flex justify-between items-center relative"> 
             
-            <!-- 左側按鈕（電腦版隱藏，手機版用來平衡右側選單，讓中間 Logo 完美置中） -->
-            <div class="w-10 sm:hidden"></div>
-
-            <!-- Logo 區塊：手機版自動置中，電腦版靠左並微調 -->
-            <a href="#" class="flex items-center justify-center sm:justify-start sm:translate-x-[15px]"> 
+            <!-- 1. 左邊臉部 Logo：手機與電腦都固定在左側 -->
+            <a href="#" class="flex items-center sm:translate-x-[15px]"> 
                 <img src="logo.png" alt="rayeonzz" style="width: 55px; height: auto;" class="object-contain drop-shadow-sm"> 
-                <img src="logo-text.png" alt="rayeonzz text" style="width: 105px; height: auto; margin-left: -4px;" class="object-contain drop-shadow-sm">
             </a> 
 
-            <!-- 右側按鈕群組：已加上 transform 左右微調軸 -->
+            <!-- 2. 中間文字 Logo：手機版絕對置中顯示，電腦版隱藏（因為電腦版已經跟臉部並排了） -->
+            <a href="#" class="absolute left-1/2 -translate-x-1/2 sm:hidden flex items-center">
+                <img src="logo-text.png" alt="rayeonzz text" style="width: 110px; height: auto;" class="object-contain drop-shadow-sm">
+            </a>
+
+            <!-- 【電腦版專用】同時包含左右兩張圖的完整 Logo 區塊 (手機版隱藏) -->
+            <a href="#" class="hidden sm:flex items-center absolute left-0 sm:static sm:translate-x-[15px]"> 
+                <img src="logo.png" alt="rayeonzz" style="width: 55px; height: auto;" class="object-contain drop-shadow-sm"> 
+                <img src="logo-text.png" alt="rayeonzz text" style="width: 115px; height: auto; margin-left: -4px;" class="object-contain drop-shadow-sm">
+            </a> 
+
+            <!-- 3. 右側按鈕群組 -->
             <div class="flex items-center gap-2 sm:gap-3" style="transform: translate(-10px, 0px);"> 
                 <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl transition shadow-lg shadow-[#23466B]/20 active:scale-95"> 
                     立即試算預約 
@@ -119,6 +127,14 @@ section[id] {
             </div> 
         </div> 
 
+        <!-- 手機選單下拉內容 -->
+        <div id="mobileMenuDropdown" class="hidden ios-header border-t border-[#23466B]/10 px-4 py-3 space-y-2 text-xs font-bold shadow-xl transition-all"> 
+            <a href="#phone-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📱 手機租借</a> 
+            <a href="#lightstick-section-view" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">💡 手燈租借</a> 
+            <a href="#order-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">💰 租金試算與預約</a> 
+            <a href="#contact-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📞 聯絡資訊</a> 
+        </div> 
+    </header>
         <!-- 手機選單下拉內容 -->
         <div id="mobileMenuDropdown" class="hidden ios-header border-t border-[#23466B]/10 px-4 py-3 space-y-2 text-xs font-bold shadow-xl transition-all"> 
             <a href="#phone-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📱 手機租借</a> 
