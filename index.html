@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
     <style> 
         :root { --primary: #23466B; --light-bg: #DCEEFF; --accent: #A94F00; } 
+        html {
+            scroll-behavior: smooth; /* 實現全站平滑滾動 */
+        }
         body { 
             font-family: 'Noto Serif TC', serif; 
             font-weight: 500; 
@@ -82,15 +85,20 @@
 <body class="text-stone-950 min-h-screen flex flex-col selection:bg-[#A94F00] selection:text-white"> 
     <!-- 導覽列 --> 
     <header class="sticky top-0 z-50 ios-header shadow-sm"> 
-        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2.5 flex justify-between items-center"> 
-            <a href="#" class="flex items-center"> 
-                <img src="logo.png" alt="rayeonzz" style="width: 110px; height: auto;" class="object-contain drop-shadow-sm"> 
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 py-1 flex justify-between items-center"> 
+            
+            <!-- 兩張 Logo (保留你隨心所欲自訂的控制碼) -->
+            <a href="#" class="flex items-center" style="transform: translate(15px, 0px);"> 
+                <img src="logo.png" alt="rayeonzz" style="width: 60px; height: auto; transform: translate(0px, 0px);" class="object-contain drop-shadow-sm my-[-15px]"> 
+                <img src="logo-text.png" alt="rayeonzz text" style="width: 115px; height: auto; transform: translate(-5px, 0px);" class="object-contain drop-shadow-sm my-[-15px]">
             </a> 
-            <div class="flex items-center gap-2 sm:gap-3"> 
-                <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-4 py-2 rounded-2xl transition shadow-lg shadow-[#23466B]/20 active:scale-95"> 
+
+          <!-- 右側按鈕群組：已加上 transform 左右微調軸 -->
+            <div class="flex items-center gap-2 sm:gap-3" style="transform: translate(-10px, 0px);"> 
+                <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl transition shadow-lg shadow-[#23466B]/20 active:scale-95"> 
                     立即試算預約 
                 </a> 
-                <button onclick="toggleMobileMenu()" aria-label="導覽選單" class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/90 border border-[#23466B]/20 text-[#23466B] flex items-center justify-center text-sm sm:text-base shadow-sm hover:bg-[#23466B] hover:text-white transition"> 
+                <button onclick="toggleMobileMenu()" aria-label="導覽選單" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/90 border border-[#23466B]/20 text-[#23466B] flex items-center justify-center text-sm shadow-sm hover:bg-[#23466B] hover:text-white transition"> 
                     <i class="fa-solid fa-bars" id="menuIcon"></i> 
                 </button> 
             </div> 
@@ -213,8 +221,8 @@
                                     <img src="aespa lightstick ver2.png" alt="aespa手燈 Ver2" class="h-full object-contain scale-[1.8]"> 
                                 </div> 
                             </div> 
-                            <button onclick="event.stopPropagation(); slideAespa(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-left"></i></button> 
-                            <button onclick="event.stopPropagation(); slideAespa(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-right"></i></button> 
+                            <button onclick="event.stopPropagation(); slideAespa(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-30"><i class="fa-solid fa-chevron-left"></i></button> 
+                            <button onclick="event.stopPropagation(); slideAespa(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-30"><i class="fa-solid fa-chevron-right"></i></button> 
                         </div> 
                     </div> 
                     <div> 
@@ -357,8 +365,8 @@
                                     <img src="gfriend lightstick japan.png" alt="GFRIEND手燈 Japan" class="h-full object-contain scale-[1.8]"> 
                                 </div> 
                             </div> 
-                            <button onclick="event.stopPropagation(); slideGfriend(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-left"></i></button> 
-                            <button onclick="event.stopPropagation(); slideGfriend(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-right"></i></button> 
+                            <button onclick="event.stopPropagation(); slideGfriend(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-30"><i class="fa-solid fa-chevron-left"></i></button> 
+                            <button onclick="event.stopPropagation(); slideGfriend(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-30"><i class="fa-solid fa-chevron-right"></i></button> 
                         </div> 
                     </div> 
                     <div> 
@@ -413,8 +421,8 @@
                                     <img src="ive lightstick ver2.png" alt="IVE手燈 Ver2" class="h-full object-contain scale-[1.8]"> 
                                 </div> 
                             </div> 
-                            <button onclick="event.stopPropagation(); slideIve(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-left"></i></button> 
-                            <button onclick="event.stopPropagation(); slideIve(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-10"><i class="fa-solid fa-chevron-right"></i></button> 
+                            <button onclick="event.stopPropagation(); slideIve(-1);" type="button" class="absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-30"><i class="fa-solid fa-chevron-left"></i></button> 
+                            <button onclick="event.stopPropagation(); slideIve(1);" type="button" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/90 text-[#23466B] w-6 h-6 rounded-full flex items-center justify-center shadow-md text-xs z-30"><i class="fa-solid fa-chevron-right"></i></button> 
                         </div> 
                     </div> 
                     <div> 
@@ -914,6 +922,9 @@
                     }); 
                 } 
             }); 
+            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
+            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
+            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
         } 
 
         function addPhoneRentedBanner(startDate, endDate) { 
@@ -937,7 +948,7 @@
                         const friendlyStart = formatDateToFriendly(startDate);
                         const friendlyEnd = formatDateToFriendly(endDate);
                         badge = document.createElement('div'); 
-                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 transition-opacity duration-300 group-hover:opacity-15'; 
+                        badge.className = 'rented-badge absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 transition-opacity duration-300'; 
                         badge.innerHTML = ` 
                             <span class="bg-red-600/80 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> 已出租</span> 
                             <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">${friendlyStart} ~ ${friendlyEnd}</span> 
@@ -955,10 +966,12 @@
                     const friendlyStart = formatDateToFriendly(startDate);
                     const friendlyEnd = formatDateToFriendly(endDate);
                     
-                    let badge = card.querySelector(`.rented-badge-${versionName.replace(/[\s.]/g, '')}`);
+                    let badgeClass = `rented-badge-${versionName.replace(/[\s.]/g, '')}`;
+                    let badge = card.querySelector(`.${badgeClass}`);
                     if (!badge) {
                         badge = document.createElement('div'); 
-                        badge.className = `rented-badge rented-badge-${versionName.replace(/[\s.]/g, '')} absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2`; 
+                        badge.className = `rented-badge ${badgeClass} absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2`; 
+                        badge.setAttribute('data-version', versionName);
                         badge.innerHTML = ` 
                             <span class="bg-red-600/80 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> ${versionName} 已出租</span> 
                             <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">${friendlyStart} ~ ${friendlyEnd}</span> 
@@ -966,6 +979,23 @@
                         card.appendChild(badge); 
                     }
                 } 
+            });
+        }
+
+        function updateMultiVersionBadgeVisibility(lightstickName, currentIndex, versionNames) {
+            const cards = document.querySelectorAll('#lightsticks-grid > div');
+            cards.forEach(card => {
+                if (card.getAttribute('data-name') === lightstickName) {
+                    const currentVerName = versionNames[currentIndex];
+                    const badges = card.querySelectorAll('.rented-badge');
+                    badges.forEach(b => {
+                        if (b.classList.contains(`rented-badge-${currentVerName.replace(/[\s.]/g, '')}`)) {
+                            b.style.display = 'flex';
+                        } else {
+                            b.style.display = 'none';
+                        }
+                    });
+                }
             });
         }
 
@@ -1104,6 +1134,7 @@
             const track = document.getElementById('aespa-track'); 
             track.style.transform = `translateX(-${aespaCurrentIndex * (100 / totalAespaSlides)}%)`; 
             document.getElementById('aespa-version-text').innerText = aespaVersionNames[aespaCurrentIndex]; 
+            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
         } 
 
         let gfriendCurrentIndex = 0; 
@@ -1116,6 +1147,7 @@
             const track = document.getElementById('gfriend-track'); 
             track.style.transform = `translateX(-${gfriendCurrentIndex * (100 / totalGfriendSlides)}%)`; 
             document.getElementById('gfriend-version-text').innerText = gfriendVersionNames[gfriendCurrentIndex]; 
+            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
         } 
 
         let iveCurrentIndex = 0; 
@@ -1128,6 +1160,7 @@
             const track = document.getElementById('ive-track'); 
             track.style.transform = `translateX(-${iveCurrentIndex * (100 / totalIveSlides)}%)`; 
             document.getElementById('ive-version-text').innerText = iveVersionNames[iveCurrentIndex]; 
+            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
         } 
 
         const PHONE_RENT_PER_DAY = 550; 
