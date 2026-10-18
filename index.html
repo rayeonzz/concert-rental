@@ -4,10 +4,8 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>rayeonzz 演唱會手機 & 手燈租借服務</title> 
-    
-    <!-- 瀏覽器分頁圖示 (Favicon) -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
+    <!-- 瀏覽器分頁圖示 (Favicon) --> 
+    <link rel="icon" type="image/png" href="favicon.png"> 
     <!-- Google tag (gtag.js) - Google Analytics 流量追蹤 --> 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LLDMC8FKXE"></script> 
     <script> 
@@ -16,14 +14,12 @@
         gtag('js', new Date()); 
         gtag('config', 'G-LLDMC8FKXE'); 
     </script> 
-
     <!-- 社群分享預覽設定 (Open Graph) - 讓 LINE、IG 顯示精美大圖與預覽 --> 
     <meta property="og:title" content="rayeonzz 演唱會手機 & 手燈租借服務"> 
     <meta property="og:description" content="S24 Ultra 演唱會神機與全網最齊全應援手燈出租，台南台中面交、檔期線上查詢預約！"> 
     <meta property="og:image" content="https://rayeonzz.github.io/concert-rental/og-image.png"> 
-    <meta property="og:url" content="https://rayeonzz.github.io/concert-rental/">
+    <meta property="og:url" content="https://rayeonzz.github.io/concert-rental/"> 
     <meta property="og:type" content="website"> 
-
     <!-- 引入 Google Fonts Noto Serif TC (思源宋體) --> 
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
@@ -32,9 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
     <style> 
         :root { --primary: #23466B; --light-bg: #DCEEFF; --accent: #A94F00; } 
-        html {
-            scroll-behavior: smooth; /* 實現全站平滑滾動 */
-        }
+        html { scroll-behavior: smooth; /* 實現全站平滑滾動 */ } 
         body { 
             font-family: 'Noto Serif TC', serif; 
             font-weight: 500; 
@@ -53,12 +47,11 @@
             box-shadow: 0 20px 40px rgba(35, 70, 107, 0.12); 
         } 
         .ios-header { 
-            background: rgba(255, 255, 255, 0.6); /* 數字越小越透明 */
-            backdrop-filter: blur(13px) saturate(180%); /* 數值越大模糊感越強 */
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(13px) saturate(180%); 
             -webkit-backdrop-filter: blur(13px) saturate(180%); 
             border-bottom: 1px solid rgba(255, 255, 255, 0.8); 
-        }
-        
+        } 
         .ios-input { 
             background: rgba(255, 255, 255, 0.9) !important; 
             border: 1px solid rgba(186, 212, 240, 0.8) !important; 
@@ -81,41 +74,32 @@
             color: #ffffff !important; 
             box-shadow: 0 4px 12px rgba(35, 70, 107, 0.25); 
         } 
-        /* 電腦版與預設的滾動停靠距離 */
-section[id] { 
-    scroll-margin-top: 110px; 
-} 
-
-/* 當螢幕小於 768px（也就是手機版時）的滾動停靠距離 */
-@media (max-width: 768px) {
-    section[id] { 
-        scroll-margin-top: 73px; /* 手機版專用的高度，可自己微調 */
-    }
-}
+        /* 電腦版與預設的滾動停靠距離 */ 
+        section[id] { scroll-margin-top: 110px; } 
+        /* 當螢幕小於 768px（也就是手機版時）的滾動停靠距離 */ 
+        @media (max-width: 768px) { 
+            section[id] { scroll-margin-top: 73px; } 
+        } 
     </style> 
 </head> 
 <body class="text-stone-950 min-h-screen flex flex-col selection:bg-[#A94F00] selection:text-white"> 
-<!-- 導覽列 --> 
+
+    <!-- 導覽列 --> 
     <header class="sticky top-0 z-50 ios-header shadow-sm"> 
-        <!-- 手機版維持 py-2 (厚度剛好)，電腦版強制使用極扁的 sm:py-0.5 讓 banner 變超薄 -->
         <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-0.5 flex justify-between items-center relative"> 
-            
             <!-- 1. 【手機版專用】左邊臉部 Logo (電腦版隱藏) -->
             <a href="#" class="flex items-center sm:hidden"> 
                 <img src="logo.png" alt="rayeonzz" style="width: 55px; height: auto;" class="object-contain drop-shadow-sm"> 
             </a> 
-
             <!-- 2. 【手機版專用】中間文字 Logo (電腦版隱藏) -->
             <a href="#" class="absolute left-1/2 -translate-x-1/2 sm:hidden flex items-center">
                 <img src="logo-text.png" alt="rayeonzz text" style="width: 110px; height: auto; transform: translate(0px, 3px)" class="object-contain drop-shadow-sm">
             </a>
-
-<!-- 3. 【電腦版專用】左邊並排完整的 Logo 區塊 -->
+            <!-- 3. 【電腦版專用】左邊並排完整的 Logo 區塊 -->
             <a href="#" class="hidden sm:flex items-center sm:translate-x-[15px]"> 
                 <img src="logo.png" alt="rayeonzz" style="width: 56px; height: auto;" class="object-contain drop-shadow-sm my-[-20px]"> 
                 <img src="logo-text.png" alt="rayeonzz text" style="width: 130px; height: auto; margin-left: -4px;" class="object-contain drop-shadow-sm my-[-20px]">
-            </a>
-            
+            </a> 
             <!-- 4. 右側按鈕群組 -->
             <div class="flex items-center gap-2 sm:gap-3" style="transform: translate(-10px, 0px);"> 
                 <a href="#order-section" class="hidden sm:inline-block bg-[#23466B] hover:bg-[#1a3552] text-white text-xs font-bold px-3.5 py-1 rounded-xl transition shadow-lg shadow-[#23466B]/20 active:scale-95"> 
@@ -126,7 +110,6 @@ section[id] {
                 </button> 
             </div> 
         </div> 
-
         <!-- 手機選單下拉內容 -->
         <div id="mobileMenuDropdown" class="hidden ios-header border-t border-[#23466B]/10 px-4 py-3 space-y-2 text-xs font-bold shadow-xl transition-all"> 
             <a href="#phone-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📱 手機租借</a> 
@@ -134,7 +117,8 @@ section[id] {
             <a href="#order-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">💰 租金試算與預約</a> 
             <a href="#contact-section" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl hover:bg-[#23466B] hover:text-white text-[#23466B] transition">📞 聯絡資訊</a> 
         </div> 
-    </header>
+    </header> 
+
     <!-- 主頁 Banner --> 
     <section class="py-8 sm:py-10 px-3 sm:px-4 text-center"> 
         <div class="max-w-3xl mx-auto ios-glass p-6 sm:p-10 rounded-[28px] sm:rounded-[32px] space-y-3 sm:space-y-4"> 
@@ -155,10 +139,18 @@ section[id] {
     <div class="max-w-3xl mx-auto px-3 sm:px-4 pb-6 w-full"> 
         <div class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] space-y-2"> 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center"> 
-                <a href="#phone-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> <i class="fa-solid fa-mobile-screen"></i> 手機租借 </a> 
-                <a href="#lightstick-section-view" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> <i class="fa-solid fa-wand-magic-sparkles"></i> 手燈租借 </a> 
-                <a href="#order-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> <i class="fa-solid fa-calculator"></i> 租金試算 </a> 
-                <a href="#contact-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> <i class="fa-solid fa-address-book"></i> 聯絡資訊 </a> 
+                <a href="#phone-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> 
+                    <i class="fa-solid fa-mobile-screen"></i> 手機租借 
+                </a> 
+                <a href="#lightstick-section-view" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> 
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 手燈租借 
+                </a> 
+                <a href="#order-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> 
+                    <i class="fa-solid fa-calculator"></i> 租金試算 
+                </a> 
+                <a href="#contact-section" class="flex items-center justify-center gap-1.5 bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/20 p-2.5 sm:p-3 rounded-2xl text-xs font-bold transition shadow-sm"> 
+                    <i class="fa-solid fa-address-book"></i> 聯絡資訊 
+                </a> 
             </div> 
         </div> 
     </div> 
@@ -175,17 +167,18 @@ section[id] {
                     <div id="phone-rented-banners" class="space-y-1.5 flex flex-col items-center w-full"></div> 
                 </div> 
                 <div class="w-full md:w-2/3 space-y-3"> 
-                    <div class="flex flex-wrap justify-between items-baseline pb-2 border-b border-[#23466B]/15 gap-2"> 
+                    <!-- 已經為手機版設定 text-center 置中，電腦版 sm:text-left 維持原樣 -->
+                    <div class="flex flex-col sm:flex-row flex-wrap justify-between items-center sm:items-baseline pb-2 border-b border-[#23466B]/15 gap-2 text-center sm:text-left"> 
                         <div> 
                             <h3 class="text-lg sm:text-2xl font-black text-[#23466B]">Samsung Galaxy S24 Ultra</h3> 
                             <p class="text-xs sm:text-sm text-[#23466B] font-bold pl-0.5">256GB 旗艦演唱會神機</p> 
                         </div> 
-                        <div class="text-right flex items-baseline"> 
+                        <div class="text-center sm:text-right flex items-baseline justify-center"> 
                             <span class="text-xl sm:text-2xl font-black text-[#23466B]">NT$ 550</span> 
                             <span class="text-xs font-bold text-stone-700 ml-1">/ 天</span> 
                         </div> 
                     </div> 
-                    <div class="text-xs sm:text-sm text-stone-900 leading-relaxed font-bold pt-1 space-y-1"> 
+                    <div class="text-xs sm:text-sm text-stone-900 leading-relaxed font-bold pt-1 space-y-1 text-center sm:text-left"> 
                         <p>演唱會錄影推薦！100 倍數位變焦、UHD60 高畫質攝影 📸</p> 
                         <p>遠距離也能清晰捕捉愛豆對視瞬間。</p> 
                         <p class="text-[#23466B]">附贈配件組：保護殼, 保護貼, 充電線, 快充頭與手機保護外盒。</p> 
@@ -214,7 +207,6 @@ section[id] {
                 <p>🪄 <b>租借說明：</b> 不含電池，請自備電池。演唱會後一週內歸還。</p> 
                 <p class="text-stone-900">🪄 <b>取消規定：</b> 取燈日<b>5天內</b>取消將收取 NT$ 100 跑單費。</p> 
             </div> 
-
             <!-- 手燈快速分類篩選按鈕 --> 
             <div class="flex flex-wrap justify-center gap-2 mb-4 sm:mb-6"> 
                 <button type="button" onclick="filterLightsticks('all')" id="filter-btn-all" class="bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">全部手燈(<span id="count-all">33</span>)</button> 
@@ -222,13 +214,11 @@ section[id] {
                 <button type="button" onclick="filterLightsticks('girl')" id="filter-btn-girl" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">女團(<span id="count-girl">18</span>)</button> 
                 <button type="button" onclick="filterLightsticks('discount')" id="filter-btn-discount" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">優惠價(<span id="count-discount">5</span>)</button> 
             </div> 
-
             <div class="mb-4 sm:mb-6 flex justify-center"> 
                 <div class="ios-glass px-5 py-2 rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm flex items-center gap-2"> 
                     <span>✨ 點擊任一手燈圖片即可自動代入預約</span> 
                 </div> 
             </div> 
-
             <!-- 手燈網格 --> 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="lightsticks-grid"> 
                 <!-- aespa --> 
@@ -656,7 +646,8 @@ section[id] {
                     <label class="block text-xs font-bold text-stone-900">選擇欲租借的手燈款式 <span class="text-[11px] font-normal text-[#A94F00] ml-1">📱搭配手機，每支手燈折抵 100 元！</span></label> 
                     <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1"> 
                         <div class="text-[11px] font-bold text-[#23466B]">第一支手燈款式</div> 
-                        <select id="selectedLightstick1" onchange="onLightstickChange()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> </select> 
+                        <select id="selectedLightstick1" onchange="onLightstickChange()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
+                        </select> 
                     </div> 
                     <div class="flex items-center gap-2 pt-1 px-1"> 
                         <input type="checkbox" id="moreLightsticksCheck" onchange="toggleMoreLightsticks()" class="w-4 h-4 accent-[#23466B] rounded cursor-pointer"> 
@@ -665,40 +656,47 @@ section[id] {
                     <div id="extraLightsticksContainer" class="space-y-3 hidden pl-3 border-l-2 border-[#23466B]/30 pt-1"> 
                         <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1"> 
                             <div class="text-[11px] font-bold text-[#23466B]">第二支手燈款式 (必填)</div> 
-                            <select id="selectedLightstick2" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> </select> 
+                            <select id="selectedLightstick2" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
+                            </select> 
                         </div> 
                         <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1"> 
                             <div class="text-[11px] font-bold text-[#23466B]">第三支手燈款式 (不必填)</div> 
-                            <select id="selectedLightstick3" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> </select> 
+                            <select id="selectedLightstick3" onchange="calculatePrice()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
+                            </select> 
                         </div> 
                     </div> 
                 </div> 
                 <div id="deposit-selection-container" class="space-y-2"> 
                     <label class="block text-xs font-bold text-stone-900">選擇手機押金方案 <span class="text-red-600">*</span></label> 
-                    <select id="depositOption" onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
+                    <!-- 手機版字體縮小為 text-[11px]，確保文字不被框框切掉 -->
+                    <select id="depositOption" onchange="calculatePrice()" class="w-full ios-input rounded-2xl p-2.5 sm:p-3 text-[11px] sm:text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
                         <option value="ID_CARD">1. 押金 NT$ 3,000 ＋ 證件（身分證／健保卡擇一）</option> 
                         <option value="NO_ID">2. 押金 NT$ 30,000，免押證件</option> 
                     </select> 
                 </div> 
                 <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 rounded-2xl p-4 sm:p-5 text-stone-950 space-y-2.5 font-bold shadow-sm"> 
                     <div class="flex justify-between text-xs" id="row-days"> 
-                        <span>手機租借天數：</span> <span id="rentalDays" class="font-black text-[#23466B]">0 天</span> 
+                        <span>手機租借天數：</span> 
+                        <span id="rentalDays" class="font-black text-[#23466B]">0 天</span> 
                     </div> 
                     <div class="flex justify-between text-xs"> 
-                        <span>預估租金總額：</span> <span id="totalRent" class="text-[#A94F00] text-sm font-black">NT$ 0</span> 
+                        <span>預估租金總額：</span> 
+                        <span id="totalRent" class="text-[#A94F00] text-sm font-black">NT$ 0</span> 
                     </div> 
-                    <div class="flex justify-between text-xs"> 
-                        <span>預估押金方案：</span> <span id="deposit" class="font-black text-[#23466B]">NT$ 3,000 ＋ 證件</span> 
+                    <!-- 改為「預估押金總額」並使用 flex flex-wrap 確保手機版保持同一行 -->
+                    <div class="flex flex-wrap justify-between items-center text-xs gap-1"> 
+                        <span>預估押金總額：</span> 
+                        <span id="deposit" class="font-black text-[#23466B] text-right">NT$ 3,000 ＋ 證件</span> 
                     </div> 
                 </div> 
                 <div class="space-y-4 pt-2"> 
                     <div id="name-field-container"> 
                         <label class="block text-xs font-bold text-stone-900 mb-1.5">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">租手機者必填</span></label> 
-                        <input type="text" id="custName" placeholder="例：朴枕擁" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
+                        <input type="text" id="custName" placeholder="例 : 朴枕擁" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
                     </div> 
                     <div> 
                         <label class="block text-xs font-bold text-stone-900 mb-1.5">Instagram / Threads <span class="text-red-600">*</span></label> 
-                        <input type="text" id="socialId" required placeholder="例：rayeonzz" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
+                        <input type="text" id="socialId" required placeholder="例 : rayeonzz" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"> 
                     </div> 
                     <div> 
                         <label class="block text-xs font-bold text-stone-900 mb-1.5">LINE ID <span class="text-red-600">*</span></label> 
@@ -729,9 +727,11 @@ section[id] {
     <!-- 右下角懸浮按鈕 --> 
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"> 
         <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" title="聯繫 LINE" class="w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition hover:scale-110 overflow-hidden bg-[#4CAF50]"> 
-            <img src="lineicon.PNG" alt="LINE" class="w-full h-full object-cover translate-y-0.5"> </a> 
+            <img src="lineicon.PNG" alt="LINE" class="w-full h-full object-cover translate-y-0.5"> 
+        </a> 
         <a href="https://www.threads.com/@rayeonzz?igshid=NTc4MTIwNjQ2YQ==" target="_blank" title="瀏覽 Threads" class="w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition hover:scale-110 overflow-hidden bg-[#000000]"> 
-            <img src="threadsicon.PNG" alt="Threads" class="w-full h-full object-cover"> </a> 
+            <img src="threadsicon.PNG" alt="Threads" class="w-full h-full object-cover"> 
+        </a> 
     </div> 
 
     <!-- 管理員登入 Modal --> 
@@ -777,33 +777,54 @@ section[id] {
 
     <script> 
         const lightstickList = [ 
-            { name: "aespa", price: 400 }, { name: "BABYMONSTER", price: 400 }, { name: "BLACKPINK", price: 400 }, 
-            { name: "BOYNEXTDOOR", price: 400 }, { name: "BTS", price: 400 }, { name: "CLOSE YOUR EYES", price: 400 }, 
-            { name: "CNBLUE", price: 400 }, { name: "CORTIS", price: 400 }, { name: "EVNNE", price: 400 }, 
-            { name: "EXO", price: 400 }, { name: "fromis_9", price: 400 }, { name: "FTISLAND", price: 400 }, 
-            { name: "GFRIEND", price: 400 }, { name: "Girls' Generation", price: 300 }, { name: "ILLIT", price: 400 }, 
-            { name: "ITZY", price: 400 }, { name: "IVE", price: 400 }, { name: "izna", price: 400 }, 
-            { name: "Kep1er", price: 400 }, { name: "KISS OF LIFE", price: 400 }, { name: "LE SSERAFIM", price: 400 }, 
-            { name: "NMIXX", price: 300 }, { name: "Red Velvet", price: 400 }, { name: "RIIZE", price: 400 }, 
-            { name: "SEVENTEEN", price: 400 }, { name: "STAYC", price: 300 }, { name: "Stray Kids", price: 400 }, 
-            { name: "TREASURE", price: 400 }, { name: "tripleS", price: 300 }, { name: "TWICE", price: 400 }, 
-            { name: "TWS", price: 400 }, { name: "TXT", price: 400 }, { name: "WJSN", price: 300 } 
+            { name: "aespa", price: 400 }, 
+            { name: "BABYMONSTER", price: 400 }, 
+            { name: "BLACKPINK", price: 400 }, 
+            { name: "BOYNEXTDOOR", price: 400 }, 
+            { name: "BTS", price: 400 }, 
+            { name: "CLOSE YOUR EYES", price: 400 }, 
+            { name: "CNBLUE", price: 400 }, 
+            { name: "CORTIS", price: 400 }, 
+            { name: "EVNNE", price: 400 }, 
+            { name: "EXO", price: 400 }, 
+            { name: "fromis_9", price: 400 }, 
+            { name: "FTISLAND", price: 400 }, 
+            { name: "GFRIEND", price: 400 }, 
+            { name: "Girls' Generation", price: 300 }, 
+            { name: "ILLIT", price: 400 }, 
+            { name: "ITZY", price: 400 }, 
+            { name: "IVE", price: 400 }, 
+            { name: "izna", price: 400 }, 
+            { name: "Kep1er", price: 400 }, 
+            { name: "KISS OF LIFE", price: 400 }, 
+            { name: "LE SSERAFIM", price: 400 }, 
+            { name: "NMIXX", price: 300 }, 
+            { name: "Red Velvet", price: 400 }, 
+            { name: "RIIZE", price: 400 }, 
+            { name: "SEVENTEEN", price: 400 }, 
+            { name: "STAYC", price: 300 }, 
+            { name: "Stray Kids", price: 400 }, 
+            { name: "TREASURE", price: 400 }, 
+            { name: "tripleS", price: 300 }, 
+            { name: "TWICE", price: 400 }, 
+            { name: "TWS", price: 400 }, 
+            { name: "TXT", price: 400 }, 
+            { name: "WJSN", price: 300 } 
         ]; 
-
         let allOrders = []; 
 
-        function formatDateToFriendly(dateStr) {
-            if (!dateStr) return '';
-            let clean = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
-            clean = clean.trim();
-            if (clean.length >= 10) {
-                let parts = clean.split(/[-/]/);
-                if (parts.length === 3) {
-                    return `${parts[0]}/${parts[1]}/${parts[2]}`;
-                }
-            }
+        function formatDateToFriendly(dateStr) { 
+            if (!dateStr) return ''; 
+            let clean = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr; 
+            clean = clean.trim(); 
+            if (clean.length >= 10) { 
+                let parts = clean.split(/[-/]/); 
+                if (parts.length === 3) { 
+                    return `${parts[0]}/${parts[1]}/${parts[2]}`; 
+                } 
+            } 
             return clean.replace(/-/g, '/'); 
-        }
+        } 
 
         function cleanDateStr(dateStr) { 
             if (!dateStr) return ''; 
@@ -845,18 +866,30 @@ section[id] {
             } else if (type === 'boy') { 
                 btnBoy.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition"; 
                 cards.forEach(card => { 
-                    if (card.getAttribute('data-group') === 'boy') { card.style.display = 'flex'; } else { card.style.display = 'none'; } 
+                    if (card.getAttribute('data-group') === 'boy') { 
+                        card.style.display = 'flex'; 
+                    } else { 
+                        card.style.display = 'none'; 
+                    } 
                 }); 
             } else if (type === 'girl') { 
                 btnGirl.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition"; 
                 cards.forEach(card => { 
-                    if (card.getAttribute('data-group') === 'girl') { card.style.display = 'flex'; } else { card.style.display = 'none'; } 
+                    if (card.getAttribute('data-group') === 'girl') { 
+                        card.style.display = 'flex'; 
+                    } else { 
+                        card.style.display = 'none'; 
+                    } 
                 }); 
             } else if (type === 'discount') { 
                 btnDiscount.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition"; 
                 cards.forEach(card => { 
                     const price = parseInt(card.getAttribute('data-price')); 
-                    if (price === 300) { card.style.display = 'flex'; } else { card.style.display = 'none'; } 
+                    if (price === 300) { 
+                        card.style.display = 'flex'; 
+                    } else { 
+                        card.style.display = 'none'; 
+                    } 
                 }); 
             } 
         } 
@@ -878,20 +911,18 @@ section[id] {
                 .then(response => response.json()) 
                 .then(data => { 
                     if (data.result === 'success' && data.orders) { 
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-
+                        const today = new Date(); 
+                        today.setHours(0, 0, 0, 0); 
                         allOrders = data.orders.map(o => ({ 
                             start: o.start ? String(o.start).replace(/\//g, '-').substring(0, 10) : '', 
                             end: o.end ? String(o.end).replace(/\//g, '-').substring(0, 10) : '', 
                             item: o.item || '' 
-                        })).filter(o => {
-                            if (!o.end) return false;
-                            const endDateObj = new Date(o.end);
-                            endDateObj.setHours(0, 0, 0, 0);
+                        })).filter(o => { 
+                            if (!o.end) return false; 
+                            const endDateObj = new Date(o.end); 
+                            endDateObj.setHours(0, 0, 0, 0); 
                             return endDateObj >= today; 
                         }); 
-
                         renderRentedStatus(); 
                     } 
                 }) 
@@ -901,61 +932,57 @@ section[id] {
         function renderRentedStatus() { 
             const phoneBannersContainer = document.getElementById('phone-rented-banners'); 
             if (phoneBannersContainer) phoneBannersContainer.innerHTML = ''; 
-            
             document.querySelectorAll('.rented-badge').forEach(el => el.remove()); 
-
             allOrders.forEach(order => { 
                 if (order.start && order.end) { 
                     const cleanStart = cleanDateStr(order.start); 
                     const cleanEnd = cleanDateStr(order.end); 
-                    
                     if (order.item.includes('S24 Ultra') || order.item.includes('手機')) { 
                         addPhoneRentedBanner(cleanStart, cleanEnd); 
                     } 
-                    
                     lightstickList.forEach(item => { 
                         if (order.item.includes(item.name)) { 
-                            if (item.name === 'aespa') {
-                                if (order.item.includes('ver2') || order.item.includes('Ver. 2')) {
-                                    markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
-                                } else if (order.item.includes('ver1') || order.item.includes('Ver. 1')) {
-                                    markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd);
-                                } else {
+                            if (item.name === 'aespa') { 
+                                if (order.item.includes('ver2') || order.item.includes('Ver. 2')) { 
+                                    markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd); 
+                                } else if (order.item.includes('ver1') || order.item.includes('Ver. 1')) { 
+                                    markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd); 
+                                } else { 
                                     markAsRented(item.name, cleanStart, cleanEnd); 
-                                }
-                            } else if (item.name === 'GFRIEND') {
-                                if (order.item.includes('japan') || order.item.includes('Japan')) {
-                                    markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd);
-                                } else if (order.item.includes('ver3') || order.item.includes('Ver. 3')) {
-                                    markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd);
-                                } else {
-                                    markAsRented(item.name, cleanStart, cleanEnd);
-                                }
-                            } else if (item.name === 'IVE') {
-                                if (order.item.includes('ver2') || order.item.includes('Ver. 2')) {
-                                    markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd);
-                                } else if (order.item.includes('ver1') || order.item.includes('Ver. 1')) {
-                                    markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd);
-                                } else {
-                                    markAsRented(item.name, cleanStart, cleanEnd);
-                                }
-                            } else {
+                                } 
+                            } else if (item.name === 'GFRIEND') { 
+                                if (order.item.includes('japan') || order.item.includes('Japan')) { 
+                                    markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd); 
+                                } else if (order.item.includes('ver3') || order.item.includes('Ver. 3')) { 
+                                    markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd); 
+                                } else { 
+                                    markAsRented(item.name, cleanStart, cleanEnd); 
+                                } 
+                            } else if (item.name === 'IVE') { 
+                                if (order.item.includes('ver2') || order.item.includes('Ver. 2')) { 
+                                    markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd); 
+                                } else if (order.item.includes('ver1') || order.item.includes('Ver. 1')) { 
+                                    markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd); 
+                                } else { 
+                                    markAsRented(item.name, cleanStart, cleanEnd); 
+                                } 
+                            } else { 
                                 markAsRented(item.name, cleanStart, cleanEnd); 
-                            }
+                            } 
                         } 
                     }); 
                 } 
             }); 
-            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
-            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
-            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
+            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames); 
+            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames); 
+            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames); 
         } 
 
         function addPhoneRentedBanner(startDate, endDate) { 
             const container = document.getElementById('phone-rented-banners'); 
             if (container) { 
-                const friendlyStart = formatDateToFriendly(startDate);
-                const friendlyEnd = formatDateToFriendly(endDate);
+                const friendlyStart = formatDateToFriendly(startDate); 
+                const friendlyEnd = formatDateToFriendly(endDate); 
                 const banner = document.createElement('div'); 
                 banner.className = 'w-fit bg-red-600/70 backdrop-blur-md text-white text-[11px] sm:text-xs py-1.5 px-3.5 rounded-full font-black shadow-md text-center tracking-wide flex items-center justify-center gap-1.5 mx-auto border border-red-400/40'; 
                 banner.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${friendlyStart} ~ ${friendlyEnd}`; 
@@ -969,8 +996,8 @@ section[id] {
                 if (card.getAttribute('data-name') === lightstickName) { 
                     let badge = card.querySelector('.rented-badge'); 
                     if (!badge) { 
-                        const friendlyStart = formatDateToFriendly(startDate);
-                        const friendlyEnd = formatDateToFriendly(endDate);
+                        const friendlyStart = formatDateToFriendly(startDate); 
+                        const friendlyEnd = formatDateToFriendly(endDate); 
                         badge = document.createElement('div'); 
                         badge.className = 'rented-badge absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 transition-opacity duration-300'; 
                         badge.innerHTML = ` 
@@ -983,66 +1010,61 @@ section[id] {
             }); 
         } 
 
-        function markSpecificVersionRented(lightstickName, versionName, startDate, endDate) {
+        function markSpecificVersionRented(lightstickName, versionName, startDate, endDate) { 
             const cards = document.querySelectorAll('#lightsticks-grid > div'); 
             cards.forEach(card => { 
                 if (card.getAttribute('data-name') === lightstickName) { 
-                    const friendlyStart = formatDateToFriendly(startDate);
-                    const friendlyEnd = formatDateToFriendly(endDate);
-                    
-                    let badgeClass = `rented-badge-${versionName.replace(/[\s.]/g, '')}`;
-                    let badge = card.querySelector(`.${badgeClass}`);
-                    if (!badge) {
+                    const friendlyStart = formatDateToFriendly(startDate); 
+                    const friendlyEnd = formatDateToFriendly(endDate); 
+                    let badgeClass = `rented-badge-${versionName.replace(/[\s.]/g, '')}`; 
+                    let badge = card.querySelector(`.${badgeClass}`); 
+                    if (!badge) { 
                         badge = document.createElement('div'); 
                         badge.className = `rented-badge ${badgeClass} absolute inset-0 bg-stone-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2`; 
-                        badge.setAttribute('data-version', versionName);
+                        badge.setAttribute('data-version', versionName); 
                         badge.innerHTML = ` 
                             <span class="bg-red-600/80 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> ${versionName} 已出租</span> 
                             <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">${friendlyStart} ~ ${friendlyEnd}</span> 
                         `; 
                         card.appendChild(badge); 
-                    }
+                    } 
                 } 
-            });
-        }
+            }); 
+        } 
 
-        function updateMultiVersionBadgeVisibility(lightstickName, currentIndex, versionNames) {
-            const cards = document.querySelectorAll('#lightsticks-grid > div');
-            cards.forEach(card => {
-                if (card.getAttribute('data-name') === lightstickName) {
-                    const currentVerName = versionNames[currentIndex];
-                    const badges = card.querySelectorAll('.rented-badge');
-                    badges.forEach(b => {
-                        if (b.classList.contains(`rented-badge-${currentVerName.replace(/[\s.]/g, '')}`)) {
-                            b.style.display = 'flex';
-                        } else {
-                            b.style.display = 'none';
-                        }
-                    });
-                }
-            });
-        }
+        function updateMultiVersionBadgeVisibility(lightstickName, currentIndex, versionNames) { 
+            const cards = document.querySelectorAll('#lightsticks-grid > div'); 
+            cards.forEach(card => { 
+                if (card.getAttribute('data-name') === lightstickName) { 
+                    const currentVerName = versionNames[currentIndex]; 
+                    const badges = card.querySelectorAll('.rented-badge'); 
+                    badges.forEach(b => { 
+                        if (b.classList.contains(`rented-badge-${currentVerName.replace(/[\s.]/g, '')}`)) { 
+                            b.style.display = 'flex'; 
+                        } else { 
+                            b.style.display = 'none'; 
+                        } 
+                    }); 
+                } 
+            }); 
+        } 
 
         function isDateOverlap(start1, end1, start2, end2) { 
             return (start1 <= end2) && (end1 >= start2); 
         } 
 
         window.addEventListener('DOMContentLoaded', () => { 
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const todayStr = `${year}-${month}-${day}`;
-
+            const today = new Date(); 
+            const year = today.getFullYear(); 
+            const month = String(today.getMonth() + 1).padStart(2, '0'); 
+            const day = String(today.getDate()).padStart(2, '0'); 
+            const todayStr = `${year}-${month}-${day}`; 
             const startInput = document.getElementById('startDate'); 
             const endInput = document.getElementById('endDate'); 
-            
             startInput.setAttribute('min', todayStr); 
             startInput.value = todayStr; 
-            
-            endInput.setAttribute('min', todayStr);
-            endInput.value = todayStr;
-
+            endInput.setAttribute('min', todayStr); 
+            endInput.value = todayStr; 
             const urlParams = new URLSearchParams(window.location.search); 
             if (urlParams.has('rayeonzz1124')) { 
                 openAdminModal(); 
@@ -1054,54 +1076,47 @@ section[id] {
         }); 
 
         function onStartDateChange() { 
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const todayStr = `${year}-${month}-${day}`;
-
+            const today = new Date(); 
+            const year = today.getFullYear(); 
+            const month = String(today.getMonth() + 1).padStart(2, '0'); 
+            const day = String(today.getDate()).padStart(2, '0'); 
+            const todayStr = `${year}-${month}-${day}`; 
             const startInput = document.getElementById('startDate'); 
             const endInput = document.getElementById('endDate'); 
             const startVal = startInput.value; 
             const endVal = endInput.value; 
-
-            if (startVal && startVal < todayStr) {
-                alert('⚠️ 租借開始日期不得早於今天！');
-                startInput.value = todayStr;
-                return;
-            }
-
+            if (startVal && startVal < todayStr) { 
+                alert('⚠️ 租借開始日期不得早於今天！'); 
+                startInput.value = todayStr; 
+                return; 
+            } 
             if (startVal) { 
                 endInput.setAttribute('min', startVal); 
-                if (!endVal || endVal < startVal) {
-                    endInput.value = startVal;
-                }
+                if (!endVal || endVal < startVal) { 
+                    endInput.value = startVal; 
+                } 
             } 
-
-            validateAndCalculate();
+            validateAndCalculate(); 
         } 
 
-        function onEndDateChange() {
+        function onEndDateChange() { 
             const startInput = document.getElementById('startDate'); 
             const endInput = document.getElementById('endDate'); 
             const startVal = startInput.value; 
             const endVal = endInput.value; 
-
             if (startVal && endVal && endVal < startVal) { 
                 alert('⚠️ 歸還日期不得早於租借開始日期！請重新選擇。'); 
                 endInput.value = startVal; 
                 return; 
-            }
+            } 
+            validateAndCalculate(); 
+        } 
 
-            validateAndCalculate();
-        }
-
-        function validateAndCalculate() {
+        function validateAndCalculate() { 
             const startInput = document.getElementById('startDate'); 
             const endInput = document.getElementById('endDate'); 
             const startVal = startInput.value; 
             const endVal = endInput.value; 
-
             initLightstickSelects(); 
             if (startVal && endVal && endVal >= startVal) { 
                 const conflictedSticks = []; 
@@ -1126,8 +1141,8 @@ section[id] {
                     } 
                 }); 
             } 
-            calculatePrice();
-        }
+            calculatePrice(); 
+        } 
 
         function onLightstickChange() { 
             calculatePrice(); 
@@ -1158,7 +1173,7 @@ section[id] {
             const track = document.getElementById('aespa-track'); 
             track.style.transform = `translateX(-${aespaCurrentIndex * (100 / totalAespaSlides)}%)`; 
             document.getElementById('aespa-version-text').innerText = aespaVersionNames[aespaCurrentIndex]; 
-            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
+            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames); 
         } 
 
         let gfriendCurrentIndex = 0; 
@@ -1171,7 +1186,7 @@ section[id] {
             const track = document.getElementById('gfriend-track'); 
             track.style.transform = `translateX(-${gfriendCurrentIndex * (100 / totalGfriendSlides)}%)`; 
             document.getElementById('gfriend-version-text').innerText = gfriendVersionNames[gfriendCurrentIndex]; 
-            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
+            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames); 
         } 
 
         let iveCurrentIndex = 0; 
@@ -1184,7 +1199,7 @@ section[id] {
             const track = document.getElementById('ive-track'); 
             track.style.transform = `translateX(-${iveCurrentIndex * (100 / totalIveSlides)}%)`; 
             document.getElementById('ive-version-text').innerText = iveVersionNames[iveCurrentIndex]; 
-            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
+            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames); 
         } 
 
         const PHONE_RENT_PER_DAY = 550; 
@@ -1199,20 +1214,23 @@ section[id] {
                 let html = ''; 
                 lightstickList.forEach(item => { 
                     let displayPrice = item.price; 
-                    if (isCombo) { displayPrice = Math.max(0, item.price - 100); } 
+                    if (isCombo) { 
+                        displayPrice = Math.max(0, item.price - 100); 
+                    } 
                     let priceText = item.price === 300 ? ` (優惠價 NT$ ${displayPrice})` : ''; 
                     html += `<option value="${item.price}">${item.name}${priceText}</option>`; 
                 }); 
                 sel.innerHTML = html; 
                 if (currentVal) sel.value = currentVal; 
             }); 
-
             const sel3 = document.getElementById('selectedLightstick3'); 
             const currentVal3 = sel3.value; 
             let html3 = '<option value="0">-- 不需要第三支手燈 --</option>'; 
             lightstickList.forEach(item => { 
                 let displayPrice = item.price; 
-                if (isCombo) { displayPrice = Math.max(0, item.price - 100); } 
+                if (isCombo) { 
+                    displayPrice = Math.max(0, item.price - 100); 
+                } 
                 let priceText = item.price === 300 ? ` (優惠價 NT$ ${displayPrice})` : ''; 
                 html3 += `<option value="${item.price}">${item.name}${priceText}</option>`; 
             }); 
@@ -1326,24 +1344,21 @@ section[id] {
 
         function handleFormSubmit(event) { 
             event.preventDefault(); 
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const todayStr = `${year}-${month}-${day}`;
-
+            const today = new Date(); 
+            const year = today.getFullYear(); 
+            const month = String(today.getMonth() + 1).padStart(2, '0'); 
+            const day = String(today.getDate()).padStart(2, '0'); 
+            const todayStr = `${year}-${month}-${day}`; 
             const start = document.getElementById('startDate').value; 
             const end = document.getElementById('endDate').value; 
-
-            if (start < todayStr) {
-                alert('⚠️ 預約失敗：租借開始日期不得早於今天！');
-                return;
-            }
+            if (start < todayStr) { 
+                alert('⚠️ 預約失敗：租借開始日期不得早於今天！'); 
+                return; 
+            } 
             if (end < start) { 
                 alert('⚠️ 歸還日期不得早於租借開始日期！'); 
                 return; 
             } 
-
             if (start && end) { 
                 const selectedSticks = []; 
                 const ls1 = document.getElementById('selectedLightstick1'); 
@@ -1395,14 +1410,53 @@ section[id] {
                 itemDesc = `Samsung S24 Ultra + 手燈: ${lsSummary} (每支折抵$100)`; 
             } 
             const nowTime = new Date().toLocaleString(); 
-            const newOrder = { mode: modeTitle, start: start || '未填', end: end || '未填', item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks, time: nowTime }; 
+            const newOrder = { 
+                mode: modeTitle, 
+                start: start || '未填', 
+                end: end || '未填', 
+                item: itemDesc, 
+                name: name, 
+                social: social, 
+                line: line, 
+                total: total, 
+                deposit: deposit, 
+                remarks: remarks, 
+                time: nowTime 
+            }; 
             const existingOrders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]'); 
             existingOrders.push(newOrder); 
             localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders)); 
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec'; 
-            const payload = { mode: modeTitle, start: start || '未填', end: end || '未填', item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks }; 
-            fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(error => console.error('傳送失敗!', error)); 
-            const message = `【 rayeonzz 演唱會租借預約單 】\n` + `📌 預約類型：${modeTitle}\n` + `📅 租借期間：${start} ~ ${end}\n` + `📱💡 租借項目：${itemDesc}\n` + `💰 預估總額：${total}\n` + `🔒 選擇押金方案：${deposit}\n` + `👤 姓名：${name}\n` + `📸 IG / Threads：${social}\n` + `💬 LINE ID：${line}\n` + `📝 備註：${remarks}\n\n` + `-----------------------------------\n` + `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`; 
+            const payload = { 
+                mode: modeTitle, 
+                start: start || '未填', 
+                end: end || '未填', 
+                item: itemDesc, 
+                name: name, 
+                social: social, 
+                line: line, 
+                total: total, 
+                deposit: deposit, 
+                remarks: remarks 
+            }; 
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(payload) 
+            }).catch(error => console.error('傳送失敗!', error)); 
+            const message = `【 rayeonzz 演唱會租借預約單 】\n` + 
+                            `📌 預約類型：${modeTitle}\n` + 
+                            `📅 租借期間：${start} ~ ${end}\n` + 
+                            `📱💡 租借項目：${itemDesc}\n` + 
+                            `💰 預估總額：${total}\n` + 
+                            `🔒 選擇押金方案：${deposit}\n` + 
+                            `👤 姓名：${name}\n` + 
+                            `📸 IG / Threads：${social}\n` + 
+                            `💬 LINE ID：${line}\n` + 
+                            `📝 備註：${remarks}\n\n` + 
+                            `-----------------------------------\n` + 
+                            `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`; 
             navigator.clipboard.writeText(message).then(() => { 
                 alert('預約資訊已成功儲存！\n即將為您導向至 LINE 聯繫 rayeonzz，請將明細貼上！'); 
                 window.open(`https://line.me/ti/p/Z7bIHvC4lF`, '_blank'); 
@@ -1411,13 +1465,17 @@ section[id] {
             }); 
         } 
 
-        function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); } 
+        function openAdminModal() { 
+            document.getElementById('adminModal').classList.remove('hidden'); 
+        } 
+
         function closeAdminModal() { 
             document.getElementById('adminModal').classList.add('hidden'); 
             document.getElementById('adminPassword').value = ''; 
             document.getElementById('adminAuth').classList.remove('hidden'); 
             document.getElementById('adminContent').classList.add('hidden'); 
         } 
+
         function checkAdminPass() { 
             const pass = document.getElementById('adminPassword').value; 
             if (pass === '911124frank') { 
@@ -1428,6 +1486,7 @@ section[id] {
                 alert('密碼錯誤！'); 
             } 
         } 
+
         function loadOrders() { 
             const orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]'); 
             const filterVal = document.getElementById('adminFilter').value; 
@@ -1472,6 +1531,7 @@ section[id] {
                 listEl.appendChild(div); 
             }); 
         } 
+
         function deleteSingleOrder(index) { 
             if (confirm('確定要刪除這筆預約單嗎？')) { 
                 let orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]'); 
@@ -1480,6 +1540,7 @@ section[id] {
                 loadOrders(); 
             } 
         } 
+
         function clearOrders() { 
             if (confirm('確定要清空所有預約單資料嗎？')) { 
                 localStorage.removeItem('rayeonzz_orders'); 
