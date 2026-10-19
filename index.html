@@ -1485,6 +1485,7 @@
 
 // 🔒 透過 Google 後端安全驗證密碼（改用 GET 繞過 CORS 限制）
 // 🔒 透過 Google 後端安全驗證密碼（修正 GET 網址組合）
+// 🔒 透過 GET 進行安全的後台密碼驗證（完美避開 CORS 阻擋）
 function checkAdminPass() {
     const passwordInput = document.getElementById('adminPassword').value;
     const loginBtn = document.getElementById('loginBtn');
@@ -1495,7 +1496,7 @@ function checkAdminPass() {
     loginBtn.innerText = '驗證中...';
     loginBtn.disabled = true;
 
-    // 確保使用完整的 scriptURL 進行 GET 請求驗證
+    // 透過 GET 請求把密碼帶在網址後面傳給 Google
     const verifyURL = `${scriptURL}?action=adminLogin&password=${encodeURIComponent(passwordInput)}`;
 
     fetch(verifyURL)
