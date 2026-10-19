@@ -866,6 +866,7 @@
                         addPhoneRentedBanner(cleanStart, cleanEnd);
                     }
                     lightstickList.forEach(item => {
+                        // 嚴格比對完整名稱（例如避免 aespa 模糊比對到整個群組）
                         if (order.item.includes(item.name)) {
                             if (item.name.includes('aespa')) {
                                 if (item.name.includes('Ver. 2')) markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
@@ -909,7 +910,6 @@
                         const friendlyStart = formatDateToFriendly(startDate);
                         const friendlyEnd = formatDateToFriendly(endDate);
                         badge = document.createElement('div');
-                        // 加入 auto-hoverable 讓電腦版鼠標移上去時能平滑淡出
                         badge.className = 'rented-badge auto-hoverable absolute inset-0 flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2';
                         badge.innerHTML = `
                             <span class="bg-red-600/80 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> 已出租</span>
@@ -1023,7 +1023,8 @@
                 allOrders.forEach(order => {
                     if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) {
                         lightstickList.forEach(ls => {
-                            if (order.item.includes(ls.name.split(' ')[0])) {
+                            // 修正：必須完整符合該手燈品項名稱（例如 "aespa Ver. 1"），才加入衝突清單，避免誤殺同團其他版本
+                            if (order.item.includes(ls.name)) {
                                 conflictedSticks.push(ls.name);
                             }
                         });
@@ -1033,7 +1034,7 @@
                 ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'].forEach(selId => {
                     const sel = document.getElementById(selId);
                     for (let i = sel.options.length - 1; i >= 0; i--) {
-                        if (conflictedSticks.includes(sel.options[i].text)) {
+                        if (conflictedSticks.includes(sel.options[i].text.split(' (')[0].trim())) {
                             sel.remove(i);
                         }
                     }
@@ -1046,7 +1047,6 @@
             calculatePrice();
         }
 
-        // 手機版專用：第一下點擊平滑淡出遮罩看清楚內容，第二下點擊才代入預約
         function handleLightstickCardClick(keyword) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             let targetCard = null;
@@ -1059,7 +1059,6 @@
             if (targetCard) {
                 const visibleBadges = Array.from(targetCard.querySelectorAll('.rented-badge')).filter(b => b.style.opacity !== '0' && b.style.visibility !== 'hidden');
                 if (visibleBadges.length > 0) {
-                    // 第一下點擊：帶有平滑過渡特效將遮罩淡出
                     visibleBadges.forEach(b => {
                         b.style.transition = 'opacity 0.4s ease, visibility 0.4s ease';
                         b.style.opacity = '0';
@@ -1070,7 +1069,6 @@
                 }
             }
 
-            // 第二下點擊或未出租：直接代入預約
             selectLightstick(keyword);
         }
 
@@ -1191,9 +1189,9 @@
                 lsBox.style.display = 'block'; 
                 depositContainer.style.display = 'none'; 
                 rowDays.style.display = 'none'; 
-                nameContainer.style.display = 'none'; // 純手燈直接隱藏姓名欄位
+                nameContainer.style.display = 'none';
                 nameInput.required = false; 
-                nameInput.value = ''; // 清空欄位內容避免殘留
+                nameInput.value = '';
             }
             calculatePrice();
         }
@@ -1244,9 +1242,9 @@
                 depositText.innerText = `NT$ ${totalDepositLs.toLocaleString()} (手燈押金)`;
             } else {
                 if (depOpt === 'ID_CARD') {
-                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 3,000 ＋ 證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT$ 3,000 ＋ 證件';
+                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 3,000 ＋ 證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 3,000 ＋ 證件';
                 } else {
-                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 30,000，免押證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT$ 30,000，免押證件';
+                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 30,000，免押證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 30,000，免押證件';
                 }
             }
         }
@@ -1264,7 +1262,6 @@
             if (start < todayStr) { alert('⚠️ 預約失敗：租借開始日期不得早於今天！'); return; }
             if (end < start) { alert('⚠️ 歸還日期不得早於租借開始日期！'); return; }
 
-            // 嚴格防撞檢查（含手機與手燈）
             if (start && end) {
                 for (let order of allOrders) {
                     if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
@@ -1284,7 +1281,6 @@
                 }
             }
 
-            // 如果是純手燈模式，姓名直接設為「免填」
             const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
             const social = document.getElementById('socialId').value;
             const line = document.getElementById('lineId').value;
@@ -1349,7 +1345,6 @@
                 `-----------------------------------\n` +
                 `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
 
-            // 建立美觀的雙按鈕自訂彈窗
             let modalBg = document.createElement('div');
             modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
             modalBg.innerHTML = `
@@ -1367,14 +1362,12 @@
             `;
             document.body.appendChild(modalBg);
 
-            // 選擇「聯繫」時才複製資料並跳轉 LINE
             document.getElementById('customAlertLine').onclick = () => {
                 navigator.clipboard.writeText(message).catch(() => {});
                 modalBg.remove();
                 window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
             };
 
-            // 選擇「確認」時不複製資料
             document.getElementById('customAlertConfirm').onclick = () => {
                 modalBg.remove();
                 alert('預約已送出！請靜候 rayeonzz 與您聯繫。');
