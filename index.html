@@ -1703,7 +1703,7 @@ function validateAndCalculate() {
             }
 
             if (countMap[item] > limit) {
-                showWarningModal('⚠️ 庫存不足', ` ${item} 庫存不足(最多可租借 ${limit} 支)，無法重複選擇！`);
+                showWarningModal(' 庫存不足', ` ${item}  庫存不足(最多可租借 ${limit} 支)，無法重複選擇！`);
                 return; // 攔截送出
             }
         }
