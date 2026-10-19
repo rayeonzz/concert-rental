@@ -1185,7 +1185,7 @@
             }
         }
 
-        function handleFormSubmit(event) {
+function handleFormSubmit(event) {
             event.preventDefault();
             const today = new Date();
             const year = today.getFullYear();
@@ -1202,12 +1202,10 @@
             if (start && end) {
                 for (let order of allOrders) {
                     if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
-                        // 檢查手機衝突
                         if ((currentMode === 'phone' || currentMode === 'combo') && order.item.includes('S24U')) {
                             alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！`);
                             return;
                         }
-                        // 檢查手燈衝突
                         if (currentMode === 'lightstick' || currentMode === 'combo') {
                             const ls1 = document.getElementById('selectedLightstick1');
                             const stick1 = ls1.options[ls1.selectedIndex].text.split(' (')[0].trim();
@@ -1284,14 +1282,37 @@
                 `-----------------------------------\n` +
                 `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
 
-            navigator.clipboard.writeText(message).then(() => {
-                alert('預約資訊已成功儲存！\n即將為您導向至 LINE 聯繫 rayeonzz，請將明細貼上！');
-                window.open(`https://line.me/ti/p/Z7bIHvC4lF`, '_blank');
-            }).catch(() => {
-                alert('複製失敗，請手動複製表單資訊。');
-            });
-        }
+            // 自動複製到剪貼簿
+            navigator.clipboard.writeText(message).catch(() => {});
 
+            // 建立美觀的雙按鈕自訂彈窗
+            let modalBg = document.createElement('div');
+            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
+            modalBg.innerHTML = `
+                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
+                    <h3 class="text-base font-black text-[#23466B]">預約資料已複製及送出！</h3>
+                    <p class="text-xs text-stone-900 leading-relaxed">
+                        按下「聯繫」後將為您導向至LINE聯繫 rayeonzz，請將資料貼上至聊天室<br>
+                        <span class="text-[#A94F00] mt-1 inline-block">按下「確認」則等待 rayeonzz 主動聯繫，未避免錯失檔期請優先選擇「聯繫」</span>
+                    </p>
+                    <div class="flex gap-3 pt-2">
+                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">確認</button>
+                        <button id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">聯繫</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modalBg);
+
+            document.getElementById('customAlertLine').onclick = () => {
+                modalBg.remove();
+                window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
+            };
+
+            document.getElementById('customAlertConfirm').onclick = () => {
+                modalBg.remove();
+                alert('預約已送出！請靜候 rayeonzz 與您聯繫。');
+            };
+        }
         function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
         function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); document.getElementById('adminPassword').value = ''; document.getElementById('adminAuth').classList.remove('hidden'); document.getElementById('adminContent').classList.add('hidden'); }
         function checkAdminPass() {
