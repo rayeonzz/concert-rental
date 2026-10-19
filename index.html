@@ -1337,132 +1337,135 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             }
         }
 
-        async function handleFormSubmit(event) {
-            event.preventDefault();
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            const todayStr = `${year}-${month}-${day}`;
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${year}-${month}-${day}`;
+    const start = document.getElementById('startDate').value;
+    const end = document.getElementById('endDate').value;
+    
+    if (start < todayStr) {
+        alert('⚠️ 預約失敗：租借開始日期不得早於今天！');
+        return;
+    }
+    if (end < start) {
+        alert('⚠️ 歸還日期不得早於租借開始日期！');
+        return;
+    }
 
-            const start = document.getElementById('startDate').value;
-            const end = document.getElementById('endDate').value;
+    const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
+    const social = document.getElementById('socialId').value;
+    const line = document.getElementById('lineId').value || '未填';
+    const remarks = document.getElementById('remarks').value || '無';
+    const total = document.getElementById('totalRent').innerText;
+    const deposit = document.getElementById('deposit').innerText;
 
-            if (start < todayStr) {
-                alert('⚠️ 預約失敗：租借開始日期不得早於今天！');
-                return;
-            }
-            if (end < start) {
-                alert('⚠️ 歸還日期不得早於租借開始日期！');
-                return;
-            }
+    let modeTitle = '手機 + 手燈';
+    let itemDesc = '';
+    const ls1Select = document.getElementById('selectedLightstick1');
+    const ls1Text = ls1Select.options[ls1Select.selectedIndex].text.split(' (')[0].trim();
+    let lsSummary = ls1Text;
 
-            try {
-                const response = await fetch(scriptURL);
-                const data = await response.json();
-                if (data.result === 'success' && data.orders) {
-                    cloudOrders = data.orders;
-                    for (let order of cloudOrders) {
-                        if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
-                            if ((currentMode === 'phone' || currentMode === 'combo') && order.item.includes('S24U')) {
-                                alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被預約了！請重新選擇檔期。`);
-                                fetchRentedStatus();
-                                return;
-                            }
-                            if (currentMode === 'lightstick' || currentMode === 'combo') {
-                                const ls1 = document.getElementById('selectedLightstick1');
-                                const stick1 = ls1.options[ls1.selectedIndex].text.split(' (')[0].trim();
-                                if (order.item.includes(stick1)) {
-                                    alert(`⚠️ 預約失敗：手燈 (${stick1}) 在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被預約了！請重新選擇。`);
-                                    fetchRentedStatus();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (err) {
-                console.log('即時二次防撞檢驗連線異常，略過背景確認：', err);
-            }
-
-            const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
-            const social = document.getElementById('socialId').value;
-            const line = document.getElementById('lineId').value || '未填';
-            const remarks = document.getElementById('remarks').value || '無';
-            const total = document.getElementById('totalRent').innerText;
-            const deposit = document.getElementById('deposit').innerText;
-
-            let modeTitle = '手機 + 手燈';
-            let itemDesc = '';
-            const ls1Select = document.getElementById('selectedLightstick1');
-            const ls1Text = ls1Select.options[ls1Select.selectedIndex].text.split(' (')[0].trim();
-            let lsSummary = ls1Text;
-
-            if (document.getElementById('moreLightsticksCheck').checked) {
-                const ls2Select = document.getElementById('selectedLightstick2');
-                const ls2Text = ls2Select.options[ls2Select.selectedIndex].text.split(' (')[0].trim();
-                lsSummary += ` + ${ls2Text}`;
-
-                const ls3Select = document.getElementById('selectedLightstick3');
-                if (ls3Select.value !== "0") {
-                    const ls3Text = ls3Select.options[ls3Select.selectedIndex].text.split(' (')[0].trim();
-                    lsSummary += ` + ${ls3Text}`;
-                }
-            }
-
-            if (currentMode === 'phone') {
-                modeTitle = '手機';
-                itemDesc = 'S24U';
-            } else if (currentMode === 'lightstick') {
-                modeTitle = '手燈';
-                itemDesc = lsSummary;
-            } else {
-                itemDesc = `S24U + ${lsSummary}`;
-            }
-
-            const message = `【 rayeonzz 演唱會租借預約單 】\n` +
-                `📌 預約類型：${modeTitle}\n` +
-                `📅 租借期間：${start} ~ ${end}\n` +
-                `📱💡 租借項目：${itemDesc}\n` +
-                `💰 預估總額：${total}\n` +
-                `🔒 選擇押金方案：${deposit}\n` +
-                `👤 姓名：${name}\n` +
-                `📸 IG / Threads：${social}\n` +
-                `💬 LINE ID：${line}\n` +
-                `📝 備註：${remarks}\n\n` +
-                `-----------------------------------\n` +
-                `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
-
-            navigator.clipboard.writeText(message).catch(() => {});
-
-            const successMsgBox = document.getElementById('inlineSuccessMessage');
-            const submitBtn = document.getElementById('submitBtn');
-            if (successMsgBox) {
-                successMsgBox.classList.remove('hidden');
-                submitBtn.style.display = 'none';
-                successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            let modalBg = document.createElement('div');
-            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
-            modalBg.innerHTML = `
-                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
-                    <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3>
-                    <div class="space-y-1">
-                        <p class="text-xs text-stone-900 leading-relaxed">預約明細已自動複製</p>
-                        <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
-                        <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md flex items-center justify-center no-underline">聯繫 LINE</a>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modalBg);
-
-            document.getElementById('customAlertLine').onclick = () => { modalBg.remove(); };
-            document.getElementById('customAlertConfirm').onclick = () => { modalBg.remove(); };
+    if (document.getElementById('moreLightsticksCheck').checked) {
+        const ls2Select = document.getElementById('selectedLightstick2');
+        const ls2Text = ls2Select.options[ls2Select.selectedIndex].text.split(' (')[0].trim();
+        lsSummary += ` + ${ls2Text}`;
+        const ls3Select = document.getElementById('selectedLightstick3');
+        if (ls3Select.value !== "0") {
+            const ls3Text = ls3Select.options[ls3Select.selectedIndex].text.split(' (')[0].trim();
+            lsSummary += ` + ${ls3Text}`;
         }
+    }
+
+    if (currentMode === 'phone') {
+        modeTitle = '手機';
+        itemDesc = 'S24U';
+    } else if (currentMode === 'lightstick') {
+        modeTitle = '手燈';
+        itemDesc = lsSummary;
+    } else {
+        itemDesc = `S24U + ${lsSummary}`;
+    }
+
+    // 📦 準備要 POST 給後端（Cloudflare Worker -> Google Apps Script）的資料物件
+    const payload = {
+        mode: modeTitle,
+        start: start,
+        end: end,
+        item: itemDesc,
+        total: total,
+        deposit: deposit,
+        name: name,
+        social: social,
+        line: line,
+        remarks: remarks
+    };
+
+    // 🚀 真正發送 POST 請求寫入 Google 試算表與行事曆
+    try {
+        const postResponse = await fetch(scriptURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        });
+        const result = await postResponse.json();
+        if (result.result !== 'success') {
+            alert('⚠️ 寫入雲端失敗：' + (result.error || '未知錯誤'));
+            return;
+        }
+    } catch (err) {
+        console.error('送出預約發生錯誤：', err);
+        alert('⚠️ 網路連線異常，請稍後再試！');
+        return;
+    }
+
+    const message = `【 rayeonzz 演唱會租借預約單 】\n` +
+        `📌 預約類型：${modeTitle}\n` +
+        `📅 租借期間：${start} ~ ${end}\n` +
+        `📱💡 租借項目：${itemDesc}\n` +
+        `💰 預估總額：${total}\n` +
+        `🔒 選擇押金方案：${deposit}\n` +
+        `👤 姓名：${name}\n` +
+        `📸 IG / Threads：${social}\n` +
+        `💬 LINE ID：${line}\n` +
+        `📝 備註：${remarks}\n\n` +
+        `-----------------------------------\n` +
+        `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
+
+    navigator.clipboard.writeText(message).catch(() => {});
+
+    const successMsgBox = document.getElementById('inlineSuccessMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    if (successMsgBox) {
+        successMsgBox.classList.remove('hidden');
+        submitBtn.style.display = 'none';
+        successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    let modalBg = document.createElement('div');
+    modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
+    modalBg.innerHTML = `
+        <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
+            <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3>
+            <div class="space-y-1">
+                <p class="text-xs text-stone-900 leading-relaxed">預約明細已自動複製</p>
+                <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p>
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
+                <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md flex items-center justify-center no-underline">聯繫 LINE</a>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modalBg);
+    document.getElementById('customAlertLine').onclick = () => { modalBg.remove(); };
+    document.getElementById('customAlertConfirm').onclick = () => { modalBg.remove(); };
+}
 
         function openAdminModal() {
             document.getElementById('adminModal').classList.remove('hidden');
