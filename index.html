@@ -1163,6 +1163,17 @@ function renderRentedStatus(activeOrders) {
     updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
     updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
 }
+ function addPhoneRentedBanner(startDate, endDate) { 
+            const container = document.getElementById('phone-rented-banners'); 
+            if (container) { 
+                const friendlyStart = formatDateToFriendly(startDate); 
+                const friendlyEnd = formatDateToFriendly(endDate); 
+                const banner = document.createElement('div'); 
+                banner.className = 'w-fit bg-red-600/75 backdrop-blur-md text-white text-[11px] sm:text-xs py-1.5 px-3.5 rounded-full font-black shadow-md text-center tracking-wide flex items-center justify-center gap-1.5 mx-auto border border-red-400/40 my-0.5'; 
+                banner.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${friendlyStart} ~ ${friendlyEnd}`; 
+                container.appendChild(banner); 
+            } 
+        } 
 
         function markSpecificVersionRented(lightstickName, versionName, startDate, endDate) { 
             const cards = document.querySelectorAll('#lightsticks-grid > div'); 
