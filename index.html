@@ -1483,44 +1483,40 @@
             document.getElementById('adminContent').classList.add('hidden');
         }
 
-        // 🔒 透過 Google 後端安全驗證密碼（前端再也找不到密碼字串）
-        function checkAdminPass() {
-            const passwordInput = document.getElementById('adminPassword').value;
-            const loginBtn = document.getElementById('loginBtn');
-            
-            if (!passwordInput) {
-                alert('請輸入密碼！');
-                return;
-            }
+// 🔒 透過 Google 後端安全驗證密碼（修正 CORS 跨域攔截）
+function checkAdminPass() {
+    const passwordInput = document.getElementById('adminPassword').value;
+    const loginBtn = document.getElementById('loginBtn');
+    if (!passwordInput) {
+        alert('請輸入密碼！');
+        return;
+    }
+    loginBtn.innerText = '驗證中...';
+    loginBtn.disabled = true;
 
-            loginBtn.innerText = '驗證中...';
-            loginBtn.disabled = true;
-
-            fetch(scriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'adminLogin', password: passwordInput })
-            })
-            .then(response => response.json())
-            .then(data => {
-                loginBtn.innerText = '登入後台';
-                loginBtn.disabled = false;
-
-                if (data.result === 'success') {
-                    document.getElementById('adminAuth').classList.add('hidden');
-                    document.getElementById('adminContent').classList.remove('hidden');
-                    loadOrders();
-                } else {
-                    alert('⚠️ 密碼錯誤！');
-                }
-            })
-            .catch(err => {
-                loginBtn.innerText = '登入後台';
-                loginBtn.disabled = false;
-                alert('連線驗證失敗，請稍後再試：' + err);
-            });
+    // 💡 改用純文字送出並加上 no-cors 概念的處理，避免瀏覽器 CORS 預檢攔截
+    fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'adminLogin', password: passwordInput })
+    })
+    .then(response => response.json())
+    .then(data => {
+        loginBtn.innerText = '登入後台';
+        loginBtn.disabled = false;
+        if (data.result === 'success') {
+            document.getElementById('adminAuth').classList.add('hidden');
+            document.getElementById('adminContent').classList.remove('hidden');
+            loadOrders();
+        } else {
+            alert('⚠️ 密碼錯誤！');
         }
-
+    })
+    .catch(err => {
+        loginBtn.innerText = '登入後台';
+        loginBtn.disabled = false;
+        alert('連線驗證失敗，請稍後再試：' + err);
+    });
+}
         // 💡 雲端載入訂單
         function loadOrders() {
             const listEl = document.getElementById('orderList');
