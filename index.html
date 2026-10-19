@@ -242,6 +242,7 @@
                         </div> 
                     </div> 
                     <div> 
+                        <div class="text-[9px] sm:text-[10px] text-[#23466B] font-bold mb-1">Ver. 1｜Ver. 2 皆有提供</div> 
                         <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div> 
                     </div> 
                 </div> 
@@ -443,6 +444,7 @@
                         </div> 
                     </div> 
                     <div> 
+                        <div class="text-[9px] sm:text-[10px] text-[#23466B] font-bold mb-1">Ver. 3｜Japan 皆有提供</div> 
                         <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div> 
                     </div> 
                 </div> 
@@ -509,6 +511,7 @@
                         </div> 
                     </div> 
                     <div> 
+                        <div class="text-[9px] sm:text-[10px] text-[#23466B] font-bold mb-1">Ver. 1｜Ver. 2 皆有提供</div> 
                         <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div> 
                     </div> 
                 </div> 
@@ -834,6 +837,8 @@
                         <textarea id="remarks" placeholder="其他需求請留這邊(。・・)ノ" rows="1" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"></textarea> 
                     </div> 
                 </div> 
+
+                <!-- 頁面內嵌的送出成功提示訊息 (平常隱藏) --> 
                 <div id="inlineSuccessMessage" class="hidden bg-[#DCEEFF] border-2 border-[#23466B] p-4 rounded-2xl text-center space-y-2.5 shadow-md"> 
                     <div class="text-[#23466B] font-black text-sm flex items-center justify-center gap-1.5"> 
                         <i class="fa-solid fa-circle-check text-green-600"></i> 預約資料已成功送出！ 
@@ -843,6 +848,7 @@
                         <img src="lineicon.PNG" alt="LINE" class="w-4 h-4 object-contain"> 點此開啟 LINE 傳送預約明細 
                     </a> 
                 </div> 
+
                 <button type="submit" id="submitBtn" class="w-full bg-[#23466B] hover:bg-[#1a3552] text-white font-black py-3.5 rounded-2xl shadow-lg shadow-[#23466B]/20 transition text-sm active:scale-98"> 送出預約並聯繫 rayeonzz </button> 
             </form> 
         </section> 
@@ -1064,45 +1070,53 @@
                     const cleanStart = order.start; 
                     const cleanEnd = order.end; 
 
-                    if (order.item.includes('S24U') || order.item.includes('手機')) { 
-                        addPhoneRentedBanner(cleanStart, cleanEnd); 
+                    // 檢查是否跟當前選擇的區間重疊（若沒有選日期則預設看今天以後所有未結束的訂單） 
+                    let isOverlap = true; 
+                    if (startVal && endVal) { 
+                        isOverlap = isDateOverlap(startVal, endVal, cleanStart, cleanEnd); 
                     } 
 
-                    if (order.item.includes('aespa')) { 
-                        if (order.item.includes('Ver. 2')) { 
-                            aespaVer2Rented++; 
-                            markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd); 
-                        } else { 
-                            aespaVer1Rented++; 
-                            markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd); 
+                    if (isOverlap) { 
+                        if (order.item.includes('S24U') || order.item.includes('手機')) { 
+                            addPhoneRentedBanner(cleanStart, cleanEnd); 
                         } 
-                    } 
-                    if (order.item.includes('GFRIEND')) { 
-                        if (order.item.includes('Japan')) { 
-                            gfriendJapanRented++; 
-                            markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd); 
-                        } else { 
-                            gfriendVer3Rented++; 
-                            markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd); 
-                        } 
-                    } 
-                    if (order.item.includes('IVE')) { 
-                        if (order.item.includes('Ver. 2')) { 
-                            iveVer2Rented++; 
-                            markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd); 
-                        } else { 
-                            iveVer1Rented++; 
-                            markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd); 
-                        } 
-                    } 
 
-                    lightstickList.forEach(item => { 
-                        if (!item.name.includes('aespa') && !item.name.includes('GFRIEND') && !item.name.includes('IVE')) { 
-                            if (order.item.includes(item.name)) { 
-                                markAsRented(item.name, cleanStart, cleanEnd); 
+                        if (order.item.includes('aespa')) { 
+                            if (order.item.includes('Ver. 2')) { 
+                                aespaVer2Rented++; 
+                                markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd); 
+                            } else { 
+                                aespaVer1Rented++; 
+                                markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd); 
                             } 
                         } 
-                    }); 
+                        if (order.item.includes('GFRIEND')) { 
+                            if (order.item.includes('Japan')) { 
+                                gfriendJapanRented++; 
+                                markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd); 
+                            } else { 
+                                gfriendVer3Rented++; 
+                                markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd); 
+                            } 
+                        } 
+                        if (order.item.includes('IVE')) { 
+                            if (order.item.includes('Ver. 2')) { 
+                                iveVer2Rented++; 
+                                markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd); 
+                            } else { 
+                                iveVer1Rented++; 
+                                markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd); 
+                            } 
+                        } 
+
+                        lightstickList.forEach(item => { 
+                            if (!item.name.includes('aespa') && !item.name.includes('GFRIEND') && !item.name.includes('IVE')) { 
+                                if (order.item.includes(item.name)) { 
+                                    markAsRented(item.name, cleanStart, cleanEnd); 
+                                } 
+                            } 
+                        }); 
+                    } 
                 } 
             }); 
 
@@ -1242,6 +1256,7 @@
                 } 
             } 
             validateAndCalculate(); 
+            fetchRentedStatus(); 
         } 
 
         function onEndDateChange() { 
@@ -1253,11 +1268,12 @@
                 return; 
             } 
             validateAndCalculate(); 
+            fetchRentedStatus(); 
         } 
 
         function getSelectedLightstickName(sel) { 
             if (!sel || sel.selectedIndex < 0) return ''; 
-            let option = sel.options[sel.selectedIndex]; 
+            const option = sel.options[sel.selectedIndex]; 
             if (!option) return ''; 
             if (option.value === '0' && option.dataset.lightstickName === undefined) { 
                 return '__NONE__'; 
@@ -1328,6 +1344,44 @@
             initLightstickSelects(); 
             selectIds.forEach(id => { 
                 restoreLightstickSelection(document.getElementById(id), previousSelections[id]); 
+            }); 
+
+            const stickCounts = {}; 
+            if (startVal && endVal && endVal >= startVal) { 
+                (cloudOrders || []).forEach(order => { 
+                    if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) { 
+                        lightstickList.forEach(ls => { 
+                            if ((order.item || '').includes(ls.name)) { 
+                                stickCounts[ls.name] = (stickCounts[ls.name] || 0) + 1; 
+                            } 
+                        }); 
+                    } 
+                }); 
+            } 
+
+            const multiStockSticks = new Set(["Girls' Generation", "TWICE", "BLACKPINK", "BOYNEXTDOOR", "LE SSERAFIM", "aespa", "GFRIEND", "IVE"]); 
+            selectIds.forEach((id, index) => { 
+                const sel = document.getElementById(id); 
+                if (!sel) return; 
+                const selectedName = getSelectedLightstickName(sel); 
+                const limit = multiStockSticks.has(selectedName) ? 2 : 1; 
+                if (selectedName && selectedName !== '__NONE__' && selectedName !== '__EMPTY__' && (stickCounts[selectedName] || 0) >= limit) { 
+                    if (index === 2) { 
+                        sel.value = '0'; 
+                    } else { 
+                        sel.value = ''; 
+                    } 
+                } 
+                for (let i = sel.options.length - 1; i >= 0; i--) { 
+                    const option = sel.options[i]; 
+                    const name = option.dataset.lightstickName; 
+                    if (name) { 
+                        const itemLimit = multiStockSticks.has(name) ? 2 : 1; 
+                        if ((stickCounts[name] || 0) >= itemLimit) { 
+                            sel.remove(i); 
+                        } 
+                    } 
+                } 
             }); 
             calculatePrice(); 
         } 
