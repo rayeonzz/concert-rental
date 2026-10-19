@@ -947,7 +947,6 @@
                             return endDateObj >= today;
                         });
                         renderRentedStatus();
-                        // 重新依據最新抓到的檔期去過濾選項與驗證
                         validateAndCalculate();
                     }
                 })
@@ -1382,7 +1381,6 @@
                 return;
             }
 
-            // 🛡️【關鍵防撞強化】：按下送出的瞬間，先「強制重新向 Google 試算表 fetch 最新檔期」再次確認！
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             
             try {
@@ -1399,7 +1397,7 @@
                         if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
                             if ((currentMode === 'phone' || currentMode === 'combo') && order.item.includes('S24U')) {
                                 alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被預約了！請重新選擇檔期。`);
-                                fetchRentedStatus(); // 更新畫面
+                                fetchRentedStatus();
                                 return;
                             }
                             if (currentMode === 'lightstick' || currentMode === 'combo') {
@@ -1474,10 +1472,8 @@
                 `-----------------------------------\n` +
                 `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
 
-            // 複製到剪貼簿
             navigator.clipboard.writeText(message).catch(() => {});
 
-            // 1. 顯示頁面內嵌的成功提示框（手機絕不會漏看）
             const successMsgBox = document.getElementById('inlineSuccessMessage');
             const submitBtn = document.getElementById('submitBtn');
             if (successMsgBox) {
@@ -1490,36 +1486,33 @@
                 window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
             };
 
-// 2. 同時保留原本的彈出視窗（雙重保險）
-    let modalBg = document.createElement('div');
-    modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
-    modalBg.innerHTML = `
-        <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
-            <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3>
-            
-            <!-- 中間兩行包在一起，並把間距縮小 -->
-            <div class="space-y-1">
-                <p class="text-xs text-stone-900 leading-relaxed">預約明細已自動複製</p> 
-                <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p> 
-            </div>
+            let modalBg = document.createElement('div');
+            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
+            modalBg.innerHTML = `
+                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
+                    <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3>
+                    <div class="space-y-1">
+                        <p class="text-xs text-stone-900 leading-relaxed">預約明細已自動複製</p> 
+                        <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p> 
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
+                        <button id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">聯繫 LINE</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modalBg);
 
-            <!-- 按鈕必須好好的包在同一個 div 裡面，才會正常並排 -->
-            <div class="flex gap-3 pt-2">
-                <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
-                <button id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">聯繫 LINE</button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modalBg);
+            document.getElementById('customAlertLine').onclick = () => {
+                modalBg.remove();
+                window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
+            };
 
-    document.getElementById('customAlertLine').onclick = () => {
-        modalBg.remove();
-        window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
-    };
+            document.getElementById('customAlertConfirm').onclick = () => {
+                modalBg.remove();
+            };
+        }
 
-    document.getElementById('customAlertConfirm').onclick = () => {
-        modalBg.remove();
-    };
         function openAdminModal() {
             document.getElementById('adminModal').classList.remove('hidden');
         }
