@@ -953,76 +953,58 @@
                 .catch(err => console.log('檢查檔期失敗：', err));
         }
 
-        function renderRentedStatus() {
-            const phoneBannersContainer = document.getElementById('phone-rented-banners');
-            if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
-            document.querySelectorAll('.rented-badge').forEach(el => el.remove());
-
-            allOrders.forEach(order => {
-                if (order.start && order.end) {
-                    const cleanStart = order.start;
-                    const cleanEnd = order.end;
-                    
-                    if (order.item.includes('S24U') || order.item.includes('手機')) {
-                        addPhoneRentedBanner(cleanStart, cleanEnd);
-                    }
-
-                    lightstickList.forEach(item => {
-                        if (order.item.includes(item.name)) {
-                            if (item.name.includes('aespa')) {
-                                if (item.name.includes('Ver. 2')) markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
-                                else markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd);
-                            } else if (item.name.includes('GFRIEND')) {
-                                if (item.name.includes('Japan')) markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd);
-                                else markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd);
-                            } else if (item.name.includes('IVE')) {
-                                if (item.name.includes('Ver. 2')) markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd);
-                                else markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd);
-                            } else {
-                                markAsRented(item.name, cleanStart, cleanEnd);
-                            }
-                        }
-                    });
-                }
-            });
-
-            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
-            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
-            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
+function renderRentedStatus() {
+  const phoneBannersContainer = document.getElementById('phone-rented-banners');
+  if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
+  document.querySelectorAll('.rented-badge').forEach(el => el.remove());
+  
+  allOrders.forEach(order => {
+    if (order.start && order.end) {
+      const cleanStart = order.start;
+      const cleanEnd = order.end;
+      if (order.item.includes('S24U') || order.item.includes('手機')) {
+        addPhoneRentedBanner(cleanStart, cleanEnd);
+      }
+      lightstickList.forEach(item => {
+        if (order.item.includes(item.name)) {
+          if (item.name.includes('aespa')) {
+            if (item.name.includes('Ver. 2')) markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
+            else markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd);
+          } else if (item.name.includes('GFRIEND')) {
+            if (item.name.includes('Japan')) markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd);
+            else markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd);
+          } else if (item.name.includes('IVE')) {
+            if (item.name.includes('Ver. 2')) markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd);
+            else markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd);
+          } else {
+            markAsRented(item.name, cleanStart, cleanEnd);
+          }
         }
+      });
+    }
+  });
+  updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
+  updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
+  updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
+}
 
-        function addPhoneRentedBanner(startDate, endDate) {
-            const container = document.getElementById('phone-rented-banners');
-            if (container) {
-                const friendlyStart = formatDateToFriendly(startDate);
-                const friendlyEnd = formatDateToFriendly(endDate);
-                const banner = document.createElement('div');
-                banner.className = 'w-fit bg-red-600/70 backdrop-blur-md text-white text-[11px] sm:text-xs py-1.5 px-3.5 rounded-full font-black shadow-md text-center tracking-wide flex items-center justify-center gap-1.5 mx-auto border border-red-400/40';
-                banner.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${friendlyStart} ~ ${friendlyEnd}`;
-                container.appendChild(banner);
-            }
-        }
-
-        function markAsRented(lightstickName, startDate, endDate) {
-            const cards = document.querySelectorAll('#lightsticks-grid > div');
-            cards.forEach(card => {
-                if (card.getAttribute('data-name') === lightstickName) {
-                    let badge = card.querySelector('.rented-badge');
-                    if (!badge) {
-                        const friendlyStart = formatDateToFriendly(startDate);
-                        const friendlyEnd = formatDateToFriendly(endDate);
-                        badge = document.createElement('div');
-                        badge.className = 'rented-badge auto-hoverable absolute inset-0 flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2';
-                        badge.innerHTML = `
-                            <span class="bg-red-600/80 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full shadow-lg tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> 已出租</span>
-                            <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">${friendlyStart} ~ ${friendlyEnd}</span>
-                        `;
-                        card.appendChild(badge);
-                    }
-                }
-            });
-        }
-
+function markAsRented(lightstickName, startDate, endDate) {
+  const cards = document.querySelectorAll('#lightsticks-grid > div');
+  cards.forEach(card => {
+    if (card.getAttribute('data-name') === lightstickName) {
+      const friendlyStart = formatDateToFriendly(startDate);
+      const friendlyEnd = formatDateToFriendly(endDate);
+      const badge = document.createElement('div');
+      // 改為使用 flex 垂直排列多個檔期，並加上微調邊框
+      badge.className = 'rented-badge auto-hoverable absolute inset-0 flex flex-col items-center justify-center rounded-[24px] sm:rounded-[28px] z-20 text-white font-black space-y-1 shadow-inner text-center p-2 bg-stone-900/40';
+      badge.innerHTML = `
+        <span class="bg-red-600/90 backdrop-blur-md text-white text-[10px] px-2.5 py-0.5 rounded-full shadow-md tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> 已出租</span>
+        <span class="text-[10px] sm:text-[11px] text-stone-100 drop-shadow leading-tight">${friendlyStart} ~ ${friendlyEnd}</span>
+      `;
+      card.appendChild(badge);
+    }
+  });
+}
         function markSpecificVersionRented(lightstickName, versionName, startDate, endDate) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             cards.forEach(card => {
