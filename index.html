@@ -1398,7 +1398,7 @@
                     for (let order of latestOrders) {
                         if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
                             if ((currentMode === 'phone' || currentMode === 'combo') && order.item.includes('S24U')) {
-                                alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 剛剛已經被別人預約走了！請重新選擇檔期。`);
+                                alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被預約了！請重新選擇檔期。`);
                                 fetchRentedStatus(); // 更新畫面
                                 return;
                             }
@@ -1406,7 +1406,7 @@
                                 const ls1 = document.getElementById('selectedLightstick1');
                                 const stick1 = ls1.options[ls1.selectedIndex].text.split(' (')[0].trim();
                                 if (order.item.includes(stick1)) {
-                                    alert(`⚠️ 預約失敗：手燈 (${stick1}) 在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 剛剛已經被別人預約走了！請重新選擇。`);
+                                    alert(`⚠️ 預約失敗：手燈 (${stick1}) 在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被預約了！請重新選擇。`);
                                     fetchRentedStatus();
                                     return;
                                 }
