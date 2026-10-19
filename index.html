@@ -624,8 +624,8 @@
                 </div>
                 <div class="space-y-4 pt-2">
                     <div id="name-field-container">
-                        <label class="block text-xs font-bold text-stone-900 mb-1.5">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1" id="name-tip">租手機者必填</span></label>
-                        <input type="text" id="custName" placeholder="例 : 朴枕擁" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">租手機者必填</span></label>
+                        <input type="text" id="custName" required placeholder="例 : 朴枕擁" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-stone-900 mb-1.5">Instagram / Threads <span class="text-red-600">*</span></label>
@@ -1026,7 +1026,6 @@
             calculatePrice();
         }
 
-        // 需求 1：點擊已出租手燈卡片，第一下先隱藏遮罩看清楚卡片內容，按第二下才代入預約
         function handleLightstickCardClick(keyword) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             let targetCard = null;
@@ -1039,7 +1038,6 @@
             if (targetCard) {
                 const visibleBadges = Array.from(targetCard.querySelectorAll('.rented-badge')).filter(b => b.style.display !== 'none');
                 if (visibleBadges.length > 0) {
-                    // 第一下：暫時隱藏該卡片的已出租遮罩讓客人看清楚
                     visibleBadges.forEach(b => {
                         b.style.display = 'none';
                         b.dataset.temporarilyHidden = 'true';
@@ -1048,7 +1046,6 @@
                 }
             }
 
-            // 第二下或未出租：直接正常代入預約
             selectLightstick(keyword);
         }
 
@@ -1150,16 +1147,28 @@
             const rowDays = document.getElementById('row-days');
             const nameContainer = document.getElementById('name-field-container');
             const nameInput = document.getElementById('custName');
-            const nameTip = document.getElementById('name-tip');
             initLightstickSelects();
             validateAndCalculate();
 
             if (mode === 'combo') {
-                lsBox.style.display = 'block'; depositContainer.style.display = 'block'; rowDays.style.display = 'flex'; nameContainer.style.display = 'block'; nameInput.required = true; nameTip.innerText = '租手機者必填';
+                lsBox.style.display = 'block'; 
+                depositContainer.style.display = 'block'; 
+                rowDays.style.display = 'flex'; 
+                nameContainer.style.display = 'block'; 
+                nameInput.required = true;
             } else if (mode === 'phone') {
-                lsBox.style.display = 'none'; depositContainer.style.display = 'block'; rowDays.style.display = 'flex'; nameContainer.style.display = 'block'; nameInput.required = true; nameTip.innerText = '租手機者必填';
+                lsBox.style.display = 'none'; 
+                depositContainer.style.display = 'block'; 
+                rowDays.style.display = 'flex'; 
+                nameContainer.style.display = 'block'; 
+                nameInput.required = true;
             } else if (mode === 'lightstick') {
-                lsBox.style.display = 'block'; depositContainer.style.display = 'none'; rowDays.style.display = 'none'; nameContainer.style.display = 'block'; nameInput.required = true; nameTip.innerText = '手燈租借者必填';
+                lsBox.style.display = 'block'; 
+                depositContainer.style.display = 'none'; 
+                rowDays.style.display = 'none'; 
+                nameContainer.style.display = 'none'; // 純手燈直接隱藏姓名欄位
+                nameInput.required = false; 
+                nameInput.value = ''; // 清空欄位內容避免殘留
             }
             calculatePrice();
         }
@@ -1250,7 +1259,8 @@
                 }
             }
 
-            const name = document.getElementById('custName').value || '未填';
+            // 如果是純手燈模式，姓名直接設為「免填」
+            const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
             const social = document.getElementById('socialId').value;
             const line = document.getElementById('lineId').value;
             const remarks = document.getElementById('remarks').value || '無';
@@ -1332,14 +1342,14 @@
             `;
             document.body.appendChild(modalBg);
 
-            // 需求 3：選擇「聯繫」時才複製資料並跳轉 LINE
+            // 選擇「聯繫」時才複製資料並跳轉 LINE
             document.getElementById('customAlertLine').onclick = () => {
                 navigator.clipboard.writeText(message).catch(() => {});
                 modalBg.remove();
                 window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
             };
 
-            // 需求 3：選擇「確認」時不複製資料
+            // 選擇「確認」時不複製資料
             document.getElementById('customAlertConfirm').onclick = () => {
                 modalBg.remove();
                 alert('預約已送出！請靜候 rayeonzz 與您聯繫。');
