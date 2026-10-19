@@ -1420,14 +1420,6 @@
                 itemDesc = `S24U + ${lsSummary}`;
             }
 
-            const payload = { mode: modeTitle, start: start, end: end, item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks };
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(error => console.error('傳送失敗!', error));
-
             const message = `【 rayeonzz 演唱會租借預約單 】\n` +
                 `📌 預約類型：${modeTitle}\n` +
                 `📅 租借期間：${start} ~ ${end}\n` +
