@@ -739,7 +739,7 @@
     <div id="adminModal" class="fixed inset-0 bg-[#23466B]/40 hidden backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="ios-glass rounded-[32px] max-w-3xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto font-bold">
             <div class="flex justify-between items-center border-b border-[#23466B]/20 pb-4">
-                <h3 class="text-lg font-black text-[#23466B] flex items-center"><i class="fa-solid fa-user-gear text-[#23466B] mr-2"></i>rayeonzz 管理員後台</h3>
+                <h3 class="text-lg font-black text-[#23466B] flex items-center"><i class="fa-solid fa-user-gear text-[#23466B] mr-2"></i>rayeonzz 管理員後台 (雲端同步)</h3>
                 <button onclick="closeAdminModal()" class="text-stone-600 hover:text-stone-950 text-2xl font-black w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-200/50">&times;</button>
             </div>
             <div id="adminAuth" class="space-y-4 py-4">
@@ -760,11 +760,11 @@
                     </div>
                     <div class="w-full sm:w-auto flex items-center gap-2">
                         <input type="text" id="adminSearch" oninput="loadOrders()" placeholder="搜尋姓名、IG、手燈..." class="ios-input rounded-xl px-3 py-1.5 text-xs font-bold text-stone-950 w-full sm:w-48">
-                        <button onclick="clearOrders()" class="text-red-600 hover:underline font-bold whitespace-nowrap">清空全部</button>
+                        <button onclick="loadOrders()" class="bg-[#23466B] text-white px-3 py-1.5 rounded-xl font-bold whitespace-nowrap"><i class="fa-solid fa-rotate"></i> 重新整理</button>
                     </div>
                 </div>
                 <div class="flex justify-between items-center px-1 text-xs text-stone-700">
-                    <span>符合條件的預約單：<b id="orderCount" class="text-[#23466B] font-black">0</b> 筆</span>
+                    <span>雲端試算表符合條件的預約單：<b id="orderCount" class="text-[#23466B] font-black">0</b> 筆</span>
                 </div>
                 <div id="orderList" class="space-y-3 max-h-72 overflow-y-auto text-xs font-bold pr-1"></div>
             </div>
@@ -777,6 +777,8 @@
     </footer>
 
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
+
         const lightstickList = [
             { name: "aespa Ver.1", price: 400 },
             { name: "aespa Ver.2", price: 400 },
@@ -817,7 +819,7 @@
             { name: "WJSN", price: 300 }
         ];
 
-        let allOrders = [];
+        let cloudOrders = [];
 
         function formatDateToFriendly(dateStr) {
             if (!dateStr) return '';
@@ -888,14 +890,16 @@
         }
 
         function fetchRentedStatus() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
                     if (data.result === 'success' && data.orders) {
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-                        allOrders = data.orders.map(o => ({
+                        
+                        cloudOrders = data.orders;
+
+                        let activeOrders = data.orders.map(o => ({
                             start: o.start ? cleanDateStr(o.start) : '',
                             end: o.end ? cleanDateStr(o.end) : '',
                             item: o.item || ''
@@ -904,22 +908,21 @@
                             const endDateObj = new Date(o.end);
                             endDateObj.setHours(0, 0, 0, 0);
                             return endDateObj >= today;
-                        })
-                        .sort((a, b) => new Date(a.start) - new Date(b.start)); 
+                        }).sort((a, b) => new Date(a.start) - new Date(b.start)); 
 
-                        renderRentedStatus();
+                        renderRentedStatus(activeOrders);
                         validateAndCalculate();
                     }
                 })
                 .catch(err => console.log('檢查檔期失敗：', err));
         }
 
-        function renderRentedStatus() {
+        function renderRentedStatus(activeOrders) {
             const phoneBannersContainer = document.getElementById('phone-rented-banners');
             if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
             document.querySelectorAll('.rented-badge').forEach(el => el.remove());
 
-            allOrders.forEach(order => {
+            activeOrders.forEach(order => {
                 if (order.start && order.end) {
                     const cleanStart = order.start;
                     const cleanEnd = order.end;
@@ -1091,7 +1094,7 @@
 
             if (startVal && endVal && endVal >= startVal) {
                 const conflictedSticks = [];
-                allOrders.forEach(order => {
+                cloudOrders.forEach(order => {
                     if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) {
                         lightstickList.forEach(ls => {
                             if (order.item.includes(ls.name)) {
@@ -1271,8 +1274,8 @@
                 nameContainer.style.display = 'none';
                 nameInput.required = false;
                 nameInput.value = '';
-                lineReqMark.style.display = 'none'; // 隱藏紅色的星號 *
-                lineInput.required = false; // 改為非必填
+                lineReqMark.style.display = 'none';
+                lineInput.required = false;
                 lineInput.placeholder = '請輸入您的 LINE ID (選填)';
             }
             calculatePrice();
@@ -1358,19 +1361,12 @@
                 return;
             }
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
-
             try {
                 const response = await fetch(scriptURL);
                 const data = await response.json();
                 if (data.result === 'success' && data.orders) {
-                    const latestOrders = data.orders.map(o => ({
-                        start: o.start ? cleanDateStr(o.start) : '',
-                        end: o.end ? cleanDateStr(o.end) : '',
-                        item: o.item || ''
-                    }));
-
-                    for (let order of latestOrders) {
+                    cloudOrders = data.orders;
+                    for (let order of cloudOrders) {
                         if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
                             if ((currentMode === 'phone' || currentMode === 'combo') && order.item.includes('S24U')) {
                                 alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被預約了！請重新選擇檔期。`);
@@ -1428,12 +1424,6 @@
                 itemDesc = `S24U + ${lsSummary}`;
             }
 
-            const nowTime = new Date().toLocaleString();
-            const newOrder = { mode: modeTitle, start: start, end: end, item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks, time: nowTime };
-            const existingOrders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
-            existingOrders.push(newOrder);
-            localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
-
             const payload = { mode: modeTitle, start: start, end: end, item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks };
             fetch(scriptURL, {
                 method: 'POST',
@@ -1482,12 +1472,8 @@
             `;
             document.body.appendChild(modalBg);
 
-            document.getElementById('customAlertLine').onclick = () => {
-                modalBg.remove();
-            };
-            document.getElementById('customAlertConfirm').onclick = () => {
-                modalBg.remove();
-            };
+            document.getElementById('customAlertLine').onclick = () => { modalBg.remove(); };
+            document.getElementById('customAlertConfirm').onclick = () => { modalBg.remove(); };
         }
 
         function openAdminModal() {
@@ -1511,16 +1497,35 @@
             }
         }
 
+        // 💡 雲端載入訂單 (直接向 Google 試算表抓取)
         function loadOrders() {
-            const orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
+            const listEl = document.getElementById('orderList');
+            listEl.innerHTML = '<p class="text-stone-500 text-center py-6">正在從雲端讀取預約單...</p>';
+
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result === 'success' && data.orders) {
+                        cloudOrders = data.orders;
+                        renderAdminOrdersList(cloudOrders);
+                    } else {
+                        listEl.innerHTML = '<p class="text-red-500 text-center py-6">讀取雲端資料失敗</p>';
+                    }
+                })
+                .catch(err => {
+                    listEl.innerHTML = `<p class="text-red-500 text-center py-6">連線錯誤: ${err}</p>`;
+                });
+        }
+
+        function renderAdminOrdersList(orders) {
             const filterVal = document.getElementById('adminFilter').value;
             const searchVal = document.getElementById('adminSearch').value.toLowerCase();
 
             let filteredOrders = orders.filter(ord => {
                 let matchFilter = (filterVal === 'all') || 
-                                  (filterVal === 'phone' && ord.mode === '手機') || 
+                                  (filterVal === 'phone' && (ord.mode === '手機' || ord.item.includes('S24U') && !ord.item.includes('+'))) || 
                                   (filterVal === 'lightstick' && ord.mode === '手燈') || 
-                                  (filterVal === 'combo' && ord.mode === '手機 + 手燈');
+                                  (filterVal === 'combo' && (ord.mode === '手機 + 手燈' || ord.mode.includes('配套') || (ord.item.includes('S24U') && ord.item.includes('+'))));
                 let matchSearch = !searchVal || `${ord.name} ${ord.social} ${ord.line} ${ord.item} ${ord.remarks}`.toLowerCase().includes(searchVal);
                 return matchFilter && matchSearch;
             });
@@ -1534,8 +1539,7 @@
                 return;
             }
 
-            filteredOrders.slice().reverse().forEach((ord) => {
-                const originalIndex = orders.indexOf(ord);
+            filteredOrders.forEach((ord) => {
                 const div = document.createElement('div');
                 div.className = 'bg-[#DCEEFF]/60 border border-[#23466B]/20 p-3.5 rounded-2xl space-y-1.5 text-stone-900 relative';
                 div.innerHTML = `
@@ -1543,7 +1547,7 @@
                         <span>#[${ord.mode}]</span>
                         <div class="flex items-center gap-2">
                             <span class="text-[10px] text-stone-600">${ord.time}</span>
-                            <button onclick="deleteSingleOrder(${originalIndex})" class="bg-red-500 hover:bg-red-600 text-white text-[10px] px-2.5 py-1 rounded-lg transition shadow-sm font-bold">刪除此筆</button>
+                            <span class="bg-amber-100 text-amber-800 text-[10px] px-2 py-0.5 rounded">行數:${ord.rowIdx}</span>
                         </div>
                     </div>
                     <p><b>姓名：</b>${ord.name} ｜ <b>IG：</b>${ord.social} ｜ <b>LINE：</b>${ord.line}</p>
@@ -1554,22 +1558,6 @@
                 `;
                 listEl.appendChild(div);
             });
-        }
-
-        function deleteSingleOrder(index) {
-            if (confirm('確定要刪除這筆預約單嗎？')) {
-                let orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
-                orders.splice(index, 1);
-                localStorage.setItem('rayeonzz_orders', JSON.stringify(orders));
-                loadOrders();
-            }
-        }
-
-        function clearOrders() {
-            if (confirm('確定要清空所有預約單資料嗎？')) {
-                localStorage.removeItem('rayeonzz_orders');
-                loadOrders();
-            }
         }
     </script>
 </body>
