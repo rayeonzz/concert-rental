@@ -191,7 +191,7 @@
             <div id="phone-section-card" class="ios-glass rounded-[28px] sm:rounded-[32px] p-4 sm:p-8 flex flex-col md:flex-row gap-4 sm:gap-6 items-center relative overflow-hidden">
                 <div class="w-full md:w-1/3 text-center">
                     <img src="galaxy s24u.jpg" alt="S24 Ultra" class="rounded-2xl mx-auto object-cover h-44 sm:h-48 w-full shadow-md border border-white/80">
-                    <!-- 依要求使用指定的簡潔手機 Banner 格式 -->
+                    <!-- 使用精簡的手機 Banner 格式 -->
                     <div id="phone-rented-banners" class="space-y-1.5 flex flex-col items-center w-full mt-3"></div>
                 </div>
                 <div class="w-full md:w-2/3 space-y-2 sm:space-y-3">
@@ -832,11 +832,9 @@
             const btnGirl = document.getElementById('filter-btn-girl');
             const btnDiscount = document.getElementById('filter-btn-discount');
             const cards = document.querySelectorAll('#lightsticks-grid > div');
-
             [btnAll, btnBoy, btnGirl, btnDiscount].forEach(btn => {
                 btn.className = "bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition";
             });
-
             if (type === 'all') {
                 btnAll.className = "bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition";
                 cards.forEach(card => card.style.display = 'flex');
@@ -867,7 +865,6 @@
                     if (data.result === 'success' && data.orders) {
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-
                         allOrders = data.orders.map(o => ({
                             start: o.start ? cleanDateStr(o.start) : '',
                             end: o.end ? cleanDateStr(o.end) : '',
@@ -878,7 +875,6 @@
                             endDateObj.setHours(0, 0, 0, 0);
                             return endDateObj >= today;
                         });
-
                         renderRentedStatus();
                     }
                 })
@@ -894,11 +890,9 @@
                 if (order.start && order.end) {
                     const cleanStart = order.start;
                     const cleanEnd = order.end;
-
                     if (order.item.includes('S24U') || order.item.includes('手機')) {
                         addPhoneRentedBanner(cleanStart, cleanEnd);
                     }
-
                     lightstickList.forEach(item => {
                         if (order.item.includes(item.name)) {
                             if (item.name.includes('aespa')) {
@@ -917,13 +911,12 @@
                     });
                 }
             });
-
             updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
             updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
             updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
         }
 
-        // 精準還原使用者提供的乾淨的手機 Banner 格式
+        // 精準還原使用者提供的乾淨手機 Banner 格式[cite: 9]
         function addPhoneRentedBanner(startDate, endDate) {
             const container = document.getElementById('phone-rented-banners');
             if (container) {
@@ -936,7 +929,7 @@
             }
         }
 
-        // 精準還原使用者提供的乾淨手燈已出租遮罩格式
+        // 精準還原使用者提供的乾淨手燈已出租遮罩格式[cite: 9]
         function markAsRented(lightstickName, startDate, endDate) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
             cards.forEach(card => {
@@ -1024,7 +1017,6 @@
             const todayStr = `${year}-${month}-${day}`;
             const startInput = document.getElementById('startDate');
             const endInput = document.getElementById('endDate');
-
             if (startInput.value && startInput.value < todayStr) {
                 alert('⚠️ 租借開始日期不得早於今天！');
                 startInput.value = todayStr;
@@ -1054,7 +1046,6 @@
             const startVal = document.getElementById('startDate').value;
             const endVal = document.getElementById('endDate').value;
             initLightstickSelects();
-
             if (startVal && endVal && endVal >= startVal) {
                 const conflictedSticks = [];
                 allOrders.forEach(order => {
@@ -1170,7 +1161,6 @@
                 sel.innerHTML = html;
                 if (currentVal) sel.value = currentVal;
             });
-
             const sel3 = document.getElementById('selectedLightstick3');
             const currentVal3 = sel3.value;
             let html3 = '<option value="0">-- 不需要第三支手燈 --</option>';
@@ -1198,7 +1188,6 @@
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`tab-${mode}`).classList.add('active');
-
             const lsBox = document.getElementById('lightstick-selection');
             const depositContainer = document.getElementById('deposit-selection-container');
             const rowDays = document.getElementById('row-days');
@@ -1238,7 +1227,6 @@
             const end = new Date(endDateVal);
             const depOpt = document.getElementById('depositOption').value;
             const isMoreChecked = document.getElementById('moreLightsticksCheck').checked;
-
             let base1 = parseInt(document.getElementById('selectedLightstick1').value) || 0;
             let base2 = isMoreChecked ? (parseInt(document.getElementById('selectedLightstick2').value) || 0) : 0;
             let base3 = isMoreChecked ? (parseInt(document.getElementById('selectedLightstick3').value) || 0) : 0;
@@ -1253,17 +1241,17 @@
                     totalLsPrice += base3;
                 }
             }
-
             let finalLsPrice = currentMode === 'combo' ? Math.max(0, totalLsPrice - (countLs * 100)) : totalLsPrice;
             let totalDepositLs = countLs * 1000;
+
             let days = 0;
             if (startDateVal && endDateVal && end >= start) {
                 let diffTime = Math.abs(end - start);
                 let rawDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
                 days = (rawDays <= 1) ? 1 : rawDays;
             }
-
             let phoneRentTotal = (days > 0 ? days * PHONE_RENT_PER_DAY : 0);
+
             if (currentMode === 'combo' || currentMode === 'phone') {
                 document.getElementById('rentalDays').innerText = `${days} 天 (${days}天 × $550 = $${phoneRentTotal.toLocaleString()}元)`;
             } else {
@@ -1339,7 +1327,6 @@
             const ls1Select = document.getElementById('selectedLightstick1');
             const ls1Text = ls1Select.options[ls1Select.selectedIndex].text.split(' (')[0].trim();
             let lsSummary = ls1Text;
-
             if (document.getElementById('moreLightsticksCheck').checked) {
                 const ls2Select = document.getElementById('selectedLightstick2');
                 const ls2Text = ls2Select.options[ls2Select.selectedIndex].text.split(' (')[0].trim();
@@ -1369,26 +1356,22 @@
 
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
             const payload = { mode: modeTitle, start: start, end: end, item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks };
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(error => console.error('傳送失敗!', error));
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(error => console.error('傳送失敗!', error));
 
             const message = `【 rayeonzz 演唱會租借預約單 】\n` +
-                            `📌 預約類型：${modeTitle}\n` +
-                            `📅 租借期間：${start} ~ ${end}\n` +
-                            `📱💡 租借項目：${itemDesc}\n` +
-                            `💰 預估總額：${total}\n` +
-                            `🔒 選擇押金方案：${deposit}\n` +
-                            `👤 姓名：${name}\n` +
-                            `📸 IG / Threads：${social}\n` +
-                            `💬 LINE ID：${line}\n` +
-                            `📝 備註：${remarks}\n\n` +
-                            `-----------------------------------\n` +
-                            `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
+                `📌 預約類型：${modeTitle}\n` +
+                `📅 租借期間：${start} ~ ${end}\n` +
+                `📱💡 租借項目：${itemDesc}\n` +
+                `💰 預估總額：${total}\n` +
+                `🔒 選擇押金方案：${deposit}\n` +
+                `👤 姓名：${name}\n` +
+                `📸 IG / Threads：${social}\n` +
+                `💬 LINE ID：${line}\n` +
+                `📝 備註：${remarks}\n\n` +
+                `-----------------------------------\n` +
+                `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
 
+            // 還原為你原本的確認 / 聯繫彈窗設計[cite: 9]
             let modalBg = document.createElement('div');
             modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
             modalBg.innerHTML = `
@@ -1405,6 +1388,7 @@
                 </div>
             `;
             document.body.appendChild(modalBg);
+
             document.getElementById('customAlertLine').onclick = () => {
                 navigator.clipboard.writeText(message).catch(() => {});
                 modalBg.remove();
@@ -1441,25 +1425,18 @@
             const orders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
             const filterVal = document.getElementById('adminFilter').value;
             const searchVal = document.getElementById('adminSearch').value.toLowerCase();
-
             let filteredOrders = orders.filter(ord => {
-                let matchFilter = (filterVal === 'all') || 
-                                  (filterVal === 'phone' && ord.mode === '手機') || 
-                                  (filterVal === 'lightstick' && ord.mode === '手燈') || 
-                                  (filterVal === 'combo' && ord.mode === '手機 + 手燈');
+                let matchFilter = (filterVal === 'all') || (filterVal === 'phone' && ord.mode === '手機') || (filterVal === 'lightstick' && ord.mode === '手燈') || (filterVal === 'combo' && ord.mode === '手機 + 手燈');
                 let matchSearch = !searchVal || `${ord.name} ${ord.social} ${ord.line} ${ord.item} ${ord.remarks}`.toLowerCase().includes(searchVal);
                 return matchFilter && matchSearch;
             });
-
             document.getElementById('orderCount').innerText = filteredOrders.length;
             const listEl = document.getElementById('orderList');
             listEl.innerHTML = '';
-
             if (filteredOrders.length === 0) {
                 listEl.innerHTML = '<p class="text-stone-500 text-center py-6">目前沒有符合條件的預約單</p>';
                 return;
             }
-
             filteredOrders.slice().reverse().forEach((ord) => {
                 const originalIndex = orders.indexOf(ord);
                 const div = document.createElement('div');
@@ -1500,3 +1477,4 @@
     </script>
 </body>
 </html>
+```[cite: 9]
