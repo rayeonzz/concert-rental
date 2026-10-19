@@ -9,10 +9,10 @@
     <!-- Google tag (gtag.js) - Google Analytics 流量追蹤 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LLDMC8FKXE"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-LLDMC8FKXE');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-LLDMC8FKXE');
     </script>
     <!-- 社群分享預覽設定 (Open Graph) - 讓 LINE、IG 顯示精美大圖與預覽 -->
     <meta property="og:title" content="rayeonzz 演唱會手機 & 手燈租借服務">
@@ -27,7 +27,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
             --primary: #23466B;
@@ -226,7 +225,6 @@
             <div class="flex flex-wrap justify-between items-center mb-3 sm:mb-4 gap-2">
                 <h2 class="text-lg sm:text-xl font-black border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
             </div>
-            
             <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-3.5 sm:p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-4 shadow-sm">
                 <p>🪄 <b>租借價格：</b> 單次租金 NT$ 400 (指定款 NT$ 300)。</p>
                 <p>🪄 <b>手燈押金：</b> 每支 NT$ 1,000。</p>
@@ -234,14 +232,12 @@
                 <p>🪄 <b>租借說明：</b> 不含電池，請自備電池。演唱會後一週內歸還。</p>
                 <p class="text-stone-900">🪄 <b>取消規定：</b> 取燈日<b>5天內</b>取消將收取 NT$ 100 跑單費。</p>
             </div>
-
             <div class="flex flex-wrap justify-center gap-2 mb-4 sm:mb-6">
                 <button type="button" onclick="filterLightsticks('all')" id="filter-btn-all" class="bg-[#23466B] text-white text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">全部手燈(<span id="count-all">34</span>)</button>
                 <button type="button" onclick="filterLightsticks('boy')" id="filter-btn-boy" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">男團(<span id="count-boy">16</span>)</button>
                 <button type="button" onclick="filterLightsticks('girl')" id="filter-btn-girl" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">女團(<span id="count-girl">18</span>)</button>
                 <button type="button" onclick="filterLightsticks('discount')" id="filter-btn-discount" class="bg-white/80 hover:bg-[#23466B] hover:text-white text-[#23466B] border border-[#23466B]/30 text-xs font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-sm transition">優惠價(<span id="count-discount">5</span>)</button>
             </div>
-
             <div class="mb-4 sm:mb-6 flex justify-center">
                 <div class="ios-glass px-5 py-3 rounded-2xl sm:rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm text-center">
                     <span class="hidden sm:inline">✨ 電腦版游標移上已出租手燈即可看見內容；手機版點擊手燈自動代入預約！</span>
@@ -273,6 +269,7 @@
                         <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                     </div>
                 </div>
+
                 <!-- BABYMONSTER -->
                 <div data-name="BABYMONSTER" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('BABYMONSTER')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -282,6 +279,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- BIGBANG -->
                 <div data-name="BIGBANG" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('BIGBANG')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -291,6 +289,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- BLACKPINK -->
                 <div data-name="BLACKPINK" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('BLACKPINK')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -300,6 +299,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- BOYNEXTDOOR -->
                 <div data-name="BOYNEXTDOOR" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('BOYNEXTDOOR')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -309,6 +309,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- BTS -->
                 <div data-name="BTS" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('BTS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -318,6 +319,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- CLOSE YOUR EYES -->
                 <div data-name="CLOSE YOUR EYES" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('CLOSE YOUR EYES')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -327,6 +329,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- CNBLUE -->
                 <div data-name="CNBLUE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('CNBLUE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -336,6 +339,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- CORTIS -->
                 <div data-name="CORTIS" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('CORTIS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -345,6 +349,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- EVNNE -->
                 <div data-name="EVNNE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('EVNNE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -354,6 +359,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- EXO -->
                 <div data-name="EXO" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('EXO')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -363,6 +369,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- fromis_9 -->
                 <div data-name="fromis_9" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('fromis_9')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -372,6 +379,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- FTISLAND -->
                 <div data-name="FTISLAND" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('FTISLAND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -381,6 +389,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- GFRIEND -->
                 <div data-name="GFRIEND" data-price="400" data-group="girl" data-multi="2" onclick="handleLightstickCardClick('GFRIEND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -400,6 +409,7 @@
                         <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                     </div>
                 </div>
+
                 <!-- Girls' Generation -->
                 <div data-name="Girls' Generation" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('Girls\' Generation')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -409,6 +419,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
+
                 <!-- ILLIT -->
                 <div data-name="ILLIT" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('ILLIT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -418,6 +429,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- ITZY -->
                 <div data-name="ITZY" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('ITZY')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -427,6 +439,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- IVE -->
                 <div data-name="IVE" data-price="400" data-group="girl" data-multi="2" onclick="handleLightstickCardClick('IVE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -446,6 +459,7 @@
                         <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                     </div>
                 </div>
+
                 <!-- izna -->
                 <div data-name="izna" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('izna')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -455,6 +469,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- Kep1er -->
                 <div data-name="Kep1er" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('Kep1er')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -464,6 +479,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- KISS OF LIFE -->
                 <div data-name="KISS OF LIFE" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('KISS OF LIFE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -473,6 +489,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- LE SSERAFIM -->
                 <div data-name="LE SSERAFIM" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('LE SSERAFIM')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -482,6 +499,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- NMIXX -->
                 <div data-name="NMIXX" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('NMIXX')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -491,6 +509,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
+
                 <!-- Red Velvet -->
                 <div data-name="Red Velvet" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('Red Velvet')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -500,6 +519,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- RIIZE -->
                 <div data-name="RIIZE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('RIIZE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -509,6 +529,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- SEVENTEEN -->
                 <div data-name="SEVENTEEN" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('SEVENTEEN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -518,6 +539,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- STAYC -->
                 <div data-name="STAYC" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('STAYC')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -527,6 +549,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
+
                 <!-- Stray Kids -->
                 <div data-name="Stray Kids" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('Stray Kids')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -536,6 +559,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- TREASURE -->
                 <div data-name="TREASURE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('TREASURE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -545,6 +569,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- tripleS -->
                 <div data-name="tripleS" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('tripleS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -554,6 +579,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
+
                 <!-- TWICE -->
                 <div data-name="TWICE" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('TWICE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -563,6 +589,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- TWS -->
                 <div data-name="TWS" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('TWS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -572,6 +599,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- TXT -->
                 <div data-name="TXT" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('TXT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -581,6 +609,7 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
+
                 <!-- WJSN -->
                 <div data-name="WJSN" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('WJSN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -627,12 +656,10 @@
                         <div class="text-[11px] font-bold text-[#23466B]">第一支手燈款式</div>
                         <select id="selectedLightstick1" onchange="onLightstickChange()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"></select>
                     </div>
-                    
                     <div class="flex items-center gap-2 pt-1 px-1">
                         <input type="checkbox" id="moreLightsticksCheck" onchange="toggleMoreLightsticks()" class="w-4 h-4 accent-[#23466B] rounded cursor-pointer">
                         <label for="moreLightsticksCheck" class="text-xs font-bold text-stone-900 cursor-pointer">是否租借一支以上的手燈？</label>
                     </div>
-
                     <div id="extraLightsticksContainer" class="space-y-3 hidden pl-3 border-l-2 border-[#23466B]/30 pt-1">
                         <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1">
                             <div class="text-[11px] font-bold text-[#23466B]">第二支手燈款式 (必填)</div>
@@ -773,8 +800,7 @@
     </footer>
 
     <script>
-const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
-
+        const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
         const lightstickList = [
             { name: "aespa Ver.1", price: 400 },
             { name: "aespa Ver.2", price: 400 },
@@ -814,7 +840,6 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             { name: "TXT", price: 400 },
             { name: "WJSN", price: 300 }
         ];
-
         let cloudOrders = [];
 
         function formatDateToFriendly(dateStr) {
@@ -885,7 +910,7 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             icon.className = menu.classList.contains('hidden') ? "fa-solid fa-bars" : "fa-solid fa-xmark";
         }
 
-function fetchRentedStatus() {
+        function fetchRentedStatus() {
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
@@ -905,40 +930,12 @@ function fetchRentedStatus() {
                         }).sort((a, b) => new Date(a.start) - new Date(b.start));
                         
                         renderRentedStatus(activeOrders);
-                        
-                        // 💡 改成只做日期範圍內的選項移除，不無條件重設使用者選到一半的選項
-                        const startVal = document.getElementById('startDate').value;
-                        const endVal = document.getElementById('endDate').value;
-                        if (startVal && endVal) {
-                            const conflictedSticks = [];
-                            cloudOrders.forEach(order => {
-                                if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) {
-                                    lightstickList.forEach(ls => {
-                                        if (order.item.includes(ls.name)) {
-                                            conflictedSticks.push(ls.name);
-                                        }
-                                    });
-                                }
-                            });
-                            ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'].forEach(selId => {
-                                const sel = document.getElementById(selId);
-                                for (let i = sel.options.length - 1; i >= 0; i--) {
-                                    const optText = sel.options[i].text.split(' (')[0].trim();
-                                    if (conflictedSticks.includes(optText)) {
-                                        if (sel.value === sel.options[i].value) {
-                                            sel.selectedIndex = 0;
-                                        }
-                                        sel.remove(i);
-                                    }
-                                }
-                            });
-                        }
-                        calculatePrice();
+                        validateAndCalculate();
                     }
                 })
                 .catch(err => console.log('檢查檔期失敗：', err));
         }
-        
+
         function renderRentedStatus(activeOrders) {
             const phoneBannersContainer = document.getElementById('phone-rented-banners');
             if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
@@ -948,11 +945,9 @@ function fetchRentedStatus() {
                 if (order.start && order.end) {
                     const cleanStart = order.start;
                     const cleanEnd = order.end;
-
                     if (order.item.includes('S24U') || order.item.includes('手機')) {
                         addPhoneRentedBanner(cleanStart, cleanEnd);
                     }
-
                     lightstickList.forEach(item => {
                         if (order.item.includes(item.name)) {
                             if (item.name.includes('aespa')) {
@@ -971,7 +966,6 @@ function fetchRentedStatus() {
                     });
                 }
             });
-
             updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
             updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
             updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
@@ -995,7 +989,6 @@ function fetchRentedStatus() {
                 if (card.getAttribute('data-name') === lightstickName) {
                     const friendlyStart = formatDateToFriendly(startDate);
                     const friendlyEnd = formatDateToFriendly(endDate);
-                    
                     let badgeContainer = card.querySelector('.rented-badge');
                     if (!badgeContainer) {
                         badgeContainer = document.createElement('div');
@@ -1003,7 +996,6 @@ function fetchRentedStatus() {
                         badgeContainer.innerHTML = `<span class="bg-red-600/90 text-white text-[11px] px-3 py-1 rounded-full shadow tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> 已出租</span>`;
                         card.appendChild(badgeContainer);
                     }
-                    
                     const dateItem = document.createElement('span');
                     dateItem.className = 'text-[10px] sm:text-[11px] text-stone-100 leading-tight drop-shadow font-bold';
                     dateItem.innerHTML = `${friendlyStart} ~ ${friendlyEnd}`;
@@ -1019,7 +1011,6 @@ function fetchRentedStatus() {
                     const friendlyStart = formatDateToFriendly(startDate);
                     const friendlyEnd = formatDateToFriendly(endDate);
                     let badgeClass = `rented-badge-${versionName.replace(/[\s.]/g, '')}`;
-                    
                     let badgeContainer = card.querySelector(`.${badgeClass}`);
                     if (!badgeContainer) {
                         badgeContainer = document.createElement('div');
@@ -1027,7 +1018,6 @@ function fetchRentedStatus() {
                         badgeContainer.innerHTML = `<span class="bg-red-600/90 text-white text-[11px] px-3 py-1 rounded-full shadow tracking-wider flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> ${versionName} 已出租</span>`;
                         card.appendChild(badgeContainer);
                     }
-                    
                     const dateItem = document.createElement('span');
                     dateItem.className = 'text-[10px] sm:text-[11px] text-stone-100 leading-tight drop-shadow font-bold';
                     dateItem.innerHTML = `${friendlyStart} ~ ${friendlyEnd}`;
@@ -1061,6 +1051,7 @@ function fetchRentedStatus() {
 
             const startInput = document.getElementById('startDate');
             const endInput = document.getElementById('endDate');
+
             startInput.setAttribute('min', todayStr);
             startInput.value = todayStr;
             endInput.setAttribute('min', todayStr);
@@ -1081,9 +1072,9 @@ function fetchRentedStatus() {
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             const todayStr = `${year}-${month}-${day}`;
-
             const startInput = document.getElementById('startDate');
             const endInput = document.getElementById('endDate');
+
             if (startInput.value && startInput.value < todayStr) {
                 alert('⚠️ 租借開始日期不得早於今天！');
                 startInput.value = todayStr;
@@ -1109,53 +1100,145 @@ function fetchRentedStatus() {
             validateAndCalculate();
         }
 
-function validateAndCalculate() {
+        // ================= 💡 核心修正：精準保留客人的手燈選擇 =================
+
+        function getSelectedLightstickName(sel) {
+            if (!sel || sel.selectedIndex < 0) return '';
+            const option = sel.options[sel.selectedIndex];
+            if (!option) return '';
+            if (option.value === '0' && option.dataset.lightstickName === undefined) {
+                return '__NONE__';
+            }
+            if (option.value === '' && option.dataset.placeholder === 'true') {
+                return '__EMPTY__';
+            }
+            return option.dataset.lightstickName || option.text.split(' (')[0].trim();
+        }
+
+        function restoreLightstickSelection(sel, name) {
+            if (!sel) return;
+            if (name === '__NONE__') {
+                sel.value = '0';
+                return;
+            }
+            if (name === '__EMPTY__') {
+                sel.value = '';
+                return;
+            }
+            if (name) {
+                const index = Array.from(sel.options).findIndex(option =>
+                    option.dataset.lightstickName === name
+                );
+                if (index !== -1) {
+                    sel.selectedIndex = index;
+                    return;
+                }
+            }
+            sel.value = '';
+        }
+
+        function initLightstickSelects() {
+            const isCombo = (currentMode === 'combo');
+            const selectIds = ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'];
+            const previousSelections = {};
+
+            selectIds.forEach(id => {
+                const sel = document.getElementById(id);
+                previousSelections[id] = getSelectedLightstickName(sel);
+            });
+
+            selectIds.forEach((id, index) => {
+                const sel = document.getElementById(id);
+                if (!sel) return;
+
+                const previousName = previousSelections[id];
+                let html = '';
+
+                if (index === 2) {
+                    html = '<option value="0">-- 不需要第三支手燈 --</option>';
+                } else {
+                    html = '<option value="" data-placeholder="true">-- 請選擇手燈款式 --</option>';
+                }
+
+                lightstickList.forEach(item => {
+                    const displayPrice = isCombo ? Math.max(0, item.price - 100) : item.price;
+                    const priceText = item.price === 300 ? ` (優惠價 NT$ ${displayPrice})` : '';
+                    html += `<option value="${item.price}" data-lightstick-name="${item.name}">${item.name}${priceText}</option>`;
+                });
+
+                sel.innerHTML = html;
+
+                if (previousName === '') {
+                    if (sel.dataset.initialized !== 'true' && index < 2) {
+                        sel.selectedIndex = 1;
+                    } else if (index === 2) {
+                        sel.value = '0';
+                    } else {
+                        sel.value = '';
+                    }
+                } else {
+                    restoreLightstickSelection(sel, previousName);
+                }
+
+                sel.dataset.initialized = 'true';
+            });
+        }
+
+        function validateAndCalculate() {
             const startVal = document.getElementById('startDate').value;
             const endVal = document.getElementById('endDate').value;
+            const selectIds = ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'];
 
-            // 1. 先記錄目前三個下拉選單使用者「當下」選的選項值
-            const currentLs1 = document.getElementById('selectedLightstick1').value;
-            const currentLs2 = document.getElementById('selectedLightstick2').value;
-            const currentLs3 = document.getElementById('selectedLightstick3').value;
+            const previousSelections = {};
+            selectIds.forEach(id => {
+                previousSelections[id] = getSelectedLightstickName(document.getElementById(id));
+            });
 
-            // 2. 重新初始化選單項目（載入全部手燈與價格）
             initLightstickSelects();
 
-            // 3. 先把使用者原本選的選項塞回去
-            if (currentLs1) document.getElementById('selectedLightstick1').value = currentLs1;
-            if (currentLs2) document.getElementById('selectedLightstick2').value = currentLs2;
-            if (currentLs3) document.getElementById('selectedLightstick3').value = currentLs3;
+            selectIds.forEach(id => {
+                restoreLightstickSelection(document.getElementById(id), previousSelections[id]);
+            });
 
-            // 4. 檢查檔期碰撞，若有碰撞才從選單中移除並重設
+            const conflictedSticks = new Set();
             if (startVal && endVal && endVal >= startVal) {
-                const conflictedSticks = [];
-                cloudOrders.forEach(order => {
+                (cloudOrders || []).forEach(order => {
                     if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) {
                         lightstickList.forEach(ls => {
-                            if (order.item.includes(ls.name)) {
-                                conflictedSticks.push(ls.name);
+                            if ((order.item || '').includes(ls.name)) {
+                                conflictedSticks.add(ls.name);
                             }
                         });
                     }
                 });
-
-                ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'].forEach(selId => {
-                    const sel = document.getElementById(selId);
-                    for (let i = sel.options.length - 1; i >= 0; i--) {
-                        // 檢查選項的文字是否包含被碰撞的手燈名稱
-                        const optText = sel.options[i].text.split(' (')[0].trim();
-                        if (conflictedSticks.includes(optText)) {
-                            // 如果剛好是使用者目前選中的項目被撞期了，才清除它
-                            if (sel.value === sel.options[i].value) {
-                                sel.selectedIndex = 0; // 碰撞才退回第一項
-                            }
-                            sel.remove(i);
-                        }
-                    }
-                });
             }
+
+            selectIds.forEach((id, index) => {
+                const sel = document.getElementById(id);
+                if (!sel) return;
+
+                const selectedName = getSelectedLightstickName(sel);
+                if (selectedName && selectedName !== '__NONE__' && selectedName !== '__EMPTY__' && conflictedSticks.has(selectedName)) {
+                    if (index === 2) {
+                        sel.value = '0';
+                    } else {
+                        sel.value = '';
+                    }
+                }
+
+                for (let i = sel.options.length - 1; i >= 0; i--) {
+                    const option = sel.options[i];
+                    const name = option.dataset.lightstickName;
+                    if (name && conflictedSticks.has(name)) {
+                        sel.remove(i);
+                    }
+                }
+            });
+
             calculatePrice();
         }
+
+        // ======================================================================
 
         function handleLightstickCardClick(keyword) {
             const cards = document.querySelectorAll('#lightsticks-grid > div');
@@ -1165,7 +1248,6 @@ function validateAndCalculate() {
                     targetCard = card;
                 }
             });
-
             if (targetCard) {
                 const visibleBadges = Array.from(targetCard.querySelectorAll('.rented-badge')).filter(b => b.style.opacity !== '0' && b.style.visibility !== 'hidden');
                 if (visibleBadges.length > 0) {
@@ -1181,11 +1263,10 @@ function validateAndCalculate() {
             selectLightstick(keyword);
         }
 
-function selectLightstick(keyword) {
+        function selectLightstick(keyword) {
             switchMode('lightstick');
             const select1 = document.getElementById('selectedLightstick1');
             for (let i = 0; i < select1.options.length; i++) {
-                // 精準比對手燈名稱
                 const optText = select1.options[i].text.split(' (')[0].trim();
                 if (optText === keyword || select1.options[i].text.includes(keyword)) {
                     select1.selectedIndex = i;
@@ -1197,7 +1278,7 @@ function selectLightstick(keyword) {
             calculatePrice();
             document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
         }
-        
+
         let aespaCurrentIndex = 0;
         const aespaVersionNames = ["Ver. 1", "Ver. 2"];
         function slideAespa(direction) {
@@ -1234,33 +1315,6 @@ function selectLightstick(keyword) {
         const PHONE_RENT_PER_DAY = 550;
         let currentMode = 'combo';
 
-        function initLightstickSelects() {
-            const isCombo = (currentMode === 'combo');
-            ['selectedLightstick1', 'selectedLightstick2'].forEach(id => {
-                const sel = document.getElementById(id);
-                const currentVal = sel.value;
-                let html = '';
-                lightstickList.forEach(item => {
-                    let displayPrice = isCombo ? Math.max(0, item.price - 100) : item.price;
-                    let priceText = item.price === 300 ? ` (優惠價 NT$ ${displayPrice})` : '';
-                    html += `<option value="${item.price}">${item.name}${priceText}</option>`;
-                });
-                sel.innerHTML = html;
-                if (currentVal) sel.value = currentVal;
-            });
-
-            const sel3 = document.getElementById('selectedLightstick3');
-            const currentVal3 = sel3.value;
-            let html3 = '<option value="0">-- 不需要第三支手燈 --</option>';
-            lightstickList.forEach(item => {
-                let displayPrice = isCombo ? Math.max(0, item.price - 100) : item.price;
-                let priceText = item.price === 300 ? ` (優惠價 NT$ ${displayPrice})` : '';
-                html3 += `<option value="${item.price}">${item.name}${priceText}</option>`;
-            });
-            sel3.innerHTML = html3;
-            if (currentVal3) sel3.value = currentVal3;
-        }
-
         function toggleMoreLightsticks() {
             const isChecked = document.getElementById('moreLightsticksCheck').checked;
             const container = document.getElementById('extraLightsticksContainer');
@@ -1272,7 +1326,7 @@ function selectLightstick(keyword) {
             calculatePrice();
         }
 
-function switchMode(mode) {
+        function switchMode(mode) {
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`tab-${mode}`).classList.add('active');
@@ -1284,24 +1338,6 @@ function switchMode(mode) {
             const nameInput = document.getElementById('custName');
             const lineReqMark = document.getElementById('lineRequiredMark');
             const lineInput = document.getElementById('lineId');
-
-            // 💡 記錄切換模式前的所選手燈
-            const currentLs1 = document.getElementById('selectedLightstick1').value;
-            const currentLs2 = document.getElementById('selectedLightstick2').value;
-            const currentLs3 = document.getElementById('selectedLightstick3').value;
-
-            initLightstickSelects();
-
-            // 還原手燈選項
-            if (document.getElementById('selectedLightstick1').querySelector(`option[value="${currentLs1}"]`)) {
-                document.getElementById('selectedLightstick1').value = currentLs1;
-            }
-            if (document.getElementById('selectedLightstick2').querySelector(`option[value="${currentLs2}"]`)) {
-                document.getElementById('selectedLightstick2').value = currentLs2;
-            }
-            if (document.getElementById('selectedLightstick3').querySelector(`option[value="${currentLs3}"]`)) {
-                document.getElementById('selectedLightstick3').value = currentLs3;
-            }
 
             validateAndCalculate();
 
@@ -1349,14 +1385,14 @@ function switchMode(mode) {
             let base2 = isMoreChecked ? (parseInt(document.getElementById('selectedLightstick2').value) || 0) : 0;
             let base3 = isMoreChecked ? (parseInt(document.getElementById('selectedLightstick3').value) || 0) : 0;
 
-            let countLs = 1;
-            let totalLsPrice = base1;
-            if (isMoreChecked) {
-                countLs++;
-                totalLsPrice += base2;
-                if (base3 > 0) {
-                    countLs++;
-                    totalLsPrice += base3;
+            let countLs = 0;
+            let totalLsPrice = 0;
+
+            if (currentMode !== 'phone') {
+                if (base1 > 0) { countLs++; totalLsPrice += base1; }
+                if (isMoreChecked) {
+                    if (base2 > 0) { countLs++; totalLsPrice += base2; }
+                    if (base3 > 0) { countLs++; totalLsPrice += base3; }
                 }
             }
 
@@ -1371,7 +1407,6 @@ function switchMode(mode) {
             }
 
             let phoneRentTotal = (days > 0 ? days * PHONE_RENT_PER_DAY : 0);
-
             if (currentMode === 'combo' || currentMode === 'phone') {
                 document.getElementById('rentalDays').innerText = `${days} 天 (${days}天 × $550 = $${phoneRentTotal.toLocaleString()}元)`;
             } else {
@@ -1390,142 +1425,139 @@ function switchMode(mode) {
                 depositText.innerText = `NT$ ${totalDepositLs.toLocaleString()} (手燈押金)`;
             } else {
                 if (depOpt === 'ID_CARD') {
-                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 3,000 ＋ 證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 3,000 ＋ 證件';
+                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 3,000 ＋ 證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT$ 3,000 ＋ 證件';
                 } else {
-                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 30,000，免押證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT\$ 30,000，免押證件';
+                    depositText.innerText = (currentMode === 'combo' && countLs > 0) ? `NT$ 30,000，免押證件 + 手燈押金 NT$ ${totalDepositLs.toLocaleString()}` : 'NT$ 30,000，免押證件';
                 }
             }
         }
 
-async function handleFormSubmit(event) {
-    event.preventDefault();
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const todayStr = `${year}-${month}-${day}`;
-    const start = document.getElementById('startDate').value;
-    const end = document.getElementById('endDate').value;
-    
-    if (start < todayStr) {
-        alert('⚠️ 預約失敗：租借開始日期不得早於今天！');
-        return;
-    }
-    if (end < start) {
-        alert('⚠️ 歸還日期不得早於租借開始日期！');
-        return;
-    }
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${year}-${month}-${day}`;
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
 
-    const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
-    const social = document.getElementById('socialId').value;
-    const line = document.getElementById('lineId').value || '未填';
-    const remarks = document.getElementById('remarks').value || '無';
-    const total = document.getElementById('totalRent').innerText;
-    const deposit = document.getElementById('deposit').innerText;
+            if (start < todayStr) {
+                alert('⚠️ 預約失敗：租借開始日期不得早於今天！');
+                return;
+            }
+            if (end < start) {
+                alert('⚠️ 歸還日期不得早於租借開始日期！');
+                return;
+            }
 
-    let modeTitle = '手機 + 手燈';
-    let itemDesc = '';
-    const ls1Select = document.getElementById('selectedLightstick1');
-    const ls1Text = ls1Select.options[ls1Select.selectedIndex].text.split(' (')[0].trim();
-    let lsSummary = ls1Text;
+            const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
+            const social = document.getElementById('socialId').value;
+            const line = document.getElementById('lineId').value || '未填';
+            const remarks = document.getElementById('remarks').value || '無';
+            const total = document.getElementById('totalRent').innerText;
+            const deposit = document.getElementById('deposit').innerText;
 
-    if (document.getElementById('moreLightsticksCheck').checked) {
-        const ls2Select = document.getElementById('selectedLightstick2');
-        const ls2Text = ls2Select.options[ls2Select.selectedIndex].text.split(' (')[0].trim();
-        lsSummary += ` + ${ls2Text}`;
-        const ls3Select = document.getElementById('selectedLightstick3');
-        if (ls3Select.value !== "0") {
-            const ls3Text = ls3Select.options[ls3Select.selectedIndex].text.split(' (')[0].trim();
-            lsSummary += ` + ${ls3Text}`;
+            let modeTitle = '手機 + 手燈';
+            let itemDesc = '';
+            const ls1Select = document.getElementById('selectedLightstick1');
+            const ls1Text = ls1Select.selectedIndex > 0 ? ls1Select.options[ls1Select.selectedIndex].text.split(' (')[0].trim() : '';
+            let lsSummary = ls1Text;
+
+            if (document.getElementById('moreLightsticksCheck').checked) {
+                const ls2Select = document.getElementById('selectedLightstick2');
+                const ls2Text = ls2Select.selectedIndex > 0 ? ls2Select.options[ls2Select.selectedIndex].text.split(' (')[0].trim() : '';
+                if (ls2Text) lsSummary += ` + ${ls2Text}`;
+
+                const ls3Select = document.getElementById('selectedLightstick3');
+                if (ls3Select.value !== "0" && ls3Select.selectedIndex > 0) {
+                    const ls3Text = ls3Select.options[ls3Select.selectedIndex].text.split(' (')[0].trim();
+                    if (ls3Text) lsSummary += ` + ${ls3Text}`;
+                }
+            }
+
+            if (currentMode === 'phone') {
+                modeTitle = '手機';
+                itemDesc = 'S24U';
+            } else if (currentMode === 'lightstick') {
+                modeTitle = '手燈';
+                itemDesc = lsSummary;
+            } else {
+                itemDesc = `S24U + ${lsSummary}`;
+            }
+
+            const payload = {
+                mode: modeTitle,
+                start: start,
+                end: end,
+                item: itemDesc,
+                total: total,
+                deposit: deposit,
+                name: name,
+                social: social,
+                line: line,
+                remarks: remarks
+            };
+
+            try {
+                const postResponse = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', },
+                    body: JSON.stringify(payload)
+                });
+                const result = await postResponse.json();
+                if (result.result !== 'success') {
+                    alert('⚠️ 寫入雲端失敗：' + (result.error || '未知錯誤'));
+                    return;
+                }
+            } catch (err) {
+                console.error('送出預約發生錯誤：', err);
+                alert('⚠️ 網路連線異常，請稍後再試！');
+                return;
+            }
+
+            const message = `【 rayeonzz 演唱會租借預約單 】\n` +
+                `📌 預約類型：${modeTitle}\n` +
+                `📅 租借期間：${start} ~ ${end}\n` +
+                `📱💡 租借項目：${itemDesc}\n` +
+                `💰 預估總額：${total}\n` +
+                `🔒 選擇押金方案：${deposit}\n` +
+                `👤 姓名：${name}\n` +
+                `📸 IG / Threads：${social}\n` +
+                `💬 LINE ID：${line}\n` +
+                `📝 備註：${remarks}\n\n` +
+                `-----------------------------------\n` +
+                `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
+
+            navigator.clipboard.writeText(message).catch(() => {});
+
+            const successMsgBox = document.getElementById('inlineSuccessMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            if (successMsgBox) {
+                successMsgBox.classList.remove('hidden');
+                submitBtn.style.display = 'none';
+                successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            let modalBg = document.createElement('div');
+            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
+            modalBg.innerHTML = `
+                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
+                    <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3>
+                    <div class="space-y-1">
+                        <p class="text-xs text-stone-900 leading-relaxed">預約明細已自動複製</p>
+                        <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p>
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
+                        <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md flex items-center justify-center no-underline">聯繫 LINE</a>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modalBg);
+            document.getElementById('customAlertLine').onclick = () => { modalBg.remove(); };
+            document.getElementById('customAlertConfirm').onclick = () => { modalBg.remove(); };
         }
-    }
-
-    if (currentMode === 'phone') {
-        modeTitle = '手機';
-        itemDesc = 'S24U';
-    } else if (currentMode === 'lightstick') {
-        modeTitle = '手燈';
-        itemDesc = lsSummary;
-    } else {
-        itemDesc = `S24U + ${lsSummary}`;
-    }
-
-    // 📦 準備要 POST 給後端（Cloudflare Worker -> Google Apps Script）的資料物件
-    const payload = {
-        mode: modeTitle,
-        start: start,
-        end: end,
-        item: itemDesc,
-        total: total,
-        deposit: deposit,
-        name: name,
-        social: social,
-        line: line,
-        remarks: remarks
-    };
-
-    // 🚀 真正發送 POST 請求寫入 Google 試算表與行事曆
-    try {
-        const postResponse = await fetch(scriptURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
-        });
-        const result = await postResponse.json();
-        if (result.result !== 'success') {
-            alert('⚠️ 寫入雲端失敗：' + (result.error || '未知錯誤'));
-            return;
-        }
-    } catch (err) {
-        console.error('送出預約發生錯誤：', err);
-        alert('⚠️ 網路連線異常，請稍後再試！');
-        return;
-    }
-
-    const message = `【 rayeonzz 演唱會租借預約單 】\n` +
-        `📌 預約類型：${modeTitle}\n` +
-        `📅 租借期間：${start} ~ ${end}\n` +
-        `📱💡 租借項目：${itemDesc}\n` +
-        `💰 預估總額：${total}\n` +
-        `🔒 選擇押金方案：${deposit}\n` +
-        `👤 姓名：${name}\n` +
-        `📸 IG / Threads：${social}\n` +
-        `💬 LINE ID：${line}\n` +
-        `📝 備註：${remarks}\n\n` +
-        `-----------------------------------\n` +
-        `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
-
-    navigator.clipboard.writeText(message).catch(() => {});
-
-    const successMsgBox = document.getElementById('inlineSuccessMessage');
-    const submitBtn = document.getElementById('submitBtn');
-    if (successMsgBox) {
-        successMsgBox.classList.remove('hidden');
-        submitBtn.style.display = 'none';
-        successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    let modalBg = document.createElement('div');
-    modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
-    modalBg.innerHTML = `
-        <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
-            <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3>
-            <div class="space-y-1">
-                <p class="text-xs text-stone-900 leading-relaxed">預約明細已自動複製</p>
-                <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p>
-            </div>
-            <div class="flex gap-3 pt-2">
-                <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
-                <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md flex items-center justify-center no-underline">聯繫 LINE</a>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modalBg);
-    document.getElementById('customAlertLine').onclick = () => { modalBg.remove(); };
-    document.getElementById('customAlertConfirm').onclick = () => { modalBg.remove(); };
-}
 
         function openAdminModal() {
             document.getElementById('adminModal').classList.remove('hidden');
@@ -1538,53 +1570,43 @@ async function handleFormSubmit(event) {
             document.getElementById('adminContent').classList.add('hidden');
         }
 
-// 🔒 透過 Google 後端安全驗證密碼（改用 GET 繞過 CORS 限制）
-// 🔒 透過 Google 後端安全驗證密碼（修正 GET 網址組合）
-// 🔒 透過 GET 進行安全的後台密碼驗證（完美避開 CORS 阻擋）
-function checkAdminPass() {
-    const passwordInput = document.getElementById('adminPassword').value;
-    const loginBtn = document.getElementById('loginBtn');
-    if (!passwordInput) {
-        alert('請輸入密碼！');
-        return;
-    }
-    loginBtn.innerText = '驗證中...';
-    loginBtn.disabled = true;
-    
-    // 改用 POST 請求把密碼藏在 Request Body 裡面，絕對不會外洩在網址上
-    fetch(scriptURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            action: 'adminLogin',
-            password: passwordInput
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        loginBtn.innerText = '登入後台';
-        loginBtn.disabled = false;
-        if (data.result === 'success') {
-            document.getElementById('adminAuth').classList.add('hidden');
-            document.getElementById('adminContent').classList.remove('hidden');
-            loadOrders();
-        } else {
-            alert('⚠️ 密碼錯誤！');
+        function checkAdminPass() {
+            const passwordInput = document.getElementById('adminPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+            if (!passwordInput) {
+                alert('請輸入密碼！');
+                return;
+            }
+            loginBtn.innerText = '驗證中...';
+            loginBtn.disabled = true;
+
+            fetch(scriptURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify({ action: 'adminLogin', password: passwordInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loginBtn.innerText = '登入後台';
+                loginBtn.disabled = false;
+                if (data.result === 'success') {
+                    document.getElementById('adminAuth').classList.add('hidden');
+                    document.getElementById('adminContent').classList.remove('hidden');
+                    loadOrders();
+                } else {
+                    alert('⚠️ 密碼錯誤！');
+                }
+            })
+            .catch(err => {
+                loginBtn.innerText = '登入後台';
+                loginBtn.disabled = false;
+                alert('連線驗證失敗，請稍後再試：' + err);
+            });
         }
-    })
-    .catch(err => {
-        loginBtn.innerText = '登入後台';
-        loginBtn.disabled = false;
-        alert('連線驗證失敗，請稍後再試：' + err);
-    });
-}
-        // 💡 雲端載入訂單
+
         function loadOrders() {
             const listEl = document.getElementById('orderList');
             listEl.innerHTML = '<p class="text-stone-500 text-center py-6">正在從雲端讀取預約單...</p>';
-
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
@@ -1603,7 +1625,6 @@ function checkAdminPass() {
         function renderAdminOrdersList(orders) {
             const filterVal = document.getElementById('adminFilter').value;
             const searchVal = document.getElementById('adminSearch').value.toLowerCase();
-
             let filteredOrders = orders.filter(ord => {
                 let matchFilter = (filterVal === 'all') || 
                                   (filterVal === 'phone' && (ord.mode === '手機' || ord.item.includes('S24U') && !ord.item.includes('+'))) || 
@@ -1612,16 +1633,13 @@ function checkAdminPass() {
                 let matchSearch = !searchVal || `${ord.name} ${ord.social} ${ord.line} ${ord.item} ${ord.remarks}`.toLowerCase().includes(searchVal);
                 return matchFilter && matchSearch;
             });
-
             document.getElementById('orderCount').innerText = filteredOrders.length;
             const listEl = document.getElementById('orderList');
             listEl.innerHTML = '';
-
             if (filteredOrders.length === 0) {
                 listEl.innerHTML = '<p class="text-stone-500 text-center py-6">目前沒有符合條件的預約單</p>';
                 return;
             }
-
             filteredOrders.forEach((ord) => {
                 const div = document.createElement('div');
                 div.className = 'bg-[#DCEEFF]/60 border border-[#23466B]/20 p-3.5 rounded-2xl space-y-1.5 text-stone-900 relative';
