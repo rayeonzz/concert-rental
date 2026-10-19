@@ -928,31 +928,40 @@
             icon.className = menu.classList.contains('hidden') ? "fa-solid fa-bars" : "fa-solid fa-xmark";
         }
 
-        function fetchRentedStatus() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
-            fetch(scriptURL)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.result === 'success' && data.orders) {
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        allOrders = data.orders.map(o => ({
-                            start: o.start ? cleanDateStr(o.start) : '',
-                            end: o.end ? cleanDateStr(o.end) : '',
-                            item: o.item || ''
-                        })).filter(o => {
-                            if (!o.end) return false;
-                            const endDateObj = new Date(o.end);
-                            endDateObj.setHours(0, 0, 0, 0);
-                            return endDateObj >= today;
-                        });
-                        renderRentedStatus();
-                        validateAndCalculate();
-                    }
-                })
-                .catch(err => console.log('檢查檔期失敗：', err));
-        }
+function fetchRentedStatus() {
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
+  fetch(scriptURL)
+    .then(response => response.json())
+    .then(data => {
+      if (data.result === 'success' && data.orders) {
+        // 取得今天的日期（清除時分秒，確保精準比對）
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
+        allOrders = data.orders.map(o => ({ 
+          start: o.start ? cleanDateStr(o.start) : '', 
+          end: o.end ? cleanDateStr(o.end) : '', 
+          item: o.item || '' 
+        })).filter(o => {
+          if (!o.end || !o.start) return false;
+          
+          // 轉換歸還日期
+          const endDateObj = new Date(o.end);
+          endDateObj.setHours(0, 0, 0, 0);
+          
+          // 💡 核心自動化邏輯：
+          // 1. 狀態不是「已結案」
+          // 2. 歸還日期必須大於或等於今天（代表檔期還沒過期）
+          // 如果過了今天，系統就會自動忽略它，不再顯示已出租遮罩！
+          return endDateObj >= today;
+        });
+
+        renderRentedStatus();
+        validateAndCalculate();
+      }
+    })
+    .catch(err => console.log('檢查檔期失敗：', err));
+}
 function renderRentedStatus() {
   const phoneBannersContainer = document.getElementById('phone-rented-banners');
   if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
