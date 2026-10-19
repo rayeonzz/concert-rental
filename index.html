@@ -87,6 +87,11 @@
             section[id] {
                 scroll-margin-top: 73px;
             }
+            /* 手機版已出租遮罩微調，避免與左右箭頭相撞 */
+            .rented-badge {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
         }
     </style>
 </head>
@@ -220,14 +225,14 @@
             </div>
             <div class="mb-4 sm:mb-6 flex justify-center">
                 <div class="ios-glass px-5 py-2 rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm flex items-center gap-2">
-                    <span>✨ 點擊任一手燈圖片即可自動代入預約</span>
+                    <span>✨ 點擊已出租手燈可先看卡片，再按一次即可代入預約！</span>
                 </div>
             </div>
 
             <!-- 手燈網格 -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="lightsticks-grid">
                 <!-- aespa -->
-                <div data-name="aespa" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('aespa')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="aespa" data-price="400" data-group="girl" data-multi="2" onclick="handleLightstickCardClick('aespa')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">aespa</div>
                         <div id="aespa-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
@@ -246,7 +251,7 @@
                     </div>
                 </div>
                 <!-- BABYMONSTER -->
-                <div data-name="BABYMONSTER" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('BABYMONSTER')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BABYMONSTER" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('BABYMONSTER')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">BABYMONSTER</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -255,7 +260,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- BLACKPINK -->
-                <div data-name="BLACKPINK" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('BLACKPINK')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BLACKPINK" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('BLACKPINK')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">BLACKPINK</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">粉錘 Ver. 2</div>
@@ -264,7 +269,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- BOYNEXTDOOR -->
-                <div data-name="BOYNEXTDOOR" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('BOYNEXTDOOR')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BOYNEXTDOOR" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('BOYNEXTDOOR')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">BOYNEXTDOOR</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -273,7 +278,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- BTS -->
-                <div data-name="BTS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('BTS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="BTS" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('BTS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">BTS</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">阿米棒 Ver. 4</div>
@@ -282,7 +287,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- CLOSE YOUR EYES -->
-                <div data-name="CLOSE YOUR EYES" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CLOSE YOUR EYES')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="CLOSE YOUR EYES" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('CLOSE YOUR EYES')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">CLOSE YOUR EYES</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -291,7 +296,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- CNBLUE -->
-                <div data-name="CNBLUE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CNBLUE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="CNBLUE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('CNBLUE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">CNBLUE</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -300,7 +305,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- CORTIS -->
-                <div data-name="CORTIS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('CORTIS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="CORTIS" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('CORTIS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">CORTIS</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -309,7 +314,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- EVNNE -->
-                <div data-name="EVNNE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('EVNNE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="EVNNE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('EVNNE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">EVNNE</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
@@ -318,7 +323,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- EXO -->
-                <div data-name="EXO" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('EXO')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="EXO" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('EXO')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">EXO</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 3</div>
@@ -327,7 +332,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- fromis_9 -->
-                <div data-name="fromis_9" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('fromis_9')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="fromis_9" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('fromis_9')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">fromis_9</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
@@ -336,7 +341,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- FTISLAND -->
-                <div data-name="FTISLAND" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('FTISLAND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="FTISLAND" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('FTISLAND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">FTISLAND</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -345,7 +350,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- GFRIEND -->
-                <div data-name="GFRIEND" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('GFRIEND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="GFRIEND" data-price="400" data-group="girl" data-multi="2" onclick="handleLightstickCardClick('GFRIEND')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">GFRIEND</div>
                         <div id="gfriend-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 3</div>
@@ -364,7 +369,7 @@
                     </div>
                 </div>
                 <!-- Girls' Generation -->
-                <div data-name="Girls' Generation" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('Girls\' Generation')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Girls' Generation" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('Girls\' Generation')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">Girls' Generation</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -373,7 +378,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
                 <!-- ILLIT -->
-                <div data-name="ILLIT" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('ILLIT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="ILLIT" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('ILLIT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">ILLIT</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -382,7 +387,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- ITZY -->
-                <div data-name="ITZY" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('ITZY')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="ITZY" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('ITZY')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">ITZY</div>
                         <div id="itzy-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
@@ -391,7 +396,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- IVE -->
-                <div data-name="IVE" data-price="400" data-group="girl" data-multi="2" onclick="selectLightstick('IVE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="IVE" data-price="400" data-group="girl" data-multi="2" onclick="handleLightstickCardClick('IVE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">IVE</div>
                         <div id="ive-version-text" class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
@@ -410,7 +415,7 @@
                     </div>
                 </div>
                 <!-- izna -->
-                <div data-name="izna" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('izna')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="izna" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('izna')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">izna</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -419,7 +424,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- Kep1er -->
-                <div data-name="Kep1er" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('Kep1er')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Kep1er" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('Kep1er')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">Kep1er</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
@@ -428,7 +433,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- KISS OF LIFE -->
-                <div data-name="KISS OF LIFE" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('KISS OF LIFE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="KISS OF LIFE" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('KISS OF LIFE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">KISS OF LIFE</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -437,7 +442,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- LE SSERAFIM -->
-                <div data-name="LE SSERAFIM" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('LE SSERAFIM')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="LE SSERAFIM" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('LE SSERAFIM')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">LE SSERAFIM</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -446,7 +451,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- NMIXX -->
-                <div data-name="NMIXX" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('NMIXX')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="NMIXX" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('NMIXX')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">NMIXX</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
@@ -455,7 +460,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
                 <!-- Red Velvet -->
-                <div data-name="Red Velvet" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('Red Velvet')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Red Velvet" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('Red Velvet')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">Red Velvet</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 1</div>
@@ -464,7 +469,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- RIIZE -->
-                <div data-name="RIIZE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('RIIZE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="RIIZE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('RIIZE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">RIIZE</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -473,7 +478,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- SEVENTEEN -->
-                <div data-name="SEVENTEEN" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('SEVENTEEN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="SEVENTEEN" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('SEVENTEEN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">SEVENTEEN</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">十週年克拉棒</div>
@@ -482,7 +487,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- STAYC -->
-                <div data-name="STAYC" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('STAYC')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="STAYC" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('STAYC')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">STAYC</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -491,7 +496,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
                 <!-- Stray Kids -->
-                <div data-name="Stray Kids" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('Stray Kids')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="Stray Kids" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('Stray Kids')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">Stray Kids</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
@@ -500,7 +505,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- TREASURE -->
-                <div data-name="TREASURE" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TREASURE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TREASURE" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('TREASURE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">TREASURE</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
@@ -509,7 +514,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- tripleS -->
-                <div data-name="tripleS" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('tripleS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="tripleS" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('tripleS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">tripleS</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -518,7 +523,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
                 <!-- TWICE -->
-                <div data-name="TWICE" data-price="400" data-group="girl" data-multi="1" onclick="selectLightstick('TWICE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TWICE" data-price="400" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('TWICE')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">TWICE</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">糖果棒 Ver.3</div>
@@ -527,7 +532,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- TWS -->
-                <div data-name="TWS" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TWS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TWS" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('TWS')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">TWS</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">官方手燈</div>
@@ -536,7 +541,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- TXT -->
-                <div data-name="TXT" data-price="400" data-group="boy" data-multi="1" onclick="selectLightstick('TXT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="TXT" data-price="400" data-group="boy" data-multi="1" onclick="handleLightstickCardClick('TXT')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">TXT</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
@@ -545,7 +550,7 @@
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">NT$ 400 / 次</div>
                 </div>
                 <!-- WJSN -->
-                <div data-name="WJSN" data-price="300" data-group="girl" data-multi="1" onclick="selectLightstick('WJSN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
+                <div data-name="WJSN" data-price="300" data-group="girl" data-multi="1" onclick="handleLightstickCardClick('WJSN')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
                         <div class="font-black text-xs sm:text-sm text-[#23466B]">WJSN</div>
                         <div class="text-[11px] text-stone-700 mb-1.5 font-bold">Ver. 2</div>
@@ -619,7 +624,7 @@
                 </div>
                 <div class="space-y-4 pt-2">
                     <div id="name-field-container">
-                        <label class="block text-xs font-bold text-stone-900 mb-1.5">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1">租手機者必填</span></label>
+                        <label class="block text-xs font-bold text-stone-900 mb-1.5">姓名 <span class="text-red-600">*</span> <span class="text-[11px] font-normal text-stone-600 ml-1" id="name-tip">租手機者必填</span></label>
                         <input type="text" id="custName" placeholder="例 : 朴枕擁" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950">
                     </div>
                     <div>
@@ -1021,6 +1026,32 @@
             calculatePrice();
         }
 
+        // 需求 1：點擊已出租手燈卡片，第一下先隱藏遮罩看清楚卡片內容，按第二下才代入預約
+        function handleLightstickCardClick(keyword) {
+            const cards = document.querySelectorAll('#lightsticks-grid > div');
+            let targetCard = null;
+            cards.forEach(card => {
+                if (card.getAttribute('data-name') === keyword) {
+                    targetCard = card;
+                }
+            });
+
+            if (targetCard) {
+                const visibleBadges = Array.from(targetCard.querySelectorAll('.rented-badge')).filter(b => b.style.display !== 'none');
+                if (visibleBadges.length > 0) {
+                    // 第一下：暫時隱藏該卡片的已出租遮罩讓客人看清楚
+                    visibleBadges.forEach(b => {
+                        b.style.display = 'none';
+                        b.dataset.temporarilyHidden = 'true';
+                    });
+                    return;
+                }
+            }
+
+            // 第二下或未出租：直接正常代入預約
+            selectLightstick(keyword);
+        }
+
         function selectLightstick(keyword) {
             switchMode('lightstick');
             const select1 = document.getElementById('selectedLightstick1');
@@ -1119,15 +1150,16 @@
             const rowDays = document.getElementById('row-days');
             const nameContainer = document.getElementById('name-field-container');
             const nameInput = document.getElementById('custName');
+            const nameTip = document.getElementById('name-tip');
             initLightstickSelects();
             validateAndCalculate();
 
             if (mode === 'combo') {
-                lsBox.style.display = 'block'; depositContainer.style.display = 'block'; rowDays.style.display = 'flex'; nameContainer.style.display = 'block'; nameInput.required = true;
+                lsBox.style.display = 'block'; depositContainer.style.display = 'block'; rowDays.style.display = 'flex'; nameContainer.style.display = 'block'; nameInput.required = true; nameTip.innerText = '租手機者必填';
             } else if (mode === 'phone') {
-                lsBox.style.display = 'none'; depositContainer.style.display = 'block'; rowDays.style.display = 'flex'; nameContainer.style.display = 'block'; nameInput.required = true;
+                lsBox.style.display = 'none'; depositContainer.style.display = 'block'; rowDays.style.display = 'flex'; nameContainer.style.display = 'block'; nameInput.required = true; nameTip.innerText = '租手機者必填';
             } else if (mode === 'lightstick') {
-                lsBox.style.display = 'block'; depositContainer.style.display = 'none'; rowDays.style.display = 'none'; nameContainer.style.display = 'none'; nameInput.required = false; nameInput.value = '';
+                lsBox.style.display = 'block'; depositContainer.style.display = 'none'; rowDays.style.display = 'none'; nameContainer.style.display = 'block'; nameInput.required = true; nameTip.innerText = '手燈租借者必填';
             }
             calculatePrice();
         }
@@ -1185,7 +1217,7 @@
             }
         }
 
-function handleFormSubmit(event) {
+        function handleFormSubmit(event) {
             event.preventDefault();
             const today = new Date();
             const year = today.getFullYear();
@@ -1218,7 +1250,7 @@ function handleFormSubmit(event) {
                 }
             }
 
-            const name = document.getElementById('custName').value || '（單租手燈免填）';
+            const name = document.getElementById('custName').value || '未填';
             const social = document.getElementById('socialId').value;
             const line = document.getElementById('lineId').value;
             const remarks = document.getElementById('remarks').value || '無';
@@ -1282,9 +1314,6 @@ function handleFormSubmit(event) {
                 `-----------------------------------\n` +
                 `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
 
-            // 自動複製到剪貼簿
-            navigator.clipboard.writeText(message).catch(() => {});
-
             // 建立美觀的雙按鈕自訂彈窗
             let modalBg = document.createElement('div');
             modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
@@ -1292,8 +1321,8 @@ function handleFormSubmit(event) {
                 <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
                     <h3 class="text-base font-black text-[#23466B]">預約資料已複製及送出！</h3>
                     <p class="text-xs text-stone-900 leading-relaxed">
-                        按「聯繫」將為您導向至LINE聯繫 rayeonzz，請將資料貼上至聊天室<br>
-                        <span class="text-[#A94F00] mt-1 inline-block">按「確認」將等待 rayeonzz 主動聯繫，避免錯失檔期請優先選擇「聯繫」</span>
+                        按下「聯繫」後將為您導向至LINE聯繫 rayeonzz，請將資料貼上至聊天室<br>
+                        <span class="text-[#A94F00] mt-1 inline-block">按下「確認」則等待 rayeonzz 主動聯繫，未避免錯失檔期請優先選擇「聯繫」</span>
                     </p>
                     <div class="flex gap-3 pt-2">
                         <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">確認</button>
@@ -1303,16 +1332,20 @@ function handleFormSubmit(event) {
             `;
             document.body.appendChild(modalBg);
 
+            // 需求 3：選擇「聯繫」時才複製資料並跳轉 LINE
             document.getElementById('customAlertLine').onclick = () => {
+                navigator.clipboard.writeText(message).catch(() => {});
                 modalBg.remove();
                 window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
             };
 
+            // 需求 3：選擇「確認」時不複製資料
             document.getElementById('customAlertConfirm').onclick = () => {
                 modalBg.remove();
                 alert('預約已送出！請靜候 rayeonzz 與您聯繫。');
             };
         }
+
         function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
         function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); document.getElementById('adminPassword').value = ''; document.getElementById('adminAuth').classList.remove('hidden'); document.getElementById('adminContent').classList.add('hidden'); }
         function checkAdminPass() {
