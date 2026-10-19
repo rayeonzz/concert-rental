@@ -190,7 +190,7 @@
 
     <!-- 設備介紹區 -->
     <main class="max-w-5xl mx-auto px-3 sm:px-4 py-2 flex-grow w-full space-y-8 sm:space-y-10">
-
+        
         <!-- 手機出租 -->
         <section id="phone-section">
             <h2 class="text-lg sm:text-xl font-black mb-3 sm:mb-4 border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">📱 手機租借</h2>
@@ -226,10 +226,12 @@
             </div>
         </section>
 
+        <!-- 手燈出租 -->
         <section id="lightstick-section-view">
             <div class="flex flex-wrap justify-between items-center mb-3 sm:mb-4 gap-2">
                 <h2 class="text-lg sm:text-xl font-black border-l-4 border-[#23466B] pl-3 text-[#23466B] drop-shadow-sm">💡 應援手燈租借</h2>
             </div>
+            
             <div class="bg-[#DCEEFF]/80 border border-[#23466B]/30 p-3.5 sm:p-4 rounded-2xl text-xs space-y-1.5 text-stone-900 font-bold mb-4 shadow-sm">
                 <p>🪄 <b>租借價格：</b> 單次租金 NT$ 400 (指定款 NT$ 300)。</p>
                 <p>🪄 <b>手燈押金：</b> 每支 NT$ 1,000。</p>
@@ -246,21 +248,19 @@
             </div>
 
             <div class="mb-4 sm:mb-6 flex justify-center">
-    <div class="ios-glass px-5 py-3 rounded-2xl sm:rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm text-center">
-        <!-- 電腦版顯示（維持一行） -->
-        <span class="hidden sm:inline">✨ 電腦版游標移上已出租手燈即可看見內容；手機版點一下看內容、第二下代入預約！</span>
-        
-        <!-- 手機版顯示（拆成兩行並置中） -->
-        <div class="sm:hidden space-y-1">
-            <div>✨ 電腦版游標移上已出租手燈即可看見內容</div>
-            <div>✨ 手機版點一下已出租看內容、第二下代入預約其他檔期</div>
-        </div>
-    </div>
-</div>
+                <div class="ios-glass px-5 py-3 rounded-2xl sm:rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm text-center">
+                    <!-- 電腦版顯示（維持一行） -->
+                    <span class="hidden sm:inline">✨ 電腦版游標移上已出租手燈即可看見內容；手機版點一下看內容、第二下代入預約！</span>
+                    <!-- 手機版顯示（拆成兩行並置中） -->
+                    <div class="sm:hidden space-y-1">
+                        <div>✨ 電腦版游標移上已出租手燈即可看見內容</div>
+                        <div>✨ 手機版點擊手燈自動代入預約</div>
+                    </div>
+                </div>
+            </div>
 
             <!-- 手燈網格 -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="lightsticks-grid">
-
                 <!-- aespa -->
                 <div data-name="aespa" data-price="400" data-group="girl" data-multi="2" onclick="handleLightstickCardClick('aespa')" class="ios-glass p-3 sm:p-4 rounded-[24px] sm:rounded-[28px] text-center transition hover:scale-[1.02] flex flex-col justify-between cursor-pointer relative overflow-hidden group">
                     <div>
@@ -630,14 +630,13 @@
                     </div>
                     <div class="text-[#23466B] font-bold text-[11px] sm:text-xs bg-[#DCEEFF] py-1 rounded-xl border border-[#23466B]/20">優惠價 NT$ 300 / 次</div>
                 </div>
-
             </div>
         </section>
 
         <!-- 試算與預約表單 -->
         <section id="order-section" class="ios-glass p-5 sm:p-10 rounded-[28px] sm:rounded-[32px]">
             <h2 class="text-xl sm:text-2xl font-black text-[#23466B] mb-4 text-center">租金線上試算與預約</h2>
-
+            
             <div class="flex flex-row items-center justify-between gap-1 sm:gap-2 mb-6 sm:mb-8 bg-[#DCEEFF]/50 p-2 rounded-2xl border border-[#23466B]/20 w-full">
                 <button type="button" onclick="switchMode('combo')" id="tab-combo" class="tab-btn active flex-1 min-w-0 text-center py-2 px-1 text-[10px] sm:text-sm font-bold rounded-xl transition text-[#23466B] truncate">
                     📱💡 配套
@@ -664,7 +663,6 @@
 
                 <div id="lightstick-selection" class="space-y-4">
                     <label class="block text-xs font-bold text-stone-900">選擇欲租借的手燈款式 <span class="text-[11px] font-normal text-[#A94F00] ml-1">📱搭配手機，每支手燈折抵 100 元！</span></label>
-                    
                     <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1">
                         <div class="text-[11px] font-bold text-[#23466B]">第一支手燈款式</div>
                         <select id="selectedLightstick1" onchange="onLightstickChange()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"></select>
@@ -729,7 +727,20 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-[#23466B] hover:bg-[#1a3552] text-white font-black py-3.5 rounded-2xl shadow-lg shadow-[#23466B]/20 transition text-sm active:scale-98">
+                <!-- 頁面內嵌的送出成功提示訊息 (平常隱藏) -->
+                <div id="inlineSuccessMessage" class="hidden bg-[#DCEEFF] border-2 border-[#23466B] p-4 rounded-2xl text-center space-y-2.5 shadow-md">
+                    <div class="text-[#23466B] font-black text-sm flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-circle-check text-green-600"></i> 預約資料已成功送出！
+                    </div>
+                    <p class="text-xs text-stone-900 font-bold leading-relaxed">
+                        預約明細已自動複製！請點擊下方按鈕將明細發送給 rayeonzz 完成確認：
+                    </p>
+                    <button type="button" id="inlineLineBtn" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-black py-3 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
+                        <img src="lineicon.PNG" alt="LINE" class="w-4 h-4 object-contain"> 點此開啟 LINE 傳送預約明細
+                    </button>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-[#23466B] hover:bg-[#1a3552] text-white font-black py-3.5 rounded-2xl shadow-lg shadow-[#23466B]/20 transition text-sm active:scale-98">
                     送出預約並聯繫 rayeonzz
                 </button>
             </form>
@@ -768,11 +779,13 @@
                 <h3 class="text-lg font-black text-[#23466B] flex items-center"><i class="fa-solid fa-user-gear text-[#23466B] mr-2"></i>rayeonzz 管理員後台</h3>
                 <button onclick="closeAdminModal()" class="text-stone-600 hover:text-stone-950 text-2xl font-black w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-200/50">&times;</button>
             </div>
+            
             <div id="adminAuth" class="space-y-4 py-4">
                 <p class="text-xs text-stone-900 font-bold">請輸入管理員密碼以進入預約訂單管理後台：</p>
                 <input type="password" id="adminPassword" placeholder="輸入密碼" class="w-full ios-input rounded-2xl p-3 text-sm focus:ring-2 focus:ring-[#23466B] focus:outline-none text-stone-950 font-bold">
                 <button onclick="checkAdminPass()" class="w-full bg-[#23466B] text-white font-black py-3 rounded-2xl text-sm hover:bg-[#1a3552] transition shadow-md">登入後台</button>
             </div>
+
             <div id="adminContent" class="hidden space-y-4">
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-[#DCEEFF]/70 p-4 rounded-2xl text-xs border border-[#23466B]/20">
                     <div class="flex items-center gap-2">
@@ -789,9 +802,11 @@
                         <button onclick="clearOrders()" class="text-red-600 hover:underline font-bold whitespace-nowrap">清空全部</button>
                     </div>
                 </div>
+
                 <div class="flex justify-between items-center px-1 text-xs text-stone-700">
                     <span>符合條件的預約單：<b id="orderCount" class="text-[#23466B] font-black">0</b> 筆</span>
                 </div>
+
                 <div id="orderList" class="space-y-3 max-h-72 overflow-y-auto text-xs font-bold pr-1"></div>
             </div>
         </div>
@@ -932,6 +947,8 @@
                             return endDateObj >= today;
                         });
                         renderRentedStatus();
+                        // 重新依據最新抓到的檔期去過濾選項與驗證
+                        validateAndCalculate();
                     }
                 })
                 .catch(err => console.log('檢查檔期失敗：', err));
@@ -946,9 +963,11 @@
                 if (order.start && order.end) {
                     const cleanStart = order.start;
                     const cleanEnd = order.end;
+                    
                     if (order.item.includes('S24U') || order.item.includes('手機')) {
                         addPhoneRentedBanner(cleanStart, cleanEnd);
                     }
+
                     lightstickList.forEach(item => {
                         if (order.item.includes(item.name)) {
                             if (item.name.includes('aespa')) {
@@ -967,6 +986,7 @@
                     });
                 }
             });
+
             updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
             updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
             updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
@@ -1047,7 +1067,7 @@
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             const todayStr = `${year}-${month}-${day}`;
-            
+
             const startInput = document.getElementById('startDate');
             const endInput = document.getElementById('endDate');
             startInput.setAttribute('min', todayStr);
@@ -1070,14 +1090,16 @@
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             const todayStr = `${year}-${month}-${day}`;
-            
+
             const startInput = document.getElementById('startDate');
             const endInput = document.getElementById('endDate');
+
             if (startInput.value && startInput.value < todayStr) {
                 alert('⚠️ 租借開始日期不得早於今天！');
                 startInput.value = todayStr;
                 return;
             }
+
             if (startInput.value) {
                 endInput.setAttribute('min', startInput.value);
                 if (!endInput.value || endInput.value < startInput.value) {
@@ -1139,7 +1161,6 @@
                     targetCard = card;
                 }
             });
-
             if (targetCard) {
                 const visibleBadges = Array.from(targetCard.querySelectorAll('.rented-badge')).filter(b => b.style.opacity !== '0' && b.style.visibility !== 'hidden');
                 if (visibleBadges.length > 0) {
@@ -1315,6 +1336,7 @@
             }
 
             let phoneRentTotal = (days > 0 ? days * PHONE_RENT_PER_DAY : 0);
+
             if (currentMode === 'combo' || currentMode === 'phone') {
                 document.getElementById('rentalDays').innerText = `${days} 天 (${days}天 × $550 = $${phoneRentTotal.toLocaleString()}元)`;
             } else {
@@ -1340,14 +1362,14 @@
             }
         }
 
-        function handleFormSubmit(event) {
+        async function handleFormSubmit(event) {
             event.preventDefault();
             const today = new Date();
             const year = today.getFullYear();
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             const todayStr = `${year}-${month}-${day}`;
-            
+
             const start = document.getElementById('startDate').value;
             const end = document.getElementById('endDate').value;
 
@@ -1360,23 +1382,40 @@
                 return;
             }
 
-            if (start && end) {
-                for (let order of allOrders) {
-                    if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
-                        if ((currentMode === 'phone' || currentMode === 'combo') && order.item.includes('S24U')) {
-                            alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！`);
-                            return;
-                        }
-                        if (currentMode === 'lightstick' || currentMode === 'combo') {
-                            const ls1 = document.getElementById('selectedLightstick1');
-                            const stick1 = ls1.options[ls1.selectedIndex].text.split(' (')[0].trim();
-                            if (order.item.includes(stick1)) {
-                                alert(`⚠️ 預約失敗：手燈在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！`);
+            // 🛡️【關鍵防撞強化】：按下送出的瞬間，先「強制重新向 Google 試算表 fetch 最新檔期」再次確認！
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
+            
+            try {
+                const response = await fetch(scriptURL);
+                const data = await response.json();
+                if (data.result === 'success' && data.orders) {
+                    const latestOrders = data.orders.map(o => ({
+                        start: o.start ? cleanDateStr(o.start) : '',
+                        end: o.end ? cleanDateStr(o.end) : '',
+                        item: o.item || ''
+                    }));
+
+                    for (let order of latestOrders) {
+                        if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
+                            if ((currentMode === 'phone' || currentMode === 'combo') && order.item.includes('S24U')) {
+                                alert(`⚠️ 預約失敗：S24 Ultra 手機在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 剛剛已經被別人預約走了！請重新選擇檔期。`);
+                                fetchRentedStatus(); // 更新畫面
                                 return;
+                            }
+                            if (currentMode === 'lightstick' || currentMode === 'combo') {
+                                const ls1 = document.getElementById('selectedLightstick1');
+                                const stick1 = ls1.options[ls1.selectedIndex].text.split(' (')[0].trim();
+                                if (order.item.includes(stick1)) {
+                                    alert(`⚠️ 預約失敗：手燈 (${stick1}) 在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 剛剛已經被別人預約走了！請重新選擇。`);
+                                    fetchRentedStatus();
+                                    return;
+                                }
                             }
                         }
                     }
                 }
+            } catch (err) {
+                console.log('即時二次防撞檢驗連線異常，略過背景確認：', err);
             }
 
             const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
@@ -1388,7 +1427,6 @@
 
             let modeTitle = '手機 + 手燈';
             let itemDesc = '';
-
             const ls1Select = document.getElementById('selectedLightstick1');
             const ls1Text = ls1Select.options[ls1Select.selectedIndex].text.split(' (')[0].trim();
             let lsSummary = ls1Text;
@@ -1397,7 +1435,6 @@
                 const ls2Select = document.getElementById('selectedLightstick2');
                 const ls2Text = ls2Select.options[ls2Select.selectedIndex].text.split(' (')[0].trim();
                 lsSummary += ` + ${ls2Text}`;
-
                 const ls3Select = document.getElementById('selectedLightstick3');
                 if (ls3Select.value !== "0") {
                     const ls3Text = ls3Select.options[ls3Select.selectedIndex].text.split(' (')[0].trim();
@@ -1416,84 +1453,68 @@
             }
 
             const nowTime = new Date().toLocaleString();
-            const newOrder = {
-                mode: modeTitle,
-                start: start,
-                end: end,
-                item: itemDesc,
-                name: name,
-                social: social,
-                line: line,
-                total: total,
-                deposit: deposit,
-                remarks: remarks,
-                time: nowTime
-            };
-
+            const newOrder = { mode: modeTitle, start: start, end: end, item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks, time: nowTime };
             const existingOrders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
             existingOrders.push(newOrder);
             localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
-            const payload = {
-                mode: modeTitle,
-                start: start,
-                end: end,
-                item: itemDesc,
-                name: name,
-                social: social,
-                line: line,
-                total: total,
-                deposit: deposit,
-                remarks: remarks
-            };
-
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(error => console.error('傳送失敗!', error));
+            const payload = { mode: modeTitle, start: start, end: end, item: itemDesc, name: name, social: social, line: line, total: total, deposit: deposit, remarks: remarks };
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(error => console.error('傳送失敗!', error));
 
             const message = `【 rayeonzz 演唱會租借預約單 】\n` +
-                            `📌 預約類型：${modeTitle}\n` +
-                            `📅 租借期間：${start} ~ ${end}\n` +
-                            `📱💡 租借項目：${itemDesc}\n` +
-                            `💰 預估總額：${total}\n` +
-                            `🔒 選擇押金方案：${deposit}\n` +
-                            `👤 姓名：${name}\n` +
-                            `📸 IG / Threads：${social}\n` +
-                            `💬 LINE ID：${line}\n` +
-                            `📝 備註：${remarks}\n\n` +
-                            `-----------------------------------\n` +
-                            `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
+                `📌 預約類型：${modeTitle}\n` +
+                `📅 租借期間：${start} ~ ${end}\n` +
+                `📱💡 租借項目：${itemDesc}\n` +
+                `💰 預估總額：${total}\n` +
+                `🔒 選擇押金方案：${deposit}\n` +
+                `👤 姓名：${name}\n` +
+                `📸 IG / Threads：${social}\n` +
+                `💬 LINE ID：${line}\n` +
+                `📝 備註：${remarks}\n\n` +
+                `-----------------------------------\n` +
+                `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
 
+            // 複製到剪貼簿
+            navigator.clipboard.writeText(message).catch(() => {});
+
+            // 1. 顯示頁面內嵌的成功提示框（手機絕不會漏看）
+            const successMsgBox = document.getElementById('inlineSuccessMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            if (successMsgBox) {
+                successMsgBox.classList.remove('hidden');
+                submitBtn.style.display = 'none';
+                successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            document.getElementById('inlineLineBtn').onclick = () => {
+                window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
+            };
+
+            // 2. 同時保留原本的彈出視窗（雙重保險）
             let modalBg = document.createElement('div');
             modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
             modalBg.innerHTML = `
                 <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
                     <h3 class="text-base font-black text-[#23466B]">預約資料已複製及送出！</h3>
                     <p class="text-xs text-stone-900 leading-relaxed">
-                        按下「聯繫」將為您導向至LINE聯繫 rayeonzz，請將資料貼上至聊天室<br>
-                        <span class="text-[#A94F00] mt-1 inline-block">按下「確認」等待 rayeonzz 主動聯繫，避免錯失檔期請優先選擇「聯繫」</span>
+                        明細已自動複製！請點擊「聯繫 LINE」貼上發送給 rayeonzz<br>
+                        <span class="text-[#A94F00] mt-1 inline-block">若手機未彈出對話框，請直接看表單上方的綠色成功提示框！</span>
                     </p>
                     <div class="flex gap-3 pt-2">
-                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">確認</button>
-                        <button id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">聯繫</button>
+                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
+                        <button id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">聯繫 LINE</button>
                     </div>
                 </div>
             `;
             document.body.appendChild(modalBg);
 
             document.getElementById('customAlertLine').onclick = () => {
-                navigator.clipboard.writeText(message).catch(() => {});
                 modalBg.remove();
                 window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
             };
 
             document.getElementById('customAlertConfirm').onclick = () => {
                 modalBg.remove();
-                alert('預約已送出！請靜候 rayeonzz 與您聯繫。');
             };
         }
 
@@ -1524,10 +1545,7 @@
             const searchVal = document.getElementById('adminSearch').value.toLowerCase();
 
             let filteredOrders = orders.filter(ord => {
-                let matchFilter = (filterVal === 'all') || 
-                                  (filterVal === 'phone' && ord.mode === '手機') || 
-                                  (filterVal === 'lightstick' && ord.mode === '手燈') || 
-                                  (filterVal === 'combo' && ord.mode === '手機 + 手燈');
+                let matchFilter = (filterVal === 'all') || (filterVal === 'phone' && ord.mode === '手機') || (filterVal === 'lightstick' && ord.mode === '手燈') || (filterVal === 'combo' && ord.mode === '手機 + 手燈');
                 let matchSearch = !searchVal || `${ord.name} ${ord.social} ${ord.line} ${ord.item} ${ord.remarks}`.toLowerCase().includes(searchVal);
                 return matchFilter && matchSearch;
             });
