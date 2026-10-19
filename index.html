@@ -885,16 +885,14 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             icon.className = menu.classList.contains('hidden') ? "fa-solid fa-bars" : "fa-solid fa-xmark";
         }
 
-        function fetchRentedStatus() {
+function fetchRentedStatus() {
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
                     if (data.result === 'success' && data.orders) {
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-                        
                         cloudOrders = data.orders;
-
                         let activeOrders = data.orders.map(o => ({
                             start: o.start ? cleanDateStr(o.start) : '',
                             end: o.end ? cleanDateStr(o.end) : '',
@@ -904,15 +902,43 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
                             const endDateObj = new Date(o.end);
                             endDateObj.setHours(0, 0, 0, 0);
                             return endDateObj >= today;
-                        }).sort((a, b) => new Date(a.start) - new Date(b.start)); 
-
+                        }).sort((a, b) => new Date(a.start) - new Date(b.start));
+                        
                         renderRentedStatus(activeOrders);
-                        validateAndCalculate();
+                        
+                        // 💡 改成只做日期範圍內的選項移除，不無條件重設使用者選到一半的選項
+                        const startVal = document.getElementById('startDate').value;
+                        const endVal = document.getElementById('endDate').value;
+                        if (startVal && endVal) {
+                            const conflictedSticks = [];
+                            cloudOrders.forEach(order => {
+                                if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) {
+                                    lightstickList.forEach(ls => {
+                                        if (order.item.includes(ls.name)) {
+                                            conflictedSticks.push(ls.name);
+                                        }
+                                    });
+                                }
+                            });
+                            ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'].forEach(selId => {
+                                const sel = document.getElementById(selId);
+                                for (let i = sel.options.length - 1; i >= 0; i--) {
+                                    const optText = sel.options[i].text.split(' (')[0].trim();
+                                    if (conflictedSticks.includes(optText)) {
+                                        if (sel.value === sel.options[i].value) {
+                                            sel.selectedIndex = 0;
+                                        }
+                                        sel.remove(i);
+                                    }
+                                }
+                            });
+                        }
+                        calculatePrice();
                     }
                 })
                 .catch(err => console.log('檢查檔期失敗：', err));
         }
-
+        
         function renderRentedStatus(activeOrders) {
             const phoneBannersContainer = document.getElementById('phone-rented-banners');
             if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
@@ -1087,24 +1113,20 @@ function validateAndCalculate() {
             const startVal = document.getElementById('startDate').value;
             const endVal = document.getElementById('endDate').value;
 
-            // 💡 核心修改：在重新初始化選單前，先把目前使用者選好的手燈品項記下來
+            // 1. 先記錄目前三個下拉選單使用者「當下」選的選項值
             const currentLs1 = document.getElementById('selectedLightstick1').value;
             const currentLs2 = document.getElementById('selectedLightstick2').value;
             const currentLs3 = document.getElementById('selectedLightstick3').value;
 
+            // 2. 重新初始化選單項目（載入全部手燈與價格）
             initLightstickSelects();
 
-            // 💡 還原使用者剛才選好的手燈品項（如果該品項在該檔期沒有被別人訂走的話）
-            if (document.getElementById('selectedLightstick1').querySelector(`option[value="${currentLs1}"]`)) {
-                document.getElementById('selectedLightstick1').value = currentLs1;
-            }
-            if (document.getElementById('selectedLightstick2').querySelector(`option[value="${currentLs2}"]`)) {
-                document.getElementById('selectedLightstick2').value = currentLs2;
-            }
-            if (document.getElementById('selectedLightstick3').querySelector(`option[value="${currentLs3}"]`)) {
-                document.getElementById('selectedLightstick3').value = currentLs3;
-            }
+            // 3. 先把使用者原本選的選項塞回去
+            if (currentLs1) document.getElementById('selectedLightstick1').value = currentLs1;
+            if (currentLs2) document.getElementById('selectedLightstick2').value = currentLs2;
+            if (currentLs3) document.getElementById('selectedLightstick3').value = currentLs3;
 
+            // 4. 檢查檔期碰撞，若有碰撞才從選單中移除並重設
             if (startVal && endVal && endVal >= startVal) {
                 const conflictedSticks = [];
                 cloudOrders.forEach(order => {
@@ -1120,16 +1142,18 @@ function validateAndCalculate() {
                 ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3'].forEach(selId => {
                     const sel = document.getElementById(selId);
                     for (let i = sel.options.length - 1; i >= 0; i--) {
-                        if (conflictedSticks.includes(sel.options[i].text.split(' (')[0].trim())) {
+                        // 檢查選項的文字是否包含被碰撞的手燈名稱
+                        const optText = sel.options[i].text.split(' (')[0].trim();
+                        if (conflictedSticks.includes(optText)) {
+                            // 如果剛好是使用者目前選中的項目被撞期了，才清除它
+                            if (sel.value === sel.options[i].value) {
+                                sel.selectedIndex = 0; // 碰撞才退回第一項
+                            }
                             sel.remove(i);
                         }
                     }
                 });
             }
-            calculatePrice();
-        }
-
-        function onLightstickChange() {
             calculatePrice();
         }
 
@@ -1157,11 +1181,13 @@ function validateAndCalculate() {
             selectLightstick(keyword);
         }
 
-        function selectLightstick(keyword) {
+function selectLightstick(keyword) {
             switchMode('lightstick');
             const select1 = document.getElementById('selectedLightstick1');
             for (let i = 0; i < select1.options.length; i++) {
-                if (select1.options[i].text.includes(keyword)) {
+                // 精準比對手燈名稱
+                const optText = select1.options[i].text.split(' (')[0].trim();
+                if (optText === keyword || select1.options[i].text.includes(keyword)) {
                     select1.selectedIndex = i;
                     break;
                 }
@@ -1171,7 +1197,7 @@ function validateAndCalculate() {
             calculatePrice();
             document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
         }
-
+        
         let aespaCurrentIndex = 0;
         const aespaVersionNames = ["Ver. 1", "Ver. 2"];
         function slideAespa(direction) {
@@ -1310,7 +1336,7 @@ function switchMode(mode) {
             }
             calculatePrice();
         }
-        
+
         function calculatePrice() {
             const startDateVal = document.getElementById('startDate').value;
             const endDateVal = document.getElementById('endDate').value;
