@@ -1483,7 +1483,7 @@
             document.getElementById('adminContent').classList.add('hidden');
         }
 
-// 🔒 透過 Google 後端安全驗證密碼（修正 CORS 跨域攔截）
+// 🔒 透過 Google 後端安全驗證密碼（改用 GET 繞過 CORS 限制）
 function checkAdminPass() {
     const passwordInput = document.getElementById('adminPassword').value;
     const loginBtn = document.getElementById('loginBtn');
@@ -1494,11 +1494,10 @@ function checkAdminPass() {
     loginBtn.innerText = '驗證中...';
     loginBtn.disabled = true;
 
-    // 💡 改用純文字送出並加上 no-cors 概念的處理，避免瀏覽器 CORS 預檢攔截
-    fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'adminLogin', password: passwordInput })
-    })
+    // 將密碼透過 GET 參數傳給後端驗證
+    const verifyURL = `${scriptURL}?action=adminLogin&password=${encodeURIComponent(passwordInput)}`;
+
+    fetch(verifyURL)
     .then(response => response.json())
     .then(data => {
         loginBtn.innerText = '登入後台';
