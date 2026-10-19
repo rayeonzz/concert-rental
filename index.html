@@ -1083,10 +1083,27 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             validateAndCalculate();
         }
 
-        function validateAndCalculate() {
+function validateAndCalculate() {
             const startVal = document.getElementById('startDate').value;
             const endVal = document.getElementById('endDate').value;
+
+            // 💡 核心修改：在重新初始化選單前，先把目前使用者選好的手燈品項記下來
+            const currentLs1 = document.getElementById('selectedLightstick1').value;
+            const currentLs2 = document.getElementById('selectedLightstick2').value;
+            const currentLs3 = document.getElementById('selectedLightstick3').value;
+
             initLightstickSelects();
+
+            // 💡 還原使用者剛才選好的手燈品項（如果該品項在該檔期沒有被別人訂走的話）
+            if (document.getElementById('selectedLightstick1').querySelector(`option[value="${currentLs1}"]`)) {
+                document.getElementById('selectedLightstick1').value = currentLs1;
+            }
+            if (document.getElementById('selectedLightstick2').querySelector(`option[value="${currentLs2}"]`)) {
+                document.getElementById('selectedLightstick2').value = currentLs2;
+            }
+            if (document.getElementById('selectedLightstick3').querySelector(`option[value="${currentLs3}"]`)) {
+                document.getElementById('selectedLightstick3').value = currentLs3;
+            }
 
             if (startVal && endVal && endVal >= startVal) {
                 const conflictedSticks = [];
@@ -1229,7 +1246,7 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             calculatePrice();
         }
 
-        function switchMode(mode) {
+function switchMode(mode) {
             currentMode = mode;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`tab-${mode}`).classList.add('active');
@@ -1242,7 +1259,24 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             const lineReqMark = document.getElementById('lineRequiredMark');
             const lineInput = document.getElementById('lineId');
 
+            // 💡 記錄切換模式前的所選手燈
+            const currentLs1 = document.getElementById('selectedLightstick1').value;
+            const currentLs2 = document.getElementById('selectedLightstick2').value;
+            const currentLs3 = document.getElementById('selectedLightstick3').value;
+
             initLightstickSelects();
+
+            // 還原手燈選項
+            if (document.getElementById('selectedLightstick1').querySelector(`option[value="${currentLs1}"]`)) {
+                document.getElementById('selectedLightstick1').value = currentLs1;
+            }
+            if (document.getElementById('selectedLightstick2').querySelector(`option[value="${currentLs2}"]`)) {
+                document.getElementById('selectedLightstick2').value = currentLs2;
+            }
+            if (document.getElementById('selectedLightstick3').querySelector(`option[value="${currentLs3}"]`)) {
+                document.getElementById('selectedLightstick3').value = currentLs3;
+            }
+
             validateAndCalculate();
 
             if (mode === 'combo') {
@@ -1276,7 +1310,7 @@ const scriptURL = "https://rayeonzz-gas-proxy.911124frank.workers.dev";
             }
             calculatePrice();
         }
-
+        
         function calculatePrice() {
             const startDateVal = document.getElementById('startDate').value;
             const endDateVal = document.getElementById('endDate').value;
