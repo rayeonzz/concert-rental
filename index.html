@@ -1634,6 +1634,63 @@ function validateAndCalculate() {
 
         async function handleFormSubmit(event) { 
             event.preventDefault(); 
+            // =========================================================================
+    // 【新增：表單送出終極防呆第一關】
+    // =========================================================================
+    const isMultiRentChecked = document.getElementById('moreLightsticksCheck').checked;
+    
+    // 取得三隻選單的值
+    const lightstick1 = getSelectedLightstickName(document.getElementById('selectedLightstick1'));
+    const lightstick2 = getSelectedLightstickName(document.getElementById('selectedLightstick2'));
+    const lightstick3 = getSelectedLightstickName(document.getElementById('selectedLightstick3'));
+
+    // 1. 防呆：如果勾選加租，但第二隻手燈未選擇
+    if (currentMode !== 'phone' && isMultiRentChecked && (!lightstick2 || lightstick2 === '__NONE__' || lightstick2 === '__EMPTY__')) {
+        alert('⚠️ 預約失敗：您已勾選「租借一支以上」，請務必選擇第二隻手燈款式！');
+        return;
+    }
+
+    // 2. 收集所有已選的手燈（包含 1、2、3 隻）
+    if (currentMode !== 'phone') {
+        const selectedList = [];
+        if (lightstick1 && lightstick1 !== '__NONE__' && lightstick1 !== '__EMPTY__') selectedList.push(lightstick1);
+        
+        if (isMultiRentChecked) {
+            if (lightstick2 && lightstick2 !== '__NONE__' && lightstick2 !== '__EMPTY__') selectedList.push(lightstick2);
+            if (lightstick3 && lightstick3 !== '__NONE__' && lightstick3 !== '__EMPTY__') selectedList.push(lightstick3);
+        }
+
+        // 版本上限定義
+        const versionLimits = {
+            "aespa Ver. 1": 1, "aespa Ver. 2": 1,
+            "GFRIEND Ver. 3": 1, "GFRIEND Japan": 1,
+            "IVE Ver. 1": 1, "IVE Ver. 2": 1
+        };
+        const multiStockSticks = new Set([
+            "Girls' Generation", "TWICE", "BLACKPINK", "BOYNEXTDOOR", "LE SSERAFIM"
+        ]);
+
+        // 3. 統計並檢查是否超過該手燈庫存上限
+        const countMap = {};
+        for (const item of selectedList) {
+            countMap[item] = (countMap[item] || 0) + 1;
+            
+            let limit = 1;
+            if (versionLimits[item] !== undefined) {
+                limit = versionLimits[item];
+            } else if (multiStockSticks.has(item)) {
+                limit = 2;
+            }
+
+            if (countMap[item] > limit) {
+                alert(`⚠️ 預約失敗：「${item}」庫存不足（最多可租借 ${limit} 支），無法重複選擇！`);
+                return; // 攔截送出，不執行後續寫入雲端
+            }
+        }
+    }
+    // =========================================================================
+    // 【防呆結束，通過後才繼續執行日期的檢查】
+    // =========================================================================
             const today = new Date(); 
             const year = today.getFullYear(); 
             const month = String(today.getMonth() + 1).padStart(2, '0'); 
