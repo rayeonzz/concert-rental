@@ -1070,7 +1070,6 @@
                     const cleanStart = order.start; 
                     const cleanEnd = order.end; 
 
-                    // 檢查是否跟當前選擇的區間重疊（若沒有選日期則預設看今天以後所有未結束的訂單） 
                     let isOverlap = true; 
                     if (startVal && endVal) { 
                         isOverlap = isDateOverlap(startVal, endVal, cleanStart, cleanEnd); 
@@ -1120,7 +1119,6 @@
                 } 
             }); 
 
-            // 更新各自的動態庫存顯示 
             const aespaCard = document.querySelector('[data-name="aespa"]'); 
             if (aespaCard) { 
                 aespaCard.querySelector('.stock-badge-ver1').innerText = `Ver. 1 庫存：${Math.max(0, 1 - aespaVer1Rented)}`; 
@@ -1359,12 +1357,26 @@
                 }); 
             } 
 
-            const multiStockSticks = new Set(["Girls' Generation", "TWICE", "BLACKPINK", "BOYNEXTDOOR", "LE SSERAFIM", "aespa", "GFRIEND", "IVE"]); 
+            // 多版本手燈（個別版本的庫存上限為 1） 
+            const versionLimits = { 
+                "aespa Ver. 1": 1, "aespa Ver. 2": 1, 
+                "GFRIEND Ver. 3": 1, "GFRIEND Japan": 1, 
+                "IVE Ver. 1": 1, "IVE Ver. 2": 1 
+            }; 
+            // 一般單一品項手燈（庫存 2） 
+            const multiStockSticks = new Set(["Girls' Generation", "TWICE", "BLACKPINK", "BOYNEXTDOOR", "LE SSERAFIM"]); 
+
             selectIds.forEach((id, index) => { 
                 const sel = document.getElementById(id); 
                 if (!sel) return; 
                 const selectedName = getSelectedLightstickName(sel); 
-                const limit = multiStockSticks.has(selectedName) ? 2 : 1; 
+                let limit = 1; 
+                if (versionLimits[selectedName] !== undefined) { 
+                    limit = versionLimits[selectedName]; 
+                } else if (multiStockSticks.has(selectedName)) { 
+                    limit = 2; 
+                } 
+
                 if (selectedName && selectedName !== '__NONE__' && selectedName !== '__EMPTY__' && (stickCounts[selectedName] || 0) >= limit) { 
                     if (index === 2) { 
                         sel.value = '0'; 
@@ -1372,11 +1384,17 @@
                         sel.value = ''; 
                     } 
                 } 
+
                 for (let i = sel.options.length - 1; i >= 0; i--) { 
                     const option = sel.options[i]; 
                     const name = option.dataset.lightstickName; 
                     if (name) { 
-                        const itemLimit = multiStockSticks.has(name) ? 2 : 1; 
+                        let itemLimit = 1; 
+                        if (versionLimits[name] !== undefined) { 
+                            itemLimit = versionLimits[name]; 
+                        } else if (multiStockSticks.has(name)) { 
+                            itemLimit = 2; 
+                        } 
                         if ((stickCounts[name] || 0) >= itemLimit) { 
                             sel.remove(i); 
                         } 
@@ -1647,6 +1665,8 @@
 
             const message = `【 rayeonzz 演唱會租借預約單 】\n` + `📌 預約類型：${modeTitle}\n` + `📅 租借期間：${start} ~ ${end}\n` + `📱💡 租借項目：${itemDesc}\n` + `💰 預估總額：${total}\n` + `🔒 選擇押金方案：${deposit}\n` + `👤 姓名：${name}\n` + `📸 IG / Threads：${social}\n` + `💬 LINE ID：${line}\n` + `📝 備註：${remarks}\n\n` + `-----------------------------------\n` + `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`; 
             navigator.clipboard.writeText(message).catch(() => {}); 
+
+            // 內嵌成功提示 
             const successMsgBox = document.getElementById('inlineSuccessMessage'); 
             const submitBtn = document.getElementById('submitBtn'); 
             if (successMsgBox) { 
@@ -1654,6 +1674,26 @@
                 submitBtn.style.display = 'none'; 
                 successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
             } 
+
+            // 自訂彈窗 Modal 
+            let modalBg = document.createElement('div'); 
+            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in'; 
+            modalBg.innerHTML = ` 
+                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold"> 
+                    <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3> 
+                    <div class="space-y-1"> 
+                        <p class="text-xs text-stone-900 leading-relaxed">預約明細已自動複製</p> 
+                        <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p> 
+                    </div> 
+                    <div class="flex gap-3 pt-2"> 
+                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button> 
+                        <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md flex items-center justify-center no-underline">聯繫 LINE</a> 
+                    </div> 
+                </div> 
+            `; 
+            document.body.appendChild(modalBg); 
+            document.getElementById('customAlertLine').onclick = () => { modalBg.remove(); }; 
+            document.getElementById('customAlertConfirm').onclick = () => { modalBg.remove(); }; 
         } 
 
         function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); } 
