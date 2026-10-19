@@ -1734,7 +1734,27 @@ function validateAndCalculate() {
             try { 
                 const postResponse = await fetch(scriptURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); 
                 const result = await postResponse.json(); 
-                if (result.result !== 'success') { alert('⚠️ 寫入雲端失敗：' + (result.error || '未知錯誤')); return; } 
+if (result.result !== 'success') {
+    // 自訂符合網站風格的跳窗提示
+    let errorModal = document.createElement('div');
+    errorModal.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
+    errorModal.innerHTML = `
+        <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
+            <h3 class="text-xl font-black text-[#23466B]">⚠️ 檔期已被預約</h3>
+            <div class="space-y-1">
+                <p class="text-xs text-stone-900 leading-relaxed">${result.error || '您選擇的手機或手燈在該檔期已被其他客人預約！'}</p>
+                <p class="text-xs text-stone-600 leading-relaxed pt-1">請嘗試更換其他檔期或聯繫 rayeonzz 確認。</p>
+            </div>
+            <div class="pt-2">
+                <button onclick="this.closest('.fixed').remove()" class="w-full bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">
+                    我知道了
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(errorModal);
+    return;
+}
             } catch (err) { console.error('送出預約發生錯誤：', err); alert('⚠️ 網路連線異常，請稍後再試！'); return; } 
 
             const message = `【 rayeonzz 演唱會租借預約單 】\n` + `📌 預約類型：${modeTitle}\n` + `📅 租借期間：${start} ~ ${end}\n` + `📱💡 租借項目：${itemDesc}\n` + `💰 預估總額：${total}\n` + `🔒 選擇押金方案：${deposit}\n` + `👤 姓名：${name}\n` + `📸 IG / Threads：${social}\n` + `💬 LINE ID：${line}\n` + `📝 備註：${remarks}\n\n` + `-----------------------------------\n` + `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`; 
