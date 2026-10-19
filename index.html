@@ -1064,7 +1064,7 @@ function renderRentedStatus(activeOrders) {
     let gfriendVer3Rented = 0, gfriendJapanRented = 0;
     let iveVer1Rented = 0, iveVer2Rented = 0;
 
-    // 紀錄各普通手燈被預約的總數量
+    // 1. 紀錄各普通手燈被預約的總數量
     const singleStickRentedCounts = {};
 
     activeOrders.forEach(order => {
@@ -1124,7 +1124,7 @@ function renderRentedStatus(activeOrders) {
         }
     });
 
-    // 1. 更新多版本手燈的庫存標籤文字
+    // 2. 更新多版本手燈的庫存標籤文字
     const aespaCard = document.querySelector('[data-name="aespa"]');
     if (aespaCard) {
         aespaCard.querySelector('.stock-badge-ver1').innerText = `Ver. 1 庫存：${Math.max(0, 1 - aespaVer1Rented)}`;
@@ -1141,7 +1141,7 @@ function renderRentedStatus(activeOrders) {
         iveCard.querySelector('.stock-badge-ver2').innerText = `Ver. 2 庫存：${Math.max(0, 1 - iveVer2Rented)}`;
     }
 
-    // 2. ✨【新增修復】更新普通單版本手燈的剩餘庫存數字！
+    // 3. ✨【新增修復】動態更新普通單版本手燈的剩餘庫存數字
     const allCards = document.querySelectorAll('#lightsticks-grid > div');
     allCards.forEach(card => {
         const name = card.getAttribute('data-name');
