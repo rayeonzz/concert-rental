@@ -1409,15 +1409,16 @@
                     lsSummary += ` ｜ ${ls3Select.options[ls3Select.selectedIndex].text}`; 
                 } 
             } 
-            if (currentMode === 'phone') { 
+                if (currentMode === 'phone') { 
                 modeTitle = '單租 S24 Ultra 手機預約'; 
-                itemDesc = 'Samsung Galaxy S24 Ultra'; 
+                itemDesc = 'S24U'; 
             } else if (currentMode === 'lightstick') { 
                 modeTitle = '單租應援手燈預約'; 
                 itemDesc = lsSummary; 
             } else { 
-                itemDesc = `Samsung S24 Ultra + 手燈: ${lsSummary} (每支折抵$100)`; 
-            } 
+                itemDesc = `S24U + ${lsSummary}`; 
+            }
+            
             const nowTime = new Date().toLocaleString(); 
             const newOrder = { 
                 mode: modeTitle, 
