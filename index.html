@@ -781,8 +781,7 @@
                     <label class="block text-xs font-bold text-stone-900">選擇欲租借的手燈款式 <span class="text-[11px] font-normal text-[#A94F00] ml-1">📱搭配手機，每支手燈折抵 100 元！</span></label> 
                     <div class="bg-[#DCEEFF]/50 p-3 rounded-2xl border border-[#23466B]/15 space-y-1"> 
                         <div class="text-[11px] font-bold text-[#23466B]">第一支手燈款式</div> 
-                        <select id="selectedLightstick1" onchange="onLightstickChange()" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"></select> 
-                    </div> 
+<select id="selectedLightstick1" onchange="onLightstickChange(); validateAndCalculate();" class="w-full ios-input rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-[#23466B] focus:outline-none font-bold text-stone-950"></select>                    </div> 
                     <div class="flex items-center gap-2 pt-1 px-1"> 
                         <input type="checkbox" id="moreLightsticksCheck" onchange="toggleMoreLightsticks()" class="w-4 h-4 accent-[#23466B] rounded cursor-pointer"> 
                         <label for="moreLightsticksCheck" class="text-xs font-bold text-stone-900 cursor-pointer">是否租借一支以上的手燈？</label> 
