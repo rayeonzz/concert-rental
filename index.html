@@ -699,9 +699,9 @@
                     <p class="text-xs text-stone-900 font-bold leading-relaxed">
                         預約明細已自動複製！請點擊下方按鈕將明細發送給 rayeonzz 完成確認：
                     </p>
-                    <button type="button" id="inlineLineBtn" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-black py-3 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
+                    <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="inlineLineBtn" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-black py-3 rounded-2xl shadow transition text-xs flex items-center justify-center gap-2 no-underline">
                         <img src="lineicon.PNG" alt="LINE" class="w-4 h-4 object-contain"> 點此開啟 LINE 傳送預約明細
-                    </button>
+                    </a>
                 </div>
 
                 <button type="submit" id="submitBtn" class="w-full bg-[#23466B] hover:bg-[#1a3552] text-white font-black py-3.5 rounded-2xl shadow-lg shadow-[#23466B]/20 transition text-sm active:scale-98">
@@ -1395,7 +1395,7 @@
 
             const name = (currentMode === 'lightstick') ? '（單租手燈免填）' : (document.getElementById('custName').value || '未填');
             const social = document.getElementById('socialId').value;
-            const line = document.getElementById('lineId').value || '未填'; // 如果單租手燈沒填LINE則顯示未填
+            const line = document.getElementById('lineId').value || '未填';
             const remarks = document.getElementById('remarks').value || '無';
             const total = document.getElementById('totalRent').innerText;
             const deposit = document.getElementById('deposit').innerText;
@@ -1465,10 +1465,6 @@
                 successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
 
-            document.getElementById('inlineLineBtn').onclick = () => {
-                window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
-            };
-
             let modalBg = document.createElement('div');
             modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
             modalBg.innerHTML = `
@@ -1480,7 +1476,7 @@
                     </div>
                     <div class="flex gap-3 pt-2">
                         <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>
-                        <button id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">聯繫 LINE</button>
+                        <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md flex items-center justify-center no-underline">聯繫 LINE</a>
                     </div>
                 </div>
             `;
@@ -1488,7 +1484,6 @@
 
             document.getElementById('customAlertLine').onclick = () => {
                 modalBg.remove();
-                window.open('https://line.me/ti/p/Z7bIHvC4lF', '_blank');
             };
             document.getElementById('customAlertConfirm').onclick = () => {
                 modalBg.remove();
