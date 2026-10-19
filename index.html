@@ -246,10 +246,17 @@
             </div>
 
             <div class="mb-4 sm:mb-6 flex justify-center">
-                <div class="ios-glass px-5 py-2 rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm flex items-center gap-2">
-                    <span>✨ 電腦版游標移上已出租手燈即可看見內容；手機版點一下看內容、第二下代入預約！</span>
-                </div>
-            </div>
+    <div class="ios-glass px-5 py-3 rounded-2xl sm:rounded-full text-[11px] sm:text-xs font-black text-[#23466B] border border-[#23466B]/30 shadow-sm text-center">
+        <!-- 電腦版顯示（維持一行） -->
+        <span class="hidden sm:inline">✨ 電腦版游標移上已出租手燈即可看見內容；手機版點一下看內容、第二下代入預約！</span>
+        
+        <!-- 手機版顯示（拆成兩行並置中） -->
+        <div class="sm:hidden space-y-1">
+            <div>✨ 電腦版游標移上已出租手燈即可看見內容</div>
+            <div>手機版點一下看內容、第二下代入預約！</div>
+        </div>
+    </div>
+</div>
 
             <!-- 手燈網格 -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" id="lightsticks-grid">
