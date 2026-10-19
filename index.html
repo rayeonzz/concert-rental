@@ -1052,94 +1052,115 @@
                 .catch(err => console.log('檢查檔期失敗：', err)); 
         } 
 
-        function renderRentedStatus(activeOrders) { 
-            const phoneBannersContainer = document.getElementById('phone-rented-banners'); 
-            if (phoneBannersContainer) phoneBannersContainer.innerHTML = ''; 
-            document.querySelectorAll('.rented-badge').forEach(el => el.remove()); 
+function renderRentedStatus(activeOrders) {
+    const phoneBannersContainer = document.getElementById('phone-rented-banners');
+    if (phoneBannersContainer) phoneBannersContainer.innerHTML = '';
+    document.querySelectorAll('.rented-badge').forEach(el => el.remove());
 
-            const startVal = document.getElementById('startDate').value; 
-            const endVal = document.getElementById('endDate').value; 
+    const startVal = document.getElementById('startDate').value;
+    const endVal = document.getElementById('endDate').value;
 
-            let aespaVer1Rented = 0, aespaVer2Rented = 0; 
-            let gfriendVer3Rented = 0, gfriendJapanRented = 0; 
-            let iveVer1Rented = 0, iveVer2Rented = 0; 
+    let aespaVer1Rented = 0, aespaVer2Rented = 0;
+    let gfriendVer3Rented = 0, gfriendJapanRented = 0;
+    let iveVer1Rented = 0, iveVer2Rented = 0;
 
-            activeOrders.forEach(order => { 
-                if (order.start && order.end) { 
-                    const cleanStart = order.start; 
-                    const cleanEnd = order.end; 
+    // 紀錄各普通手燈被預約的總數量
+    const singleStickRentedCounts = {};
 
-                    let isOverlap = true; 
-                    if (startVal && endVal) { 
-                        isOverlap = isDateOverlap(startVal, endVal, cleanStart, cleanEnd); 
-                    } 
+    activeOrders.forEach(order => {
+        if (order.start && order.end) {
+            const cleanStart = order.start;
+            const cleanEnd = order.end;
 
-                    if (isOverlap) { 
-                        if (order.item.includes('S24U') || order.item.includes('手機')) { 
-                            addPhoneRentedBanner(cleanStart, cleanEnd); 
-                        } 
+            let isOverlap = true;
+            if (startVal && endVal) {
+                isOverlap = isDateOverlap(startVal, endVal, cleanStart, cleanEnd);
+            }
 
-                        if (order.item.includes('aespa')) { 
-                            if (order.item.includes('Ver. 2')) { 
-                                aespaVer2Rented++; 
-                                markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd); 
-                            } else { 
-                                aespaVer1Rented++; 
-                                markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd); 
-                            } 
-                        } 
-                        if (order.item.includes('GFRIEND')) { 
-                            if (order.item.includes('Japan')) { 
-                                gfriendJapanRented++; 
-                                markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd); 
-                            } else { 
-                                gfriendVer3Rented++; 
-                                markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd); 
-                            } 
-                        } 
-                        if (order.item.includes('IVE')) { 
-                            if (order.item.includes('Ver. 2')) { 
-                                iveVer2Rented++; 
-                                markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd); 
-                            } else { 
-                                iveVer1Rented++; 
-                                markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd); 
-                            } 
-                        } 
+            if (isOverlap) {
+                if (order.item.includes('S24U') || order.item.includes('手機')) {
+                    addPhoneRentedBanner(cleanStart, cleanEnd);
+                }
 
-                        lightstickList.forEach(item => { 
-                            if (!item.name.includes('aespa') && !item.name.includes('GFRIEND') && !item.name.includes('IVE')) { 
-                                if (order.item.includes(item.name)) { 
-                                    markAsRented(item.name, cleanStart, cleanEnd); 
-                                } 
-                            } 
-                        }); 
-                    } 
-                } 
-            }); 
+                // 多版本手燈個別統計
+                if (order.item.includes('aespa')) {
+                    if (order.item.includes('Ver. 2')) {
+                        aespaVer2Rented++;
+                        markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
+                    } else {
+                        aespaVer1Rented++;
+                        markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd);
+                    }
+                }
+                if (order.item.includes('GFRIEND')) {
+                    if (order.item.includes('Japan')) {
+                        gfriendJapanRented++;
+                        markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd);
+                    } else {
+                        gfriendVer3Rented++;
+                        markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd);
+                    }
+                }
+                if (order.item.includes('IVE')) {
+                    if (order.item.includes('Ver. 2')) {
+                        iveVer2Rented++;
+                        markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd);
+                    } else {
+                        iveVer1Rented++;
+                        markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd);
+                    }
+                }
 
-            const aespaCard = document.querySelector('[data-name="aespa"]'); 
-            if (aespaCard) { 
-                aespaCard.querySelector('.stock-badge-ver1').innerText = `Ver. 1 庫存：${Math.max(0, 1 - aespaVer1Rented)}`; 
-                aespaCard.querySelector('.stock-badge-ver2').innerText = `Ver. 2 庫存：${Math.max(0, 1 - aespaVer2Rented)}`; 
-            } 
+                // 普通單一版本手燈統計與蓋章
+                lightstickList.forEach(item => {
+                    if (!item.name.includes('aespa') && !item.name.includes('GFRIEND') && !item.name.includes('IVE')) {
+                        if (order.item.includes(item.name)) {
+                            singleStickRentedCounts[item.name] = (singleStickRentedCounts[item.name] || 0) + 1;
+                            markAsRented(item.name, cleanStart, cleanEnd);
+                        }
+                    }
+                });
+            }
+        }
+    });
 
-            const gfriendCard = document.querySelector('[data-name="GFRIEND"]'); 
-            if (gfriendCard) { 
-                gfriendCard.querySelector('.stock-badge-ver1').innerText = `Ver. 3 庫存：${Math.max(0, 1 - gfriendVer3Rented)}`; 
-                gfriendCard.querySelector('.stock-badge-ver2').innerText = `Japan 庫存：${Math.max(0, 1 - gfriendJapanRented)}`; 
-            } 
+    // 1. 更新多版本手燈的庫存標籤文字
+    const aespaCard = document.querySelector('[data-name="aespa"]');
+    if (aespaCard) {
+        aespaCard.querySelector('.stock-badge-ver1').innerText = `Ver. 1 庫存：${Math.max(0, 1 - aespaVer1Rented)}`;
+        aespaCard.querySelector('.stock-badge-ver2').innerText = `Ver. 2 庫存：${Math.max(0, 1 - aespaVer2Rented)}`;
+    }
+    const gfriendCard = document.querySelector('[data-name="GFRIEND"]');
+    if (gfriendCard) {
+        gfriendCard.querySelector('.stock-badge-ver1').innerText = `Ver. 3 庫存：${Math.max(0, 1 - gfriendVer3Rented)}`;
+        gfriendCard.querySelector('.stock-badge-ver2').innerText = `Japan 庫存：${Math.max(0, 1 - gfriendJapanRented)}`;
+    }
+    const iveCard = document.querySelector('[data-name="IVE"]');
+    if (iveCard) {
+        iveCard.querySelector('.stock-badge-ver1').innerText = `Ver. 1 庫存：${Math.max(0, 1 - iveVer1Rented)}`;
+        iveCard.querySelector('.stock-badge-ver2').innerText = `Ver. 2 庫存：${Math.max(0, 1 - iveVer2Rented)}`;
+    }
 
-            const iveCard = document.querySelector('[data-name="IVE"]'); 
-            if (iveCard) { 
-                iveCard.querySelector('.stock-badge-ver1').innerText = `Ver. 1 庫存：${Math.max(0, 1 - iveVer1Rented)}`; 
-                iveCard.querySelector('.stock-badge-ver2').innerText = `Ver. 2 庫存：${Math.max(0, 1 - iveVer2Rented)}`; 
-            } 
+    // 2. ✨【新增修復】更新普通單版本手燈的剩餘庫存數字！
+    const allCards = document.querySelectorAll('#lightsticks-grid > div');
+    allCards.forEach(card => {
+        const name = card.getAttribute('data-name');
+        if (name && name !== 'aespa' && name !== 'GFRIEND' && name !== 'IVE') {
+            const totalStock = parseInt(card.getAttribute('data-multi')) || 1;
+            const rentedCount = singleStickRentedCounts[name] || 0;
+            const remainingStock = Math.max(0, totalStock - rentedCount);
 
-            updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames); 
-            updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames); 
-            updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames); 
-        } 
+            const stockBadge = card.querySelector('.stock-badge');
+            if (stockBadge) {
+                stockBadge.innerText = `庫存：${remainingStock}`;
+            }
+        }
+    });
+
+    updateMultiVersionBadgeVisibility('aespa', aespaCurrentIndex, aespaVersionNames);
+    updateMultiVersionBadgeVisibility('GFRIEND', gfriendCurrentIndex, gfriendVersionNames);
+    updateMultiVersionBadgeVisibility('IVE', iveCurrentIndex, iveVersionNames);
+}
 
         function addPhoneRentedBanner(startDate, endDate) { 
             const container = document.getElementById('phone-rented-banners'); 
