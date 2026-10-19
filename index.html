@@ -1636,6 +1636,9 @@ function validateAndCalculate() {
             // =========================================================================
     // 【新增：表單送出終極防呆第一關】
     // =========================================================================
+// =========================================================================
+    // 【新增：表單送出終極防呆第一關（美化彈窗版）】
+    // =========================================================================
     const isMultiRentChecked = document.getElementById('moreLightsticksCheck').checked;
     
     // 取得三隻選單的值
@@ -1643,9 +1646,27 @@ function validateAndCalculate() {
     const lightstick2 = getSelectedLightstickName(document.getElementById('selectedLightstick2'));
     const lightstick3 = getSelectedLightstickName(document.getElementById('selectedLightstick3'));
 
+    // 輔助函式：顯示網站風格的警告彈窗
+    const showWarningModal = (title, message) => {
+        let warningModal = document.createElement('div');
+        warningModal.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';
+        warningModal.innerHTML = `
+            <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
+                <h3 class="text-xl font-black text-[#23466B]">${title}</h3>
+                <p class="text-xs text-stone-900 leading-relaxed">${message}</p>
+                <div class="pt-2">
+                    <button onclick="this.closest('.fixed').remove()" class="w-full bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md">
+                        我知道了
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(warningModal);
+    };
+
     // 1. 防呆：如果勾選加租，但第二隻手燈未選擇
     if (currentMode !== 'phone' && isMultiRentChecked && (!lightstick2 || lightstick2 === '__NONE__' || lightstick2 === '__EMPTY__')) {
-        alert('⚠️ 預約失敗：您已勾選「租借一支以上」，請務必選擇第二隻手燈款式！');
+        showWarningModal('⚠️ 請選擇手燈款式', '您已勾選「租借一支以上」，請務必選擇第二隻手燈款式！');
         return;
     }
 
@@ -1682,12 +1703,14 @@ function validateAndCalculate() {
             }
 
             if (countMap[item] > limit) {
-                alert(`⚠️ 預約失敗：「${item}」庫存不足（最多可租借 ${limit} 支），無法重複選擇！`);
-                return; // 攔截送出，不執行後續寫入雲端
+                showWarningModal('⚠️ 庫存不足', `「${item}」庫存不足（最多可租借 ${limit} 支），無法重複選擇！`);
+                return; // 攔截送出
             }
         }
     }
     // =========================================================================
+    // 【防呆結束，通過後才繼續執行日期的檢查】
+    // =========================================================================    // =========================================================================
     // 【防呆結束，通過後才繼續執行日期的檢查】
     // =========================================================================
             const today = new Date(); 
