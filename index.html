@@ -1331,124 +1331,96 @@
             }); 
         } 
 
-        function validateAndCalculate() { 
-            const startVal = document.getElementById('startDate').value; 
-            const endVal = document.getElementById('endDate').value; 
-            const selectIds = ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3']; 
-            const previousSelections = {}; 
-            selectIds.forEach(id => { 
-                previousSelections[id] = getSelectedLightstickName(document.getElementById(id)); 
-            }); 
-            initLightstickSelects(); 
-            selectIds.forEach(id => { 
-                restoreLightstickSelection(document.getElementById(id), previousSelections[id]); 
-            }); 
+function validateAndCalculate() { 
+    const startVal = document.getElementById('startDate').value; 
+    const endVal = document.getElementById('endDate').value; 
+    const selectIds = ['selectedLightstick1', 'selectedLightstick2', 'selectedLightstick3']; 
+    
+    // 1. 紀錄切換前的選擇
+    const previousSelections = {}; 
+    selectIds.forEach(id => { 
+        previousSelections[id] = getSelectedLightstickName(document.getElementById(id)); 
+    }); 
 
-            const stickCounts = {}; 
-            if (startVal && endVal && endVal >= startVal) { 
-                (cloudOrders || []).forEach(order => { 
-                    if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) { 
-                        lightstickList.forEach(ls => { 
-                            if ((order.item || '').includes(ls.name)) { 
-                                stickCounts[ls.name] = (stickCounts[ls.name] || 0) + 1; 
-                            } 
-                        }); 
+    // 2. 重新初始化選項內容
+    initLightstickSelects(); 
+    selectIds.forEach(id => { 
+        restoreLightstickSelection(document.getElementById(id), previousSelections[id]); 
+    }); 
+
+    // 3. 計算雲端已被預約的數量
+    const stickCounts = {}; 
+    if (startVal && endVal && endVal >= startVal) { 
+        (cloudOrders || []).forEach(order => { 
+            if (order.start && order.end && isDateOverlap(startVal, endVal, order.start, order.end)) { 
+                lightstickList.forEach(ls => { 
+                    if ((order.item || '').includes(ls.name)) { 
+                        stickCounts[ls.name] = (stickCounts[ls.name] || 0) + 1; 
                     } 
                 }); 
             } 
+        }); 
+    } 
 
-            // 多版本手燈（個別版本的庫存上限為 1） 
+    const versionLimits = {
+        "aespa Ver. 1": 1,
+        "aespa Ver. 2": 1,
+        "GFRIEND Ver. 3": 1,
+        "GFRIEND Japan": 1,
+        "IVE Ver. 1": 1,
+        "IVE Ver. 2": 1
+    };
 
-            const versionLimits = {
-                "aespa Ver. 1": 1,
-                "aespa Ver. 2": 1,
-                "GFRIEND Ver. 3": 1,
-                "GFRIEND Japan": 1,
-                "IVE Ver. 1": 1,
-                "IVE Ver. 2": 1
-            };
+    const multiStockSticks = new Set([
+        "Girls' Generation",
+        "TWICE",
+        "BLACKPINK",
+        "BOYNEXTDOOR",
+        "LE SSERAFIM"
+    ]);
 
-            // 一般單一品項手燈（庫存 2）
-            const multiStockSticks = new Set([
-                "Girls' Generation",
-                "TWICE",
-                "BLACKPINK",
-                "BOYNEXTDOOR",
-                "LE SSERAFIM"
-            ]);
+    // 4. 動態檢查並移除「超額／已無庫存」的 Option
+    selectIds.forEach((id, index) => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
 
-            selectIds.forEach((id, index) => {
-                const sel = document.getElementById(id);
-                if (!sel) return;
-
-                const selectedName = getSelectedLightstickName(sel);
-
-                let limit = 1;
-
-                if (versionLimits[selectedName] !== undefined) {
-                    limit = versionLimits[selectedName];
-                } else if (multiStockSticks.has(selectedName)) {
-                    limit = 2;
+        // 統計「其他選單」目前選擇了哪些手燈及數量
+        const currentSelectedInOtherSelects = {};
+        selectIds.forEach((otherId, otherIndex) => {
+            if (otherIndex !== index) {
+                const otherSel = document.getElementById(otherId);
+                const otherName = getSelectedLightstickName(otherSel);
+                if (otherName && otherName !== '__NONE__' && otherName !== '__EMPTY__') {
+                    currentSelectedInOtherSelects[otherName] = (currentSelectedInOtherSelects[otherName] || 0) + 1;
                 }
+            }
+        });
 
-                if (
-                    selectedName &&
-                    selectedName !== '__NONE__' &&
-                    selectedName !== '__EMPTY__' &&
-                    (stickCounts[selectedName] || 0) >= limit
-                ) {
-                    if (index === 2) {
-                        sel.value = '0';
-                    } else {
-                        sel.value = '';
-                    }
-                }
+        // 倒序遍歷 Option 進行過濾
+        for (let i = sel.options.length - 1; i >= 0; i--) {
+            const option = sel.options[i];
+            const name = option.dataset.lightstickName;
+            if (!name) continue;
 
-                for (let i = sel.options.length - 1; i >= 0; i--) {
-                    const option = sel.options[i];
-                    const name = option.dataset.lightstickName;
+            let itemLimit = 1;
+            if (versionLimits[name] !== undefined) {
+                itemLimit = versionLimits[name];
+            } else if (multiStockSticks.has(name)) {
+                itemLimit = 2;
+            }
 
-                    if (!name) continue;
+            // 總占用量 = 雲端已租出 + 其他選單已選
+            const occupied = (stickCounts[name] || 0) + (currentSelectedInOtherSelects[name] || 0);
 
-                    let itemLimit = 1;
-
-                    if (versionLimits[name] !== undefined) {
-                        itemLimit = versionLimits[name];
-                    } else if (multiStockSticks.has(name)) {
-                        itemLimit = 2;
-                    }
-
-                    // 計算其他下拉選單已選取的同款數量
-                    const selectedNamesElsewhere = selectIds.some(
-                        (otherId, otherIndex) => {
-                            if (otherIndex === index) return false;
-
-                            const otherSelect =
-                                document.getElementById(otherId);
-
-                            const otherName =
-                                getSelectedLightstickName(otherSelect);
-
-                            return otherName === name;
-                        }
-                    );
-
-                    const totalCount =
-                        (stickCounts[name] || 0) +
-                        (selectedNamesElsewhere ? 1 : 0);
-
-                    // 保留目前已選項目，避免選項重建時被清除
-                    if (
-                        totalCount >= itemLimit &&
-                        getSelectedLightstickName(sel) !== name
-                    ) {
-                        sel.remove(i);
-                    }
-                }
-            });
-
-            calculatePrice();
+            // 如果可用庫存不足（且該選項不是當前選單自己正選中的項目），就將其移除
+            if (occupied >= itemLimit && getSelectedLightstickName(sel) !== name) {
+                sel.remove(i);
+            }
         }
+    });
+
+    calculatePrice();
+}        
 
         function handleLightstickCardClick(keyword) { 
             const cards = document.querySelectorAll('#lightsticks-grid > div'); 
