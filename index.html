@@ -1487,11 +1487,18 @@ function checkAdminPass() {
     }
     loginBtn.innerText = '驗證中...';
     loginBtn.disabled = true;
-
-    // 透過 GET 請求把密碼帶在網址後面傳給 Google
-    const verifyURL = `${scriptURL}?action=adminLogin&password=${encodeURIComponent(passwordInput)}`;
-
-    fetch(verifyURL)
+    
+    // 改用 POST 請求把密碼藏在 Request Body 裡面，絕對不會外洩在網址上
+    fetch(scriptURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            action: 'adminLogin',
+            password: passwordInput
+        })
+    })
     .then(response => response.json())
     .then(data => {
         loginBtn.innerText = '登入後台';
