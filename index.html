@@ -1358,51 +1358,97 @@
             } 
 
             // 多版本手燈（個別版本的庫存上限為 1） 
-            const versionLimits = { 
-                "aespa Ver. 1": 1, "aespa Ver. 2": 1, 
-                "GFRIEND Ver. 3": 1, "GFRIEND Japan": 1, 
-                "IVE Ver. 1": 1, "IVE Ver. 2": 1 
-            }; 
-            // 一般單一品項手燈（庫存 2） 
-            const multiStockSticks = new Set(["Girls' Generation", "TWICE", "BLACKPINK", "BOYNEXTDOOR", "LE SSERAFIM"]); 
 
-            selectIds.forEach((id, index) => { 
-                const sel = document.getElementById(id); 
-                if (!sel) return; 
-                const selectedName = getSelectedLightstickName(sel); 
-                let limit = 1; 
-                if (versionLimits[selectedName] !== undefined) { 
-                    limit = versionLimits[selectedName]; 
-                } else if (multiStockSticks.has(selectedName)) { 
-                    limit = 2; 
-                } 
+            const versionLimits = {
+                "aespa Ver. 1": 1,
+                "aespa Ver. 2": 1,
+                "GFRIEND Ver. 3": 1,
+                "GFRIEND Japan": 1,
+                "IVE Ver. 1": 1,
+                "IVE Ver. 2": 1
+            };
 
-                if (selectedName && selectedName !== '__NONE__' && selectedName !== '__EMPTY__' && (stickCounts[selectedName] || 0) >= limit) { 
-                    if (index === 2) { 
-                        sel.value = '0'; 
-                    } else { 
-                        sel.value = ''; 
-                    } 
-                } 
+            // 一般單一品項手燈（庫存 2）
+            const multiStockSticks = new Set([
+                "Girls' Generation",
+                "TWICE",
+                "BLACKPINK",
+                "BOYNEXTDOOR",
+                "LE SSERAFIM"
+            ]);
 
-                for (let i = sel.options.length - 1; i >= 0; i--) { 
-                    const option = sel.options[i]; 
-                    const name = option.dataset.lightstickName; 
-                    if (name) { 
-                        let itemLimit = 1; 
-                        if (versionLimits[name] !== undefined) { 
-                            itemLimit = versionLimits[name]; 
-                        } else if (multiStockSticks.has(name)) { 
-                            itemLimit = 2; 
-                        } 
-                        if ((stickCounts[name] || 0) >= itemLimit) { 
-                            sel.remove(i); 
-                        } 
-                    } 
-                } 
-            }); 
-            calculatePrice(); 
-        } 
+            selectIds.forEach((id, index) => {
+                const sel = document.getElementById(id);
+                if (!sel) return;
+
+                const selectedName = getSelectedLightstickName(sel);
+
+                let limit = 1;
+
+                if (versionLimits[selectedName] !== undefined) {
+                    limit = versionLimits[selectedName];
+                } else if (multiStockSticks.has(selectedName)) {
+                    limit = 2;
+                }
+
+                if (
+                    selectedName &&
+                    selectedName !== '__NONE__' &&
+                    selectedName !== '__EMPTY__' &&
+                    (stickCounts[selectedName] || 0) >= limit
+                ) {
+                    if (index === 2) {
+                        sel.value = '0';
+                    } else {
+                        sel.value = '';
+                    }
+                }
+
+                for (let i = sel.options.length - 1; i >= 0; i--) {
+                    const option = sel.options[i];
+                    const name = option.dataset.lightstickName;
+
+                    if (!name) continue;
+
+                    let itemLimit = 1;
+
+                    if (versionLimits[name] !== undefined) {
+                        itemLimit = versionLimits[name];
+                    } else if (multiStockSticks.has(name)) {
+                        itemLimit = 2;
+                    }
+
+                    // 計算其他下拉選單已選取的同款數量
+                    const selectedNamesElsewhere = selectIds.some(
+                        (otherId, otherIndex) => {
+                            if (otherIndex === index) return false;
+
+                            const otherSelect =
+                                document.getElementById(otherId);
+
+                            const otherName =
+                                getSelectedLightstickName(otherSelect);
+
+                            return otherName === name;
+                        }
+                    );
+
+                    const totalCount =
+                        (stickCounts[name] || 0) +
+                        (selectedNamesElsewhere ? 1 : 0);
+
+                    // 保留目前已選項目，避免選項重建時被清除
+                    if (
+                        totalCount >= itemLimit &&
+                        getSelectedLightstickName(sel) !== name
+                    ) {
+                        sel.remove(i);
+                    }
+                }
+            });
+
+            calculatePrice();
+        }
 
         function handleLightstickCardClick(keyword) { 
             const cards = document.querySelectorAll('#lightsticks-grid > div'); 
