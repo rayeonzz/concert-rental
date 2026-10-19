@@ -1351,128 +1351,144 @@
             } 
         } 
 
-        function handleFormSubmit(event) { 
-            event.preventDefault(); 
-            const today = new Date(); 
-            const year = today.getFullYear(); 
-            const month = String(today.getMonth() + 1).padStart(2, '0'); 
-            const day = String(today.getDate()).padStart(2, '0'); 
-            const todayStr = `${year}-${month}-${day}`; 
-            const start = document.getElementById('startDate').value; 
-            const end = document.getElementById('endDate').value; 
-            if (start < todayStr) { 
-                alert('⚠️ 預約失敗：租借開始日期不得早於今天！'); 
-                return; 
-            } 
-            if (end < start) { 
-                alert('⚠️ 歸還日期不得早於租借開始日期！'); 
-                return; 
-            } 
-            if (start && end) { 
-                const selectedSticks = []; 
-                const ls1 = document.getElementById('selectedLightstick1'); 
-                if (ls1 && ls1.options[ls1.selectedIndex]) selectedSticks.push(ls1.options[ls1.selectedIndex].text); 
-                const isMoreChecked = document.getElementById('moreLightsticksCheck').checked; 
-                if (isMoreChecked) { 
-                    const ls2 = document.getElementById('selectedLightstick2'); 
-                    if (ls2 && ls2.options[ls2.selectedIndex]) selectedSticks.push(ls2.options[ls2.selectedIndex].text); 
-                    const ls3 = document.getElementById('selectedLightstick3'); 
-                    if (ls3 && ls3.value !== "0" && ls3.options[ls3.selectedIndex]) selectedSticks.push(ls3.options[ls3.selectedIndex].text); 
-                } 
-                for (let order of allOrders) { 
-                    if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) { 
-                        for (let stick of selectedSticks) { 
-                            if (order.item.includes(stick.split(' ')[0])) { 
-                                alert(`⚠️ 預約失敗：您選擇的手燈在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！`); 
-                                return; 
-                            } 
-                        } 
-                    } 
-                } 
-            } 
-            const name = document.getElementById('custName').value || '（單租手燈免填）'; 
-            const social = document.getElementById('socialId').value; 
-            const line = document.getElementById('lineId').value; 
-            const remarks = document.getElementById('remarks').value || '無'; 
-            const total = document.getElementById('totalRent').innerText; 
-            const deposit = document.getElementById('deposit').innerText; 
-            let modeTitle = '手機 + 手燈配套預約'; 
-            let itemDesc = ''; 
-            const ls1Select = document.getElementById('selectedLightstick1'); 
-            const ls1Text = ls1Select.options[ls1Select.selectedIndex].text; 
-            let lsSummary = ls1Text; 
-            if (document.getElementById('moreLightsticksCheck').checked) { 
-                const ls2Select = document.getElementById('selectedLightstick2'); 
-                lsSummary += ` ｜ ${ls2Select.options[ls2Select.selectedIndex].text}`; 
-                const ls3Select = document.getElementById('selectedLightstick3'); 
-                if (ls3Select.value !== "0") { 
-                    lsSummary += ` ｜ ${ls3Select.options[ls3Select.selectedIndex].text}`; 
-                } 
-            } 
-                if (currentMode === 'phone') { 
-                modeTitle = '單租 S24 Ultra 手機預約'; 
-                itemDesc = 'S24U'; 
-            } else if (currentMode === 'lightstick') { 
-                modeTitle = '單租應援手燈預約'; 
-                itemDesc = lsSummary; 
-            } else { 
-                itemDesc = `S24U + ${lsSummary}`; 
+function handleFormSubmit(event) {
+    event.preventDefault();
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${year}-${month}-${day}`;
+    const start = document.getElementById('startDate').value;
+    const end = document.getElementById('endDate').value;
+    if (start < todayStr) {
+        alert('⚠️ 預約失敗：租借開始日期不得早於今天！');
+        return;
+    }
+    if (end < start) {
+        alert('⚠️ 歸還日期不得早於租借開始日期！');
+        return;
+    }
+    if (start && end) {
+        const selectedSticks = [];
+        const ls1 = document.getElementById('selectedLightstick1');
+        if (ls1 && ls1.options[ls1.selectedIndex]) selectedSticks.push(ls1.options[ls1.selectedIndex].text);
+        const isMoreChecked = document.getElementById('moreLightsticksCheck').checked;
+        if (isMoreChecked) {
+            const ls2 = document.getElementById('selectedLightstick2');
+            if (ls2 && ls2.options[ls2.selectedIndex]) selectedSticks.push(ls2.options[ls2.selectedIndex].text);
+            const ls3 = document.getElementById('selectedLightstick3');
+            if (ls3 && ls3.value !== "0" && ls3.options[ls3.selectedIndex]) selectedSticks.push(ls3.options[ls3.selectedIndex].text);
+        }
+        for (let order of allOrders) {
+            if (order.start && order.end && isDateOverlap(start, end, order.start, order.end)) {
+                for (let stick of selectedSticks) {
+                    if (order.item.includes(stick.split(' ')[0])) {
+                        alert(`⚠️ 預約失敗：您選擇的手燈在 ${cleanDateStr(order.start)} ~ ${cleanDateStr(order.end)} 已經被租走了！`);
+                        return;
+                    }
+                }
             }
-            
-            const nowTime = new Date().toLocaleString(); 
-            const newOrder = { 
-                mode: modeTitle, 
-                start: start || '未填', 
-                end: end || '未填', 
-                item: itemDesc, 
-                name: name, 
-                social: social, 
-                line: line, 
-                total: total, 
-                deposit: deposit, 
-                remarks: remarks, 
-                time: nowTime 
-            }; 
-            const existingOrders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]'); 
-            existingOrders.push(newOrder); 
-            localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders)); 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec'; 
-            const payload = { 
-                mode: modeTitle, 
-                start: start || '未填', 
-                end: end || '未填', 
-                item: itemDesc, 
-                name: name, 
-                social: social, 
-                line: line, 
-                total: total, 
-                deposit: deposit, 
-                remarks: remarks 
-            }; 
-            fetch(scriptURL, { 
-                method: 'POST', 
-                mode: 'no-cors', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify(payload) 
-            }).catch(error => console.error('傳送失敗!', error)); 
-            const message = `【 rayeonzz 演唱會租借預約單 】\n` + 
-                            `📌 預約類型：${modeTitle}\n` + 
-                            `📅 租借期間：${start} ~ ${end}\n` + 
-                            `📱💡 租借項目：${itemDesc}\n` + 
-                            `💰 預估總額：${total}\n` + 
-                            `🔒 選擇押金方案：${deposit}\n` + 
-                            `👤 姓名：${name}\n` + 
-                            `📸 IG / Threads：${social}\n` + 
-                            `💬 LINE ID：${line}\n` + 
-                            `📝 備註：${remarks}\n\n` + 
-                            `-----------------------------------\n` + 
-                            `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`; 
-            navigator.clipboard.writeText(message).then(() => { 
-                alert('預約資訊已成功儲存！\n即將為您導向至 LINE 聯繫 rayeonzz，請將明細貼上！'); 
-                window.open(`https://line.me/ti/p/Z7bIHvC4lF`, '_blank'); 
-            }).catch(err => { 
-                alert('複製失敗，請手動複製表單資訊。'); 
-            }); 
+        }
+    }
+    const name = document.getElementById('custName').value || '（單租手燈免填）';
+    const social = document.getElementById('socialId').value;
+    const line = document.getElementById('lineId').value;
+    const remarks = document.getElementById('remarks').value || '無';
+    const total = document.getElementById('totalRent').innerText;
+    const deposit = document.getElementById('deposit').innerText;
+
+    // 【修改 1】簡化預約類型為：手機 + 手燈、手機、手燈
+    let modeTitle = '手機 + 手燈';
+    let itemDesc = '';
+
+    // 取出乾淨的手燈名稱（移除括號內的優惠價等字眼）
+    const ls1Select = document.getElementById('selectedLightstick1');
+    const ls1Text = ls1Select.options[ls1Select.selectedIndex].text.split(' (')[0].trim();
+    let lsSummary = ls1Text;
+
+    if (document.getElementById('moreLightsticksCheck').checked) {
+        const ls2Select = document.getElementById('selectedLightstick2');
+        const ls2Text = ls2Select.options[ls2Select.selectedIndex].text.split(' (')[0].trim();
+        lsSummary += ` + ${ls2Text}`; // 多支手燈也一律用 " + " 隔開
+
+        const ls3Select = document.getElementById('selectedLightstick3');
+        if (ls3Select.value !== "0") {
+            const ls3Text = ls3Select.options[ls3Select.selectedIndex].text.split(' (')[0].trim();
+            lsSummary += ` + ${ls3Text}`;
+        }
+    }
+
+    // 【修改 2】精準對應項目名稱與 " + " 格式
+    if (currentMode === 'phone') {
+        modeTitle = '手機';
+        itemDesc = 'S24U';
+    } else if (currentMode === 'lightstick') {
+        modeTitle = '手燈';
+        itemDesc = lsSummary;
+    } else {
+        itemDesc = `S24U + ${lsSummary}`;
+    }
+
+    const nowTime = new Date().toLocaleString();
+    const newOrder = {
+        mode: modeTitle,
+        start: start || '未填',
+        end: end || '未填',
+        item: itemDesc,
+        name: name,
+        social: social,
+        line: line,
+        total: total,
+        deposit: deposit,
+        remarks: remarks,
+        time: nowTime
+    };
+
+    const existingOrders = JSON.parse(localStorage.getItem('rayeonzz_orders') || '[]');
+    existingOrders.push(newOrder);
+    localStorage.setItem('rayeonzz_orders', JSON.stringify(existingOrders));
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyUyNDMWWTo5eAzDIfp08ZARiLJQoVeS4YMDVawD64VdkAZsyUNEiaiYBZ4RTqRH2uZ/exec';
+    const payload = {
+        mode: modeTitle,
+        start: start || '未填',
+        end: end || '未填',
+        item: itemDesc,
+        name: name,
+        social: social,
+        line: line,
+        total: total,
+        deposit: deposit,
+        remarks: remarks
+    };
+
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).catch(error => console.error('傳送失敗!', error));
+
+    const message = `【 rayeonzz 演唱會租借預約單 】\n` +
+        `📌 預約類型：${modeTitle}\n` +
+        `📅 租借期間：${start} ~ ${end}\n` +
+        `📱💡 租借項目：${itemDesc}\n` +
+        `💰 預估總額：${total}\n` +
+        `🔒 選擇押金方案：${deposit}\n` +
+        `👤 姓名：${name}\n` +
+        `📸 IG / Threads：${social}\n` +
+        `💬 LINE ID：${line}\n` +
+        `📝 備註：${remarks}\n\n` +
+        `-----------------------------------\n` +
+        `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
+
+    navigator.clipboard.writeText(message).then(() => {
+        alert('預約資訊已成功儲存！\n即將為您導向至 LINE 聯繫 rayeonzz，請將明細貼上！');
+        window.open(`https://line.me/ti/p/Z7bIHvC4lF`, '_blank');
+    }).catch(err => {
+        alert('複製失敗，請手動複製表單資訊。');
+    });
+}
         } 
 
         function openAdminModal() { 
