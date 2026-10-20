@@ -1086,39 +1086,38 @@ function renderRentedStatus(activeOrders) {
             // 多版本手燈：標記已被預約的檔期
             if (order.item.includes('aespa')) {
                 if (order.item.includes('Ver. 2')) {
-                    if (isOverlap) aespaVer2Rented++;
+                    aespaVer2Rented++;
                     markSpecificVersionRented('aespa', 'Ver. 2', cleanStart, cleanEnd);
                 } else {
-                    if (isOverlap) aespaVer1Rented++;
+                    aespaVer1Rented++;
                     markSpecificVersionRented('aespa', 'Ver. 1', cleanStart, cleanEnd);
                 }
             }
             if (order.item.includes('GFRIEND')) {
                 if (order.item.includes('Japan')) {
-                    if (isOverlap) gfriendJapanRented++;
+                    gfriendJapanRented++;
                     markSpecificVersionRented('GFRIEND', 'Japan', cleanStart, cleanEnd);
                 } else {
-                    if (isOverlap) gfriendVer3Rented++;
+                    gfriendVer3Rented++;
                     markSpecificVersionRented('GFRIEND', 'Ver. 3', cleanStart, cleanEnd);
                 }
             }
             if (order.item.includes('IVE')) {
                 if (order.item.includes('Ver. 2')) {
-                    if (isOverlap) iveVer2Rented++;
+                    iveVer2Rented++;
                     markSpecificVersionRented('IVE', 'Ver. 2', cleanStart, cleanEnd);
                 } else {
-                    if (isOverlap) iveVer1Rented++;
+                    iveVer1Rented++;
                     markSpecificVersionRented('IVE', 'Ver. 1', cleanStart, cleanEnd);
                 }
             }
 
-            // 普通單一版本手燈：無條件標記所有預約檔期，但僅對重疊的算入當前庫存扣減
+
+            // 普通單一版本手燈：所有尚未結束的預約都扣庫存
             lightstickList.forEach(item => {
                 if (!item.name.includes('aespa') && !item.name.includes('GFRIEND') && !item.name.includes('IVE')) {
                     if (order.item.includes(item.name)) {
-                        if (isOverlap) {
-                            singleStickRentedCounts[item.name] = (singleStickRentedCounts[item.name] || 0) + 1;
-                        }
+                        singleStickRentedCounts[item.name] = (singleStickRentedCounts[item.name] || 0) + 1;
                         markAsRented(item.name, cleanStart, cleanEnd);
                     }
                 }
