@@ -1205,8 +1205,8 @@ function addPhoneRentedBanner(startDate, endDate) {
     const friendlyEnd = formatDateToFriendly(endDate);  
   
     const banner = document.createElement('div');  
-    banner.className = 'w-full rounded-xl bg-red-600/90 text-white px-3 py-2 text-[10px] sm:text-xs font-black text-center shadow-sm';  
-    banner.innerText = `📅 已出租：${friendlyStart} ~ ${friendlyEnd}`;  
+   banner.className = 'w-full rounded-xl bg-red-600/40 backdrop-blur-md border border-red-400/30 text-white px-4 py-2.5 text-sm sm:text-base font-black text-center shadow-lg';  
+banner.innerText = `已出租：${friendlyStart} ~${friendlyEnd}`;
   
     container.appendChild(banner);  
 }  
