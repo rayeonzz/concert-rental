@@ -874,15 +874,53 @@ class="inline-flex w-full items-center justify-center rounded-full border border
                 </div>    
     
                 <!-- 頁面內嵌的送出成功提示訊息 (平常隱藏) -->    
-                <div id="inlineSuccessMessage" class="hidden bg-[#DCEEFF] border-2 border-[#23466B] p-4 rounded-2xl text-center space-y-2.5 shadow-md">    
-                    <div class="text-[#23466B] font-black text-sm flex items-center justify-center gap-1.5">    
-                        <i class="fa-solid fa-circle-check text-green-600"></i> 預約資料已成功送出！    
-                    </div>    
-                    <p class="text-xs text-stone-900 font-bold leading-relaxed"> 預約明細已自動複製！請點擊下方按鈕將明細發送給 rayeonzz 完成確認： </p>    
-                    <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="inlineLineBtn" class="w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-black py-3 rounded-2xl shadow transition text-xs flex items-center justify-center gap-2 no-underline">    
-                        <img src="lineicon.PNG" alt="LINE" class="w-4 h-4 object-contain"> 點此開啟 LINE 傳送預約明細    
-                    </a>    
-                </div>    
+
+<!-- 預約資料送出成功提示 -->
+<div id="inlineSuccessMessage"
+     class="hidden bg-[#DCEEFF] border-2 border-[#23466B] p-4 rounded-2xl text-center space-y-3 shadow-md">
+
+    <div class="text-[#23466B] font-black text-base flex items-center justify-center gap-2">
+        <i class="fa-solid fa-circle-check text-green-600"></i>
+        預約資料已成功送出！
+    </div>
+
+    <p id="successCopyStatus"
+       class="text-sm text-stone-900 font-bold leading-relaxed">
+        請確認下方預約明細，並傳送給 rayeonzz 完成預約確認。
+    </p>
+
+    <!-- 可手動選取的預約明細 -->
+    <textarea id="reservationDetailsText"
+              readonly
+              rows="9"
+              aria-label="預約明細，可長按選取複製"
+              class="w-full box-border bg-white border border-[#23466B]/30 rounded-xl p-3 text-left text-sm text-stone-900 leading-relaxed select-text"
+              style="user-select:text;-webkit-user-select:text;overflow-wrap:anywhere;"></textarea>
+
+    <!-- 手動複製按鈕 -->
+    <button type="button"
+            id="copyReservationBtn"
+            onclick="copyReservationDetails()"
+            class="w-full bg-[#23466B] hover:bg-[#1a3552] text-white font-black py-3 rounded-2xl shadow transition text-sm">
+        <i class="fa-solid fa-copy mr-2"></i>複製預約明細
+    </button>
+
+    <p class="text-xs text-stone-700 leading-relaxed">
+        請點擊下方按鈕開啟 LINE，再將預約明細貼到與 rayeonzz 的聊天室並傳送。
+        網站顯示成功不代表 LINE 已經收到訊息。
+    </p>
+
+    <!-- 保留原本的 LINE 個人連結 -->
+    <a href="https://line.me/ti/p/Z7bIHvC4lF"
+       target="_blank"
+       rel="noopener noreferrer"
+       id="inlineLineBtn"
+       class="w-full box-border bg-[#06C755] hover:bg-[#05b34c] text-white font-black py-3 rounded-2xl shadow transition text-sm flex items-center justify-center gap-2 no-underline">
+        <img src="lineicon.PNG" alt="LINE" class="w-5 h-5 object-contain">
+        開啟 LINE 傳送預約明細
+    </a>
+
+</div>
     
                 <p id="submitStatus" class="hidden text-center text-xs font-black text-[#23466B]" role="status" aria-live="polite">送出中，請勿重複點擊，請稍候……</p>
                 <button type="submit" id="submitBtn" class="w-full bg-[#23466B] hover:bg-[#1a3552] text-white font-black py-3.5 rounded-2xl shadow-lg shadow-[#23466B]/20 transition text-sm active:scale-98"> 送出預約並聯繫 rayeonzz </button>    
@@ -1030,6 +1068,44 @@ class="inline-flex w-full items-center justify-center rounded-full border border
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#39;');
         }
+
+async function copyReservationDetails() {
+    const detailsBox = document.getElementById('reservationDetailsText');
+    const statusText = document.getElementById('successCopyStatus');
+
+    if (!detailsBox || !detailsBox.value) {
+        if (statusText) {
+            statusText.innerText = '目前沒有可複製的預約明細，請聯繫 rayeonzz。';
+        }
+        return;
+    }
+
+    // 優先嘗試系統剪貼簿
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(detailsBox.value);
+
+            if (statusText) {
+                statusText.innerText =
+                    '預約明細已複製！請開啟 LINE 並貼上傳送。';
+            }
+            return;
+        }
+    } catch (err) {
+        // 繼續使用手動選取方式
+    }
+
+    // 備援：選取文字，讓客人手動複製
+    detailsBox.focus();
+    detailsBox.select();
+    detailsBox.setSelectionRange(0, detailsBox.value.length);
+
+    if (statusText) {
+        statusText.innerText =
+            '已選取預約明細。若未自動複製，請長按文字選取「複製」，再貼到 LINE。';
+    }
+}
+
     
         function formatDateToFriendly(dateStr) {    
             if (!dateStr) return '';    
@@ -1879,50 +1955,96 @@ if (result.result !== 'success') {
                 return;
             }
 
-            const message = `【 rayeonzz 演唱會租借預約單 】\n` + `📌 預約類型：${modeTitle}\n` + `📅 租借期間：${start} ~ ${end}\n` + `📱💡 租借項目：${itemDesc}\n` + `💰 預估總額：${total}\n` + `🔒 選擇押金方案：${deposit}\n` + `👤 姓名：${name}\n` + `📸 IG / Threads：${social}\n` + `💬 LINE ID：${line}\n` + `📝 備註：${remarks}\n\n` + `-----------------------------------\n` + `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;    
+
+            const message = `【 rayeonzz 演唱會租借預約單 】\n` +
+                `📌 預約類型：${modeTitle}\n` +
+                `📅 租借期間：${start} ~ ${end}\n` +
+                `📱💡 租借項目：${itemDesc}\n` +
+                `💰 預估總額：${total}\n` +
+                `🔒 選擇押金方案：${deposit}\n` +
+                `👤 姓名：${name}\n` +
+                `📸 IG / Threads：${social}\n` +
+                `💬 LINE ID：${line}\n` +
+                `📝 備註：${remarks}\n\n` +
+                `-----------------------------------\n` +
+                `請將此預約明細截圖或貼上發送給 rayeonzz 完成預約確認！`;
+
+            // 訂單已成功送出；以下只處理成功畫面與複製，不重新送單
+            setSubmitPending(false);
+
             let copiedToClipboard = false;
             try {
-                await navigator.clipboard.writeText(message);
-                copiedToClipboard = true;
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(message);
+                    copiedToClipboard = true;
+                }
             } catch (clipboardError) {
                 copiedToClipboard = false;
-                // 訂單已成功送出，不因剪貼簿失敗而重新送單；成功視窗會提供可手動選取的明細。
             }
 
-            // 內嵌成功提示    
-            const successMsgBox = document.getElementById('inlineSuccessMessage');    
-            const submitBtn = document.getElementById('submitBtn');    
+            const successMsgBox = document.getElementById('inlineSuccessMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
             if (successMsgBox) {
                 successMsgBox.classList.remove('hidden');
+
                 const successCopyText = successMsgBox.querySelector('p');
                 if (successCopyText) {
                     successCopyText.innerText = copiedToClipboard
-                        ? '預約明細已自動複製！請點擊下方按鈕將明細發送給 rayeonzz 完成確認：'
-                        : '自動複製失敗；若剛才沒有手動複製，請依照提示複製預約明細，再傳送給 rayeonzz。';
+                        ? '預約明細已自動複製！請點擊下方按鈕開啟 LINE，並貼上明細傳送給 rayeonzz。'
+                        : '此瀏覽器無法自動複製。請使用下方的「複製預約明細」按鈕，若仍無法複製，請長按明細文字選取並複製。';
                 }
-                submitBtn.style.display = 'none';    
-                successMsgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });    
-            }    
-  
-            // 自訂彈窗 Modal    
-            let modalBg = document.createElement('div');    
-            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in';    
-            modalBg.innerHTML = `    
-                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">    
-                    <h3 class="text-xl font-black text-[#23466B]">預約資料已送出</h3>    
-                    <div class="space-y-1">    
-                        <p class="text-xs text-stone-900 leading-relaxed">${copiedToClipboard ? '預約明細已自動複製' : '自動複製失敗，請依照提示手動複製預約明細'}</p>    
-                        <p class="text-xs text-stone-900 leading-relaxed">請點擊「聯繫 LINE」加入好友後貼至聊天室給 rayeonzz</p>    
-                    </div>    
-                    <div class="flex gap-3 pt-2">    
-                        <button id="customAlertConfirm" class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs hover:bg-stone-300 transition font-bold">關閉視窗</button>    
-                        <a href="https://line.me/ti/p/Z7bIHvC4lF" target="_blank" id="customAlertLine" class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs hover:bg-[#1a3552] transition font-black shadow-md flex items-center justify-center no-underline">聯繫 LINE</a>    
-                    </div>    
-                </div>    
-            `;    
-            document.body.appendChild(modalBg);    
-            document.getElementById('customAlertLine').onclick = () => { modalBg.remove(); };    
-            document.getElementById('customAlertConfirm').onclick = () => { modalBg.remove(); };    
+
+                // 將本次訂單明細放入可手動選取的文字框
+                let detailsBox = document.getElementById('reservationDetailsText');
+                if (detailsBox) {
+                    detailsBox.value = message;
+                }
+
+                if (submitBtn) {
+                    submitBtn.style.display = 'none';
+                }
+
+                successMsgBox.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+
+            // 成功彈窗
+            const modalBg = document.createElement('div');
+            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';
+            modalBg.innerHTML = `
+                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">
+                    <h3 class="text-xl font-black text-[#23466B]">預約資料已成功送出！</h3>
+                    <p class="text-sm text-stone-900 leading-relaxed">
+                        ${copiedToClipboard
+                            ? '預約明細已複製。請開啟 LINE 並貼上傳送給 rayeonzz。'
+                            : '自動複製未成功。請關閉此視窗，使用頁面上的「複製預約明細」按鈕。'}
+                    </p>
+                    <div class="flex gap-3 pt-2">
+                        <button id="customAlertConfirm" type="button"
+                            class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs font-bold">
+                            關閉視窗
+                        </button>
+                        <a href="https://line.me/ti/p/Z7bIHvC4lF"
+                            target="_blank" rel="noopener noreferrer" id="customAlertLine"
+                            class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs font-black flex items-center justify-center no-underline">
+                            開啟 LINE
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modalBg);
+
+            document.getElementById('customAlertLine').onclick = () => {
+                modalBg.remove();
+            };
+
+            document.getElementById('customAlertConfirm').onclick = () => {
+                modalBg.remove();
+            };
         }    
   
         function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }    
