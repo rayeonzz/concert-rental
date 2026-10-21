@@ -1397,10 +1397,11 @@ function markAsRented(lightstickName, startDate, endDate) {
             const urlParams = new URLSearchParams(window.location.search);      
             if (urlParams.has('rayeonzz1124')) openAdminModal();      
             updateLightstickCounts();      
-            initLightstickSelects();      
-            calculatePrice();      
-            fetchRentedStatus();      
-        });      
+          // ✨ 關鍵修正：進入網頁時主動觸發配套模式的狀態與必填規則
+    switchMode('combo');
+    
+    fetchRentedStatus();
+});  
     
         function onStartDateChange() {      
             const today = new Date();      
