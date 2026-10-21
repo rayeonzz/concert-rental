@@ -916,9 +916,9 @@ class="inline-flex w-full items-center justify-center rounded-full border border
     </a>
 
     <p class="text-xs text-stone-700 font-semibold leading-relaxed">
-        <span class="block sm:hidden">請點擊上方按鈕開啟 LINE，</span>
-        <span class="block sm:hidden">再將預約明細貼到與 rayeonzz 的聊天室並傳送。</span>
-        <span class="block sm:hidden">網站顯示成功不代表 LINE 已經收到訊息。</span>
+        <span class="block sm:hidden">請點擊上方按鈕開啟 LINE</span>
+        <span class="block sm:hidden">再將預約明細貼到與 rayeonzz 的聊天室並傳送</span>
+        <span class="block sm:hidden">網站顯示成功不代表 LINE 已經收到訊息</span>
         <span class="hidden sm:inline">請點擊上方按鈕開啟 LINE，再將預約明細貼到與 rayeonzz 的聊天室並傳送。網站顯示成功不代表 LINE 已經收到訊息。</span>
     </p>  
   
@@ -1993,8 +1993,8 @@ if (result.result !== 'success') {
                 const successCopyText = successMsgBox.querySelector('p');  
                 if (successCopyText) {  
                     successCopyText.innerText = copiedToClipboard
-                        ? '預約明細已自動複製！\n請點擊下方按鈕開啟 LINE，\n並貼上明細傳送至聊天室。'
-                        : '此瀏覽器無法自動複製QQ\n請使用下方的「複製預約明細」按鈕；\n若仍無法複製，請長按明細文字選取並複製。';  
+                        ? '預約明細已自動複製！請點擊下方按鈕開啟 LINE，並貼上明細傳送至聊天室。'
+                        : '此瀏覽器無法自動複製QQ!請使用下方的「複製預約明細」按鈕；若仍無法複製，請長按明細文字選取並複製。';  
                 }  
   
                 // 將本次訂單明細放入可手動選取的文字框  
@@ -2014,29 +2014,29 @@ if (result.result !== 'success') {
             }  
   
             // 成功彈窗  
-            const modalBg = document.createElement('div');  
-            modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';  
-            modalBg.innerHTML = `  
-                <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">  
-                    <h3 class="text-xl font-black text-[#23466B]">預約資料已成功送出！</h3>  
-                    <p class="text-sm text-stone-900 leading-relaxed">  
-                        ${copiedToClipboard  
-                            ? '預約明細已複製。請開啟 LINE 並貼上傳送給 rayeonzz。'  
-                            : '自動複製未成功。請關閉此視窗，使用頁面上的「複製預約明細」按鈕。'}  
-                    </p>  
-                    <div class="flex gap-3 pt-2">  
-                        <button id="customAlertConfirm" type="button"  
-                            class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs font-bold">  
-                            關閉視窗  
-                        </button>  
-                        <a href="https://line.me/ti/p/Z7bIHvC4lF"  
-                            target="_blank" rel="noopener noreferrer" id="customAlertLine"  
-                            class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs font-black flex items-center justify-center no-underline">  
-                            開啟 LINE  
-                        </a>  
-                    </div>  
-                </div>  
-            `;  
+const modalBg = document.createElement('div');  
+modalBg.className = 'fixed inset-0 bg-[#23466B]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4';  
+modalBg.innerHTML = `  
+    <div class="ios-glass rounded-[28px] max-w-md w-full p-6 shadow-2xl space-y-4 text-center font-bold">  
+        <h3 class="text-xl font-black text-[#23466B]">預約資料已成功送出！</h3>  
+        ${copiedToClipboard  
+            ? `<p class="text-sm text-stone-900 leading-relaxed">預約明細已複製。請開啟 LINE 並貼上傳送給 rayeonzz。</p>`  
+            : `<p class="text-sm text-red-600 font-black leading-relaxed">自動複製未成功。</p>
+               <p class="text-xs text-stone-700 font-bold leading-relaxed">請關閉此視窗，使用頁面上的「複製預約明細」按鈕。</p>`  
+        }  
+        <div class="flex gap-3 pt-2">  
+            <button id="customAlertConfirm" type="button"  
+                class="flex-1 bg-stone-200 text-stone-700 py-3 rounded-2xl text-xs font-bold">  
+                關閉視窗  
+            </button>  
+            <a href="https://line.me/ti/p/Z7bIHvC4lF"  
+                target="_blank" rel="noopener noreferrer" id="customAlertLine"  
+                class="flex-1 bg-[#23466B] text-white py-3 rounded-2xl text-xs font-black flex items-center justify-center no-underline">  
+                開啟 LINE  
+            </a>  
+        </div>  
+    </div>  
+`;
   
             document.body.appendChild(modalBg);  
   
